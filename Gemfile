@@ -22,7 +22,7 @@ gem 'jbuilder', '~> 2.7'
 
 # Seeds
 gem 'seed-fu'
-
+gem 'faker'
 # Decorator
 gem 'draper'
 
