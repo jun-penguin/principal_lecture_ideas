@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuetify from "vuetify"; // 追加
 import "vuetify/dist/vuetify.min.css"; // 追加
+import '@mdi/font/css/materialdesignicons.css' //icon
 import App from "../app.vue";
 
 Vue.use(Vuetify); // 追加
