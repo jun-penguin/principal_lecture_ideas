@@ -10,7 +10,7 @@ gem 'pg', '~> 1.1'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Use slim
-gem 'slim-rails'
+# gem 'slim-rails'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
@@ -22,7 +22,7 @@ gem 'jbuilder', '~> 2.7'
 
 # Seeds
 gem 'seed-fu'
-
+gem 'faker'
 # Decorator
 gem 'draper'
 

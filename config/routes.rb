@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
   root to: 'static_pages#top'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  get '/post/:id', to: 'static_pages#top'
+
+  namespace :api do
+    resources :posts, only: [:index, :show]
+  end
 end

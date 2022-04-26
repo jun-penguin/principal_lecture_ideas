@@ -1,0 +1,14 @@
+<div>
+  <h1 class="#f3e5f5 purple lighten-5 center">投稿一覧</h1>
+  <div class="row #e3f2fd blue lighten-5">
+    <% @posts.each do |post| %>
+      <div class="col s4 m6">
+        <div class="card">
+          <span class="card-title">
+            <%= post.title %>
+          </span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
