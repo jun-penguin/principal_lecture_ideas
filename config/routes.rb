@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount_devise_token_auth_for 'User', at: 'auth'
   root to: 'static_pages#top'
   get '/post/:id', to: 'static_pages#top'
 
