@@ -8,6 +8,8 @@
     {{ post.description }}
     <h2>本文</h2>
     {{ post.content }}
+    <h2>対象学年</h2>
+    　{{ post.grade_range }}
   </v-container>
 </template>
 
