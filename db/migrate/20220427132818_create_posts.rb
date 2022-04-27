@@ -7,6 +7,7 @@ class CreatePosts < ActiveRecord::Migration[6.1]
       t.integer :status
       t.integer :grade_range
       t.integer :scene_type
+      t.references :user, foreign_key: true, null: false
 
       t.timestamps
     end
