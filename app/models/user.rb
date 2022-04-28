@@ -1,15 +1,17 @@
-class User < ApplicationRecord
-  authenticates_with_sorcery!
+# frozen_string_literal: true
+
+class User < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+  
+  include DeviseTokenAuth::Concerns::User
 
   has_many :posts, dependent: :destroy
 
-  validates :name, presence: true, length: { maximum: 30 }
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, {presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: true }}
-  validates :password, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
-  validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
-  validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
 
+ 
   enum role: { general: 0, admin: 1 }
   enum status: { 未設定:0, 小学校校長:1, 中学校校長:2, 元小学校校長:3, 元中学校校長:4 }, _prefix: true
   enum prefecture: { 未設定:0,
@@ -23,4 +25,5 @@ class User < ApplicationRecord
     福岡県:40,佐賀県:41,長崎県:42,熊本県:43,大分県:44,宮崎県:45,鹿児島県:46,
     沖縄県:47
   } , _prefix: true
+
 end

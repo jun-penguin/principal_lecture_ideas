@@ -1,5 +1,4 @@
 class Post < ApplicationRecord
-
   belongs_to :user
   validates :title, :content, :status, :grade_range, :scene_type, presence: true
   enum status: { draft: 0, published: 1}
