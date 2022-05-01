@@ -11,14 +11,17 @@ export default new Router({
   routes: [
     {
       path: "/",
+      name: "PostIndex",
       component: PostIndex,
     },
     {
       path: "/post/:id(\\d+)",
+      name: "PostDetail",
       component: PostDetail,
     },
     {
       path: "/create",
+      name: "PostCreate",
       component: PostCreate,
     },
   ],

@@ -57,6 +57,7 @@
             data-vv-name="select"
             required
           ></v-select>
+          {{ scene_type }}
         </validation-provider>
 
         <v-btn
@@ -99,12 +100,27 @@ export default {
     title: "",
     description: "",
     content: "",
-    select: null,
-    grade_range: ["elementary", "junior_high"],
-    scene_type: ["all_scholl_assembly", "event"],
-    grade_range_select: ["elementary", "junior_high"],
-    scene_type_select: ["all_scholl_assembly", "event"],
+    grade_range: null,
+    scene_type: null,
+    grade_range_select: ["小学生", "中学生"],
+    scene_type_select: ["全校集会", "行事"],
   }),
+  computed: {
+    ja_grade_range: function () {
+      if (this.grade_range == "中学生") {
+        return (this.grade_range = "junior_high");
+      } else {
+        return (this.grade_range = "elementary");
+      }
+    },
+    ja_scene_type: function () {
+      if (this.scene_type == "行事") {
+        return (this.scene_type = "event");
+      } else {
+        return (this.scene_type = "all_scholl_assembly");
+      }
+    },
+  },
 
   methods: {
     submit: function () {
@@ -113,15 +129,24 @@ export default {
     createPost: function () {
       if (!this.title) return;
       axios
-        .post("/api/posts", {
-          title: this.title,
-          description: this.description,
-          content: this.content,
-          grade_range: elementary,
-          status: published,
-          scene_type: all_scholl_assembly,
-          user_id: 1
-        })
+        .post(
+          "/api/posts",
+          {
+            title: this.title,
+            description: this.description,
+            content: this.content,
+            grade_range: this.ja_grade_range,
+            status: "published",
+            scene_type: this.ja_scene_type,
+          },
+          {
+            headers: {
+              uid: window.localStorage.getItem("uid"),
+              "access-token": window.localStorage.getItem("access-token"),
+              client: window.localStorage.getItem("client"),
+            },
+          }
+        )
         .then(
           (res) => {
             this.$router.push({ path: "/" });
@@ -135,7 +160,8 @@ export default {
       this.title = "";
       this.description = "";
       this.content = "";
-      // this.select = null;
+      this.grade_range = "";
+      this.scene_type = "";
       this.$refs.observer.reset();
     },
   },

@@ -1,4 +1,5 @@
 class Api::PostsController < ApplicationController
+  before_action :authenticate_user!, only: ['create']
   def index
     @posts = Post.all
     render :index, formats: :json, handlers: 'jbuilder'
@@ -10,7 +11,7 @@ class Api::PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
+    @post = current_user.posts.new(post_params)
     if @post.save
       head :no_content
     else
@@ -21,6 +22,6 @@ class Api::PostsController < ApplicationController
   private
 
   def post_params
-    params.permit(:title, :description, :content, :status, :grade_range, :scene_type, :user_id)
+    params.permit(:title, :description, :content, :status, :grade_range, :scene_type)
   end
 end
