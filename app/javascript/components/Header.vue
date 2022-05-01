@@ -17,22 +17,24 @@
 
       <v-spacer></v-spacer>
 
+      <v-btn rounded text large color="primary" class="mr-2"
+        ><router-link to="/create">講話の投稿</router-link></v-btn
+      >
+
       <Signup />
       <Login />
-
-      
     </v-app-bar>
   </div>
 </template>
 
 <script>
-import Signup from  "./Signup.vue";
-import Login from  "./Login.vue";
+import Signup from "./Signup.vue";
+import Login from "./Login.vue";
 export default {
   name: "Header",
-  components : {
+  components: {
     Signup,
-    Login
+    Login,
   },
   data() {
     return {
