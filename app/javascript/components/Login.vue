@@ -47,6 +47,7 @@
 
 <script>
 import axios from "axios";
+import setItem from "../auth/setItem";
 export default {
   data() {
     return {
@@ -74,8 +75,12 @@ export default {
         if (!res) {
           throw new Error("メールアドレスかパスワードが違います");
         }
-        console.log({ res });
-        return res;
+        if (!this.error) {
+          // ======= 👇 ここから変更する =======
+          setItem(res.headers, res.data.data.name);
+          this.$emit('redirectToHome');
+          // ====== 👆 ここまで変更する =======
+        }
       } catch (error) {
         this.error = "メールアドレスかパスワードが違います";
       }

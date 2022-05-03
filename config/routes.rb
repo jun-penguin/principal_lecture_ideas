@@ -3,9 +3,10 @@ Rails.application.routes.draw do
     registrations: 'auth/registrations'
   }
   root to: 'static_pages#top'
-  get '/post/:id', to: 'static_pages#top'
 
   namespace :api do
-    resources :posts, only: [:index, :show]
+    resources :posts, only: %i[index show create]
   end
+
+  get '*path', to: 'static_pages#top'
 end
