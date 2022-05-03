@@ -1,5 +1,5 @@
 class Api::PostsController < ApplicationController
-  before_action :authenticate_user!, only: ['create']
+  before_action :authenticate_user!, only: ['create', 'update', 'destroy']
   def index
     @posts = Post.all
     render :index, formats: :json, handlers: 'jbuilder'
@@ -18,6 +18,25 @@ class Api::PostsController < ApplicationController
       render json: @post.errors, status: :unprocessable_entity
     end
   end
+
+  def update
+    @post = Post.find(params[:id])
+    if @post.update_attributes(post_params)
+      render 'index', formats: :json, handlers: 'jbuilder'
+    else
+      render json: @post.errors, status: :unprocessable_entity
+    end  
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    if @post.destroy
+      head :no_content
+    else
+      render json: @post.errors, status: :unprocessable_entity
+    end  
+  end
+
 
   private
 

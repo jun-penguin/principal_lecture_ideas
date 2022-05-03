@@ -78,7 +78,7 @@ export default {
         if (!this.error) {
           // ======= 👇 ここから変更する =======
           setItem(res.headers, res.data.data.name);
-          this.$router.push({ path: "/" });
+          this.$emit('redirectToHome');
           // ====== 👆 ここまで変更する =======
         }
       } catch (error) {

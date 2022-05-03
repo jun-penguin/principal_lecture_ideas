@@ -99,7 +99,7 @@ export default {
         }
         if (!this.error) {
           setItem(res.headers, res.data.data.name);
-          this.$router.push({ path: "/" });
+          this.$emit('redirectToHome');
         }
         console.log({ res });
         return res;

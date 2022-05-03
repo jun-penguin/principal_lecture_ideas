@@ -62,14 +62,14 @@ export default {
         window.localStorage.removeItem("client");
         window.localStorage.removeItem("uid");
         window.localStorage.removeItem("name");
-        this.$router.push({ path: "/" });
+        this.$router.push({ name: 'PostIndex' });
         return res;
       } catch (error) {
         console.log({ error });
       }
     },
     redirectToHome() {
-      this.$router.push({ name: "Chatroom" });
+      this.$router.push({ name: "PostIndex" });
     },
   },
 };
