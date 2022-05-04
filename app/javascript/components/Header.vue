@@ -20,7 +20,7 @@
       <v-btn rounded text large color="primary" class="mr-2"
         ><router-link to="/create">講話の投稿</router-link></v-btn
       >
-      <v-btn @click="logout" rounded text large color="primary" class="mr-2"
+      <v-btn @click="logOut" rounded text large color="primary" class="mr-2"
         >ログアウト</v-btn
       >
 
@@ -33,7 +33,7 @@
 <script>
 import Signup from "./Signup.vue";
 import Login from "./Login.vue";
-import axios from "axios";
+// import axios from "axios";
 export default {
   name: "Header",
   components: {
@@ -43,31 +43,32 @@ export default {
   data() {
     return {
       message: "",
-      name: window.localStorage.getItem("name"),
-      email: window.localStorage.getItem("uid"),
     };
   },
   methods: {
-    async logout() {
-      try {
-        const res = await axios.delete("http://localhost:3000/auth/sign_out", {
-          headers: {
-            uid: this.email,
-            "access-token": window.localStorage.getItem("access-token"),
-            client: window.localStorage.getItem("client"),
-          },
-        });
-        console.log("ログアウトしました");
-        window.localStorage.removeItem("access-token");
-        window.localStorage.removeItem("client");
-        window.localStorage.removeItem("uid");
-        window.localStorage.removeItem("name");
-        this.$router.push({ name: 'PostIndex' });
-        return res;
-      } catch (error) {
-        console.log({ error });
-      }
+    logOut() {
+      this.$store.dispatch("auth/logOut");
     },
+    // async logout() {
+    //   try {
+    //     const res = await axios.delete("http://localhost:3000/auth/sign_out", {
+    //       headers: {
+    //         uid: this.email,
+    //         "access-token": window.localStorage.getItem("access-token"),
+    //         client: window.localStorage.getItem("client"),
+    //       },
+    //     });
+    //     console.log("ログアウトしました");
+    //     window.localStorage.removeItem("access-token");
+    //     window.localStorage.removeItem("client");
+    //     window.localStorage.removeItem("uid");
+    //     window.localStorage.removeItem("name");
+    //     this.$router.push({ name: 'PostIndex' });
+    //     return res;
+    //   } catch (error) {
+    //     console.log({ error });
+    //   }
+    // },
     redirectToHome() {
       this.$router.push({ name: "PostIndex" });
     },
