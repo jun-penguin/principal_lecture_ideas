@@ -76,6 +76,7 @@
 
 <script>
 import axios from "axios";
+import { mapState } from "vuex";
 import { required } from "vee-validate/dist/rules";
 import {
   extend,
@@ -120,6 +121,9 @@ export default {
         return (this.scene_type = "all_scholl_assembly");
       }
     },
+    ...mapState("auth", {
+      headers: (state) => state.headers,
+    }),
   },
 
   methods: {
@@ -127,7 +131,7 @@ export default {
       this.$refs.observer.validate();
     },
     createPost: function () {
-      if (!this.title) return;
+      if (!this.headers) return; //headerが空ならばここで処理を終了させる。とりあえずの処置。
       axios
         .post(
           "/api/posts",
@@ -141,9 +145,13 @@ export default {
           },
           {
             headers: {
-              uid: window.localStorage.getItem("uid"),
-              "access-token": window.localStorage.getItem("access-token"),
-              client: window.localStorage.getItem("client"),
+              uid: this.headers["uid"],
+              "access-token": this.headers["access-token"],
+              client: this.headers["client"],
+
+              // uid: window.localStorage.getItem("uid"),
+              // "access-token": window.localStorage.getItem("access-token"),
+              // client: window.localStorage.getItem("client"),
             },
           }
         )

@@ -5,7 +5,6 @@
       こんにちは、<span class="name">{{ name }}</span
       >さん
     </p>
-    <p class="email">現在、 {{ email }} でログイン中です</p>
     <router-view></router-view>
     <v-footer>
       <Footer></Footer>
@@ -16,6 +15,7 @@
 <script>
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
+import { mapState } from "vuex";
 
 export default {
   name: "App",
@@ -23,12 +23,19 @@ export default {
     Header,
     Footer,
   },
-  data() {
-    return {
-      name: window.localStorage.getItem("name"),
-      email: window.localStorage.getItem("uid"),
-    };
-  },
+  
+computed: {
+  ...mapState('auth', 
+  {
+    name: state => state.name
+  })  
+}
+  // data() {
+  //   return {
+  //     name: window.localStorage.getItem("name"),
+  //     email: window.localStorage.getItem("uid"),
+  //   };
+  // },
 };
 </script>
 

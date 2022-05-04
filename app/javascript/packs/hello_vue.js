@@ -5,6 +5,7 @@ import Vue from "vue";
 import Vuetify from "vuetify";
 import router from "../router/index.js";
 import App from "../app.vue";
+import store from "../store/store.js";
 
 import "vuetify/dist/vuetify.min.css";
 import "@mdi/font/css/materialdesignicons.css";
@@ -19,6 +20,7 @@ const vuetify = new Vuetify();
 document.addEventListener("DOMContentLoaded", () => {
   const app = new Vue({
     router,
+    store,
     vuetify,
     render: (h) => h(App),
   }).$mount();

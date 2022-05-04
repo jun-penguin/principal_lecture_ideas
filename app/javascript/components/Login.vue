@@ -46,8 +46,8 @@
 
 
 <script>
-import axios from "axios";
-import setItem from "../auth/setItem";
+// import axios from "axios";
+// import setItem from "../auth/setItem";
 export default {
   data() {
     return {
@@ -60,31 +60,36 @@ export default {
   methods: {
     loginHundler: function () {
       this.closeDialog();
-      this.login();
+      this.logIn();
     },
     closeDialog: function () {
       this.dialog = false;
     },
-    async login() {
-      this.error = null;
-      try {
-        const res = await axios.post("http://localhost:3000/auth/sign_in", {
-          email: this.email,
-          password: this.password,
-        });
-        if (!res) {
-          throw new Error("メールアドレスかパスワードが違います");
-        }
-        if (!this.error) {
-          // ======= 👇 ここから変更する =======
-          setItem(res.headers, res.data.data.name);
-          this.$emit('redirectToHome');
-          // ====== 👆 ここまで変更する =======
-        }
-      } catch (error) {
-        this.error = "メールアドレスかパスワードが違います";
-      }
-    },
+    logIn: function () {
+      this.$store.dispatch('auth/logIn', {email: this.email, password: this.password})
+    }
+
+
+    // async login() {
+    //   this.error = null;
+    //   try {
+    //     const res = await axios.post("http://localhost:3000/auth/sign_in", {
+    //       email: this.email,
+    //       password: this.password,
+    //     });
+    //     if (!res) {
+    //       throw new Error("メールアドレスかパスワードが違います");
+    //     }
+    //     if (!this.error) {
+    //       // ======= 👇 ここから変更する =======
+    //       setItem(res.headers, res.data.data.name);
+    //       this.$emit('redirectToHome');
+    //       // ====== 👆 ここまで変更する =======
+    //     }
+    //   } catch (error) {
+    //     this.error = "メールアドレスかパスワードが違います";
+    //   }
+    // },
   },
 };
 </script>
