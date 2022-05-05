@@ -1,13 +1,14 @@
 import axios from "axios";
 
+// ヘッダー情報とログイン状況を管理
 const state = {
-  //ヘッダの入れ物を用意。
   headers: {},
   name: "",
+  loggedIn: false,
 };
 
 const mutations = {
-  //サインイン時のレスポンスヘッダから情報を抜き出して保存しておく。
+  // レスポンスヘッダーのデータを保存しstateに反映
   logIn(state, { headers, name }) {
     state.headers = {
       "access-token": headers["access-token"],
@@ -15,6 +16,10 @@ const mutations = {
       uid: headers["uid"],
     };
     state.name = name;
+  },
+  // ログインの有無を変更
+  setLoggedIn(state, bool) {
+    state.loggedIn = bool;
   },
 
   //サインアウトしたらヘッダを空にしておく。
@@ -25,32 +30,37 @@ const mutations = {
 };
 
 const actions = {
-  //paramsはemailなどのユーザー情報が入っていると思って下さい。
-  //（paramsへの情報の入れ方は今回割愛。）
+  // ログイン：emailとpasswordをAPIに投げる
   logIn(context, { email, password }) {
     axios
       .post("http://localhost:3000/auth/sign_in", {
         email: email,
         password: password,
       })
+      // APIからレスポンスヘッダーを受け取り"logIn"に渡す
       .then(function (response) {
-        //ここでレスポンスヘッダを受け取る。
-        context.commit("logIn", {
-          headers: response.headers,
-          name: response.data.data.name,
-        });
+        context.commit(
+          "logIn",
+          {
+            headers: response.headers,
+            name: response.data.data.name,
+          },
+          // setLoggedInを呼び出しtrueを渡す
+          context.commit("setLoggedIn", true)
+        );
       });
   },
+  // 新規登録：新規登録に必要なデータをAPIに投げる
   signUp(context, { name, email, password, password_confirmation }) {
     axios
       .post("http://localhost:3000/auth", {
         name: name,
         email: email,
         password: password,
-        password_confirmation: password_confirmation
+        password_confirmation: password_confirmation,
       })
+      // APIからレスポンスヘッダーを受け取り"logIn"に渡す
       .then(function (response) {
-        //ここでレスポンスヘッダを受け取る。
         context.commit("logIn", {
           headers: response.headers,
           name: response.data.data.name,
@@ -59,17 +69,20 @@ const actions = {
   },
   logOut(context) {
     axios
-      //ここでヘッダ情報を呼び出してDELETEリクエストに含める
+      // ヘッダ情報を呼び出してDeleteリクに投げる
       .delete("http://localhost:3000/auth/sign_out", {
         headers: context.state.headers,
       })
       .then(function () {
+        // storeのヘッダー情報を空にする
         context.commit("signOut");
+        // setLoggedInを呼び出しfalseを渡す
+        context.commit("setLoggedIn", false);
       });
   },
 };
 
-export default  {
+export default {
   namespaced: true,
   state,
   mutations,
