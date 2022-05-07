@@ -19,7 +19,7 @@
 
           <v-card-actions>
             <v-btn color="orange lighten-2" text>
-              <router-link :to="'/post/' + post.id">
+              <router-link :to="'/postings/' + post.id">
                 講話の詳細ページへ
               </router-link>
             </v-btn>

@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1>新規投稿</h1>
+    <h1>講話の編集</h1>
     <validation-observer ref="observer" v-slot="{ invalid }">
       <form @submit.prevent="submit">
         <validation-provider
@@ -36,9 +36,9 @@
         >
           <v-select
             v-model="grade_range"
-            :items="grade_range_select"
             item-text="label"
             item-value="value"
+            :items="grade_range_select"
             :error-messages="errors"
             label="対象学年"
             data-vv-name="select"
@@ -53,9 +53,9 @@
         >
           <v-select
             v-model="scene_type"
-            :items="scene_type_select"
             item-text="label"
             item-value="value"
+            :items="scene_type_select"
             :error-messages="errors"
             label="シーンタイプ"
             data-vv-name="select"
@@ -67,10 +67,10 @@
         <v-btn
           class="mr-4"
           type="submit"
-          v-on:click="createPost"
+          v-on:click="updatePost"
           :disabled="invalid"
         >
-          投稿する
+          上記内容で更新する
         </v-btn>
         <v-btn @click="clear"> 全て空にする </v-btn>
       </form>
@@ -97,6 +97,7 @@ extend("required", {
 });
 
 export default {
+  name: "PostingsEdit",
   components: {
     ValidationProvider,
     ValidationObserver,
@@ -116,7 +117,19 @@ export default {
       { label: "行事", value: "event" },
     ],
   }),
+  // post: {
+  //   title: "",
+  //   description: "",
+  //   content: "",
+  //   grade_range: null,
+  //   scene_type: null,
+  //   grade_range_select: ["小学生", "中学生"],
+  //   scene_type_select: ["全校集会", "行事"],
+  // },
   computed: {
+    ...mapState("auth", {
+      headers: (state) => state.headers,
+    }),
     // ja_grade_range: function () {
     //   if (this.grade_range == "中学生") {
     //     return (this.grade_range = "junior_high");
@@ -131,43 +144,58 @@ export default {
     //     return (this.scene_type = "all_scholl_assembly");
     //   }
     // },
-    ...mapState("auth", {
-      headers: (state) => state.headers,
-    }),
   },
-
+  mounted: function () {
+    this.setpostEdit();
+  },
   methods: {
     submit: function () {
       this.$refs.observer.validate();
     },
-    createPost: function () {
-      if (!this.headers) return; //headerが空ならばここで処理を終了させる。とりあえずの処置。
+    setpostEdit: function () {
+      var id = this.$route.params.id;
       axios
-        .post(
-          "/api/posts",
+        .get(`/api/postings/${id}`, {
+          headers: {
+            uid: this.headers["uid"],
+            "access-token": this.headers["access-token"],
+            client: this.headers["client"],
+          },
+        })
+        .then((response) => {
+          // this.post.id = response.data.id;
+          this.title = response.data.title;
+          this.description = response.data.description;
+          this.content = response.data.content;
+          this.grade_range = response.data.grade_range;
+          this.scene_type = response.data.scene_type;
+        });
+    },
+    updatePost: function () {
+      var id = this.$route.params.id;
+      if (!this.headers) return;
+      axios
+        .put(
+          `/api/postings/${id}`,
           {
             title: this.title,
             description: this.description,
             content: this.content,
-            grade_range: this.grade_range,
+            grade_range: this.ja_grade_range,
             status: "published",
-            scene_type: this.scene_type,
+            scene_type: this.ja_scene_type,
           },
           {
             headers: {
               uid: this.headers["uid"],
               "access-token": this.headers["access-token"],
               client: this.headers["client"],
-
-              // uid: window.localStorage.getItem("uid"),
-              // "access-token": window.localStorage.getItem("access-token"),
-              // client: window.localStorage.getItem("client"),
             },
           }
         )
         .then(
-          (res) => {
-            this.$router.push({ path: "postings" });
+          (response) => {
+            this.$router.push({ name: "Postings" });
           },
           (error) => {
             console.log(error);
