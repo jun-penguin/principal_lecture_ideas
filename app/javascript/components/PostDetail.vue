@@ -34,6 +34,7 @@ export default {
         (response) => {
           this.post = response.data;
           console.log(response);
+          this.user = response.data;
         },
         (error) => {
           console.log(error);

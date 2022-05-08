@@ -65,6 +65,7 @@ const actions = {
           headers: response.headers,
           name: response.data.data.name,
         });
+        context.commit("setLoggedIn", true);
       });
   },
   logOut(context) {

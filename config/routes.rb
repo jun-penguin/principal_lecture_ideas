@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :posts, only: %i[index show create]
+    resources :postings, only: %i[index show update destroy]
   end
 
   get '*path', to: 'static_pages#top'

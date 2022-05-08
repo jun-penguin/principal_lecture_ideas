@@ -19,7 +19,7 @@
 
       <v-spacer></v-spacer>
 
-      <!-- いいねした講話リンク -->
+      <!-- いいねした講話リンク（仮） -->
       <v-btn v-if="loggedIn" rounded text large color="primary" class="mr-2"
         ><router-link to="/favorite">いいねした講話</router-link></v-btn
       >
@@ -66,10 +66,10 @@ export default {
   data() {
     return {
       message: "",
-      isloggedIn: "false",
+      // isloggedIn: "false",
       items: [
-        // { title: "投稿した講話",
-        //   link: },
+        { title: "投稿した講話",
+          link: "/postings", action: "" },
         { title: "講話の投稿", link: "/create", action: "" },
         // { title: "プロフィール編集", link: /profile/edit },
         { title: "ログアウト", link: "", action: "logOut" },
