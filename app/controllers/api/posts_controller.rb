@@ -1,12 +1,12 @@
 class Api::PostsController < ApplicationController
   before_action :authenticate_user!, only: ['create', 'update', 'destroy']
   def index
-    @posts = Post.all
+    @posts = Post.published
     render :index, formats: :json, handlers: 'jbuilder'
   end
 
   def show
-    @post = Post.find(params[:id])
+    @post = Post.published.find(params[:id])
     render :show, formats: :json, handlers: 'jbuilder'
   end
 
