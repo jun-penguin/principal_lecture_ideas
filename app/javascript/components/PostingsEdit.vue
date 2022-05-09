@@ -44,7 +44,6 @@
             data-vv-name="select"
             required
           ></v-select>
-          {{ grade_range }}
         </validation-provider>
         <validation-provider
           v-slot="{ errors }"
@@ -61,7 +60,6 @@
             data-vv-name="select"
             required
           ></v-select>
-          {{ scene_type }}
         </validation-provider>
 
         <validation-provider
@@ -79,18 +77,18 @@
             data-vv-name="select"
             required
           ></v-select>
-          {{ status }}
         </validation-provider>
 
         <v-btn
           class="mr-4"
           type="submit"
           v-on:click="updatePost"
+          color="success"
           :disabled="invalid"
         >
           上記内容で更新する
         </v-btn>
-        <v-btn @click="clear"> 全て空にする </v-btn>
+        <v-btn color="blue-grey" class="white--text" @click="clear"> 全て空にする </v-btn>
       </form>
     </validation-observer>
   </v-container>

@@ -13,10 +13,8 @@
     <h2>シーンタイプ</h2>
     　{{ post.scene_type }}
     <div>
-      <v-btn depressed color="secondary"> 下書きに戻す（非公開) </v-btn>
-
       <v-btn depressed color="success">
-        <router-link :to="{ path: `/postings/edit/${post.id}` }" class="btn"
+        <router-link style="text-decoration: none; color: inherit;"  :to="{ path: `/postings/edit/${post.id}` }" class="btn"
           >編集</router-link
         >
       </v-btn>
