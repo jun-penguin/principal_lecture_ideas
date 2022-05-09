@@ -44,7 +44,6 @@
             data-vv-name="select"
             required
           ></v-select>
-          {{ grade_range }}
         </validation-provider>
         <validation-provider
           v-slot="{ errors }"
@@ -61,18 +60,35 @@
             data-vv-name="select"
             required
           ></v-select>
-          {{ scene_type }}
+        </validation-provider>
+
+        <validation-provider
+          v-slot="{ errors }"
+          name="公開設定"
+          rules="required"
+        >
+          <v-select
+            v-model="status"
+            :items="status_select"
+            item-text="label"
+            item-value="value"
+            :error-messages="errors"
+            label="公開設定"
+            data-vv-name="select"
+            required
+          ></v-select>
         </validation-provider>
 
         <v-btn
           class="mr-4"
           type="submit"
           v-on:click="updatePost"
+          color="success"
           :disabled="invalid"
         >
           上記内容で更新する
         </v-btn>
-        <v-btn @click="clear"> 全て空にする </v-btn>
+        <v-btn color="blue-grey" class="white--text" @click="clear"> 全て空にする </v-btn>
       </form>
     </validation-observer>
   </v-container>
@@ -108,6 +124,7 @@ export default {
     content: "",
     grade_range: "",
     scene_type: "",
+    status: "",
     grade_range_select: [
       { label: "小学生", value: "elementary" },
       { label: "中学生", value: "junior_high" },
@@ -116,12 +133,16 @@ export default {
       { label: "全校集会", value: "all_scholl_assembly" },
       { label: "行事", value: "event" },
     ],
+    status_select: [
+      { label: "下書き（非公開）", value: "draft" },
+      { label: "公開", value: "published" },
+    ],
   }),
   // post: {
   //   title: "",
   //   description: "",
   //   content: "",
-  //   grade_range: null,
+  //   grade_range: null,Ç
   //   scene_type: null,
   //   grade_range_select: ["小学生", "中学生"],
   //   scene_type_select: ["全校集会", "行事"],
@@ -169,6 +190,7 @@ export default {
           this.content = response.data.content;
           this.grade_range = response.data.grade_range;
           this.scene_type = response.data.scene_type;
+          this.status = response.data.status;
         });
     },
     updatePost: function () {
@@ -181,9 +203,9 @@ export default {
             title: this.title,
             description: this.description,
             content: this.content,
-            grade_range: this.ja_grade_range,
-            status: "published",
-            scene_type: this.ja_scene_type,
+            grade_range: this.grade_range,
+            scene_type: this.scene_type,
+            status: this.status,
           },
           {
             headers: {
@@ -208,6 +230,7 @@ export default {
       this.content = "";
       this.grade_range = "";
       this.scene_type = "";
+      this.status = "";
       this.$refs.observer.reset();
     },
   },

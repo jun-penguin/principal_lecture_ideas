@@ -44,11 +44,10 @@
             data-vv-name="select"
             required
           ></v-select>
-          {{ grade_range }}
         </validation-provider>
         <validation-provider
           v-slot="{ errors }"
-          name="想定シーン"
+          name="シーンタイプ"
           rules="required"
         >
           <v-select
@@ -61,7 +60,24 @@
             data-vv-name="select"
             required
           ></v-select>
-          {{ scene_type }}
+        </validation-provider>
+        
+        <validation-provider
+          v-slot="{ errors }"
+          name="公開設定"
+          rules="required"
+        >
+          <v-select
+            v-model="status"
+            :items="status_select"
+            item-text="label"
+            item-value="value"
+            :error-messages="errors"
+            label="公開設定"
+            data-vv-name="select"
+            required
+          ></v-select>
+          {{status}}
         </validation-provider>
 
         <v-btn
@@ -107,6 +123,7 @@ export default {
     content: "",
     grade_range: "",
     scene_type: "",
+    status: "",
     grade_range_select: [
       { label: "小学生", value: "elementary" },
       { label: "中学生", value: "junior_high" },
@@ -114,6 +131,10 @@ export default {
     scene_type_select: [
       { label: "全校集会", value: "all_scholl_assembly" },
       { label: "行事", value: "event" },
+    ],
+    status_select: [
+      { label: "下書き（非公開）", value: "draft" },
+      { label: "公開", value: "published" },
     ],
   }),
   computed: {
@@ -150,8 +171,8 @@ export default {
             description: this.description,
             content: this.content,
             grade_range: this.grade_range,
-            status: "published",
             scene_type: this.scene_type,
+            status: this.status,
           },
           {
             headers: {
@@ -180,6 +201,7 @@ export default {
       this.content = "";
       this.grade_range = "";
       this.scene_type = "";
+      this.status = "";
       this.$refs.observer.reset();
     },
   },
