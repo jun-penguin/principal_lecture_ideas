@@ -7,7 +7,7 @@
       <v-spacer></v-spacer>
 
       <!-- 検索フォーム -->
-      <v-text-field
+      <!-- <v-text-field
         v-model="message"
         label="検索したいワードを入力してください"
         type="text"
@@ -15,7 +15,7 @@
         <template v-slot:append-outer>
           <v-btn color="primary">検索</v-btn>
         </template>
-      </v-text-field>
+      </v-text-field> -->
 
       <v-spacer></v-spacer>
 
@@ -65,8 +65,6 @@ export default {
   },
   data() {
     return {
-      message: "",
-      // isloggedIn: "false",
       items: [
         { title: "投稿した講話",
           link: "/postings", action: "" },
