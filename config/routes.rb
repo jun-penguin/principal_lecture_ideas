@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   root to: 'static_pages#top'
 
   namespace :api do
-    resources :posts, only: %i[index show create]
+    resources :posts, only: %i[index show create] do
+      get :search, on: :collection
+    end
     resources :postings, only: %i[index show update destroy]
   end
 

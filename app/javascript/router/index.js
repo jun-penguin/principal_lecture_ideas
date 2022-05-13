@@ -6,6 +6,8 @@ import PostCreate from "../components/PostCreate.vue";
 import Postings from "../components/Postings.vue";
 import PostingsDetail from "../components/PostingsDetail.vue";
 import PostingsEdit from "../components/PostingsEdit.vue";
+import Search from "../components/Search.vue";
+import SearchResult from "../components/SearchResult.vue";
 
 Vue.use(Router);
 
@@ -16,6 +18,21 @@ export default new Router({
       path: "/",
       name: "PostIndex",
       component: PostIndex,
+    },
+    {
+      path: "/search",
+      name: "Search",
+      component: Search,
+    },
+    {
+      path: "/searchResult",
+      name: "SearchResult",
+      component: SearchResult,
+      // beforeEnter: (to, from, next) => {
+      //   window.location.reload();
+      //   return next();
+      // },
+      props: true,
     },
     {
       path: "/postings",

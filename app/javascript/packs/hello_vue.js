@@ -1,4 +1,5 @@
 import Vue from "vue";
+
 //import { ValidationProvider, extend, localize } from "vee-validate";
 //import { required } from "vee-validate/dist/rules";
 //import ja from "vee-validate/dist/locale/ja.json";
@@ -7,13 +8,10 @@ import router from "../router/index.js";
 import App from "../app.vue";
 import store from "../store/store.js";
 
+
 import "vuetify/dist/vuetify.min.css";
 import "@mdi/font/css/materialdesignicons.css";
 
-//extend("required", required);
-//localize("ja", ja);
-
-//Vue.component("validation-provider", ValidationProvider);
 Vue.use(Vuetify);
 const vuetify = new Vuetify();
 

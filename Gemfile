@@ -30,6 +30,9 @@ gem 'draper'
 gem 'devise'
 gem 'devise_token_auth'
 
+# 検索機能
+gem 'ransack'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
