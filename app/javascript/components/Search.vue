@@ -1,48 +1,18 @@
 <template>
-  <v-container class="grey lighten-5">
-    <div>
-      <input
-        v-model="query.title_or_content_cont"
-        placeholder="検索したいワードを入力してください"
-        type="text"
-      />
+  <!-- 検索フォーム -->
+  <v-text-field
+    v-model="query.title_or_content_cont"
+    placeholder="タイトル・本文で検索"
+    type="text"
+  >
+    <template v-slot:append-outer>
       <v-btn @click="search" color="primary">検索</v-btn>
-      <h1>検索結果</h1>
-      <v-row>
-        <v-col v-for="post in posts" :key="post.id" cols="12" sm="4">
-          <v-card class="mx-auto" max-width="344">
-            <v-img
-              src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-              height="200px"
-            ></v-img>
-
-            <v-card-title>
-              {{ post.title }}
-            </v-card-title>
-
-            <v-card-subtitle>
-              {{ post.description }}
-            </v-card-subtitle>
-
-            <v-card-actions>
-              <v-btn color="orange lighten-2" text>
-                <router-link :to="{ path: `/post/${post.id}` }">
-                  講話の詳細ページへ
-                </router-link>
-              </v-btn>
-
-              <v-spacer></v-spacer>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-      </v-row>
-    </div>
-  </v-container>
+    </template>
+  </v-text-field>
 </template>
 
 <script>
 import axios from "axios";
-// const Qs = require("qs");
 import Qs from "qs";
 
 export default {
@@ -53,11 +23,17 @@ export default {
       posts: [],
       query: {
         title_or_content_cont: null,
-        status_eq: 1,
+        status_eq: 1, //公開済みのみ検索対象に
       },
     };
   },
-  
+
+  watch: {
+    $route(to, from) {
+      console.log(to, from);
+    },
+  },
+
   methods: {
     search: function () {
       axios
@@ -72,6 +48,13 @@ export default {
         .then((response) => {
           console.log(response);
           this.posts = response.data.posts;
+          this.$router.push({
+            name: "SearchResult",
+            params: { posts: this.posts, t: new Date().getTime() },
+            query: {
+              t: new Date().getTime(),
+            },
+          });
         })
         .catch((error) => {
           console.log(error);

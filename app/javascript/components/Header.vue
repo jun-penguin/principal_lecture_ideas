@@ -7,15 +7,7 @@
       <v-spacer></v-spacer>
 
       <!-- 検索フォーム -->
-      <!-- <v-text-field
-        v-model="message"
-        label="検索したいワードを入力してください"
-        type="text"
-      >
-        <template v-slot:append-outer>
-          <v-btn color="primary">検索</v-btn>
-        </template>
-      </v-text-field> -->
+      <Search />
 
       <v-spacer></v-spacer>
 
@@ -54,6 +46,7 @@
 <script>
 import Signup from "./Signup.vue";
 import Login from "./Login.vue";
+import Search from "./Search.vue";
 import { mapState } from "vuex";
 
 // import axios from "axios";
@@ -62,6 +55,7 @@ export default {
   components: {
     Signup,
     Login,
+    Search
   },
   data() {
     return {
