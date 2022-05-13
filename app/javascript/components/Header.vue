@@ -2,7 +2,9 @@
   <div>
     <v-app-bar color="gray accent-4" dark>
       <!-- サイトタイトル -->
-      <v-toolbar-title>Principal_lecture_Ideas</v-toolbar-title>
+      <v-toolbar-title @click="$router.push('/')" style="cursor:pointer"
+        >Principal_lecture_Ideas</v-toolbar-title
+      >
 
       <v-spacer></v-spacer>
 
@@ -55,13 +57,12 @@ export default {
   components: {
     Signup,
     Login,
-    Search
+    Search,
   },
   data() {
     return {
       items: [
-        { title: "投稿した講話",
-          link: "/postings", action: "" },
+        { title: "投稿した講話", link: "/postings", action: "" },
         { title: "講話の投稿", link: "/create", action: "" },
         // { title: "プロフィール編集", link: /profile/edit },
         { title: "ログアウト", link: "", action: "logOut" },
