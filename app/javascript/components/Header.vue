@@ -64,7 +64,7 @@ export default {
       items: [
         { title: "投稿した講話", link: "/postings", action: "" },
         { title: "講話の投稿", link: "/create", action: "" },
-        // { title: "プロフィール編集", link: /profile/edit },
+        { title: "プロフィールの確認・編集", link: "/myProfile" },
         { title: "ログアウト", link: "", action: "logOut" },
       ],
     };

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       get :search, on: :collection
     end
     resources :postings, only: %i[index show update destroy]
+    resource :profiles, only: %i[show]
   end
 
   get '*path', to: 'static_pages#top'

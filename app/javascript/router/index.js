@@ -8,6 +8,9 @@ import PostingsDetail from "../components/PostingsDetail.vue";
 import PostingsEdit from "../components/PostingsEdit.vue";
 import Search from "../components/Search.vue";
 import SearchResult from "../components/SearchResult.vue";
+import MyProfile from "../components/MyProfile.vue";
+import MyProfileEdit from "../components/MyProfileEdit.vue";
+
 
 Vue.use(Router);
 
@@ -58,6 +61,16 @@ export default new Router({
       path: "/create",
       name: "PostCreate",
       component: PostCreate,
+    },
+    {
+      path: "/myProfile",
+      name: "MyProfile",
+      component: MyProfile,
+    },
+    {
+      path: "/myProfile/edit",
+      name: "myProfileEdit",
+      component: MyProfileEdit
     },
   ],
 });
