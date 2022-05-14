@@ -27,6 +27,11 @@ const mutations = {
     state.headers = {};
     state.name = "";
   },
+
+  //ユーザーネームの変更
+  updateName(state, { name }) {
+    state.name = name;
+  },
 };
 
 const actions = {
@@ -61,6 +66,7 @@ const actions = {
       })
       // APIからレスポンスヘッダーを受け取り"logIn"に渡す
       .then(function (response) {
+        
         context.commit("logIn", {
           headers: response.headers,
           name: response.data.data.name,
@@ -79,6 +85,29 @@ const actions = {
         context.commit("signOut");
         // setLoggedInを呼び出しfalseを渡す
         context.commit("setLoggedIn", false);
+      });
+  },
+  // プロフィール編集: データをAPIに投げる
+  updateProfile(context, { name, self_introduction, status, prefecture }) {
+    axios
+      .put(
+        "http://localhost:3000/auth",
+        {
+          name: name,
+          self_introduction: self_introduction,
+          status: status,
+          prefecture: prefecture,
+        },
+        {
+          headers: context.state.headers 
+        }
+      )
+      // APIからレスポンスヘッダーを受け取りレスポンス内のnameを"updateName"に渡す
+      .then(function (response) {
+        console.log(response);
+        context.commit("updateName", {
+          name: response.data.data.name,
+        });
       });
   },
 };

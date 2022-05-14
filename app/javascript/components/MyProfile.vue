@@ -6,18 +6,19 @@
     {{ name }}
     <h2>メールアドレス</h2>
     {{ headers.uid }}
+    <h2>一言自己紹介</h2>
+    {{ profile.self_introduction }}
     <h2>ステータス</h2>
     {{ profile.status }}
     <h2>都道府県</h2>
     {{ profile.prefecture }}
-    <h2>一言自己紹介</h2>
-    {{ profile.self_introduction }}
     <div>
       <v-btn depressed color="success">
         <router-link style="text-decoration: none; color: inherit;"  :to="{ path: `/myProfile/edit` }" class="btn"
           >編集する</router-link
         >
       </v-btn>
+
     </div> 
   </v-container>
 </template>

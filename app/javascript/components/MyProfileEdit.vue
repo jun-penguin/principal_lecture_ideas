@@ -9,14 +9,14 @@
           rules="required"
         >
           <v-text-field
-            v-model="title"
+            v-model="name"
             :error-messages="errors"
             label="ユーザーネーム"
             required
           ></v-text-field>
         </validation-provider>
         <v-text-field
-          v-model="description"
+          v-model="self_introduction"
           label="一言自己紹介"
         ></v-text-field>
 
@@ -26,29 +26,10 @@
           rules="required"
         >
           <v-select
-            v-model="grade_range"
-            item-text="label"
-            item-value="value"
-            :items="grade_range_select"
+            v-model="status"
+            :items="status_select"
             :error-messages="errors"
             label="ステータス"
-            data-vv-name="select"
-            required
-          ></v-select>
-        </validation-provider>
-        
-        <validation-provider
-          v-slot="{ errors }"
-          name="都道府県"
-          rules="required"
-        >
-          <v-select
-            v-model="scene_type"
-            item-text="label"
-            item-value="value"
-            :items="scene_type_select"
-            :error-messages="errors"
-            label="シーンタイプ"
             data-vv-name="select"
             required
           ></v-select>
@@ -56,16 +37,14 @@
 
         <validation-provider
           v-slot="{ errors }"
-          name="公開設定"
+          name="都道府県"
           rules="required"
         >
           <v-select
-            v-model="status"
-            :items="status_select"
-            item-text="label"
-            item-value="value"
+            v-model="prefecture"
+            :items="prefecture_select"
             :error-messages="errors"
-            label="公開設定"
+            label="都道府県"
             data-vv-name="select"
             required
           ></v-select>
@@ -74,13 +53,15 @@
         <v-btn
           class="mr-4"
           type="submit"
-          v-on:click="updatePost"
+          v-on:click="updateMyProfile"
           color="success"
           :disabled="invalid"
         >
           上記内容で更新する
         </v-btn>
-        <v-btn color="blue-grey" class="white--text" @click="clear"> 全て空にする </v-btn>
+        <v-btn color="blue-grey" class="white--text" @click="clear">
+          全て空にする
+        </v-btn>
       </form>
     </validation-observer>
   </v-container>
@@ -105,70 +86,90 @@ extend("required", {
 });
 
 export default {
-  name: "PostingsEdit",
+  name: "MyProfileEdit",
   components: {
     ValidationProvider,
     ValidationObserver,
   },
   data: () => ({
-    title: "",
-    description: "",
-    content: "",
-    grade_range: "",
-    scene_type: "",
+    name: "",
+    self_introduction: "",
     status: "",
-    grade_range_select: [
-      { label: "小学生", value: "elementary" },
-      { label: "中学生", value: "junior_high" },
-    ],
-    scene_type_select: [
-      { label: "全校集会", value: "all_scholl_assembly" },
-      { label: "行事", value: "event" },
-    ],
+    prefecture: "",
     status_select: [
-      { label: "下書き（非公開）", value: "draft" },
-      { label: "公開", value: "published" },
+      "未設定",
+      "小学校校長",
+      "中学校校長",
+      "元小学校校長",
+      "元中学校校長",
+    ],
+    prefecture_select: [
+      "未設定",
+      "北海道",
+      "青森県",
+      "岩手県",
+      "宮城県",
+      "秋田県",
+      "山形県",
+      "福島県",
+      "茨城県",
+      "栃木県",
+      "群馬県",
+      "埼玉県",
+      "千葉県",
+      "東京都",
+      "神奈川県",
+      "新潟県",
+      "富山県",
+      "石川県",
+      "福井県",
+      "山梨県",
+      "長野県",
+      "岐阜県",
+      "静岡県",
+      "愛知県",
+      "三重県",
+      "滋賀県",
+      "京都府",
+      "大阪府",
+      "兵庫県",
+      "奈良県",
+      "和歌山県",
+      "鳥取県",
+      "島根県",
+      "岡山県",
+      "広島県",
+      "山口県",
+      "徳島県",
+      "香川県",
+      "愛媛県",
+      "高知県",
+      "福岡県",
+      "佐賀県",
+      "長崎県",
+      "熊本県",
+      "大分県",
+      "宮崎県",
+      "鹿児島県",
+      "沖縄県",
     ],
   }),
-  // post: {
-  //   title: "",
-  //   description: "",
-  //   content: "",
-  //   grade_range: null,Ç
-  //   scene_type: null,
-  //   grade_range_select: ["小学生", "中学生"],
-  //   scene_type_select: ["全校集会", "行事"],
-  // },
+
   computed: {
     ...mapState("auth", {
       headers: (state) => state.headers,
     }),
-    // ja_grade_range: function () {
-    //   if (this.grade_range == "中学生") {
-    //     return (this.grade_range = "junior_high");
-    //   } else {
-    //     return (this.grade_range = "elementary");
-    //   }
-    // },
-    // ja_scene_type: function () {
-    //   if (this.scene_type == "行事") {
-    //     return (this.scene_type = "event");
-    //   } else {
-    //     return (this.scene_type = "all_scholl_assembly");
-    //   }
-    // },
   },
   mounted: function () {
-    this.setpostEdit();
+    this.setProfileEdit();
   },
   methods: {
     submit: function () {
       this.$refs.observer.validate();
     },
-    setpostEdit: function () {
-      var id = this.$route.params.id;
+    setProfileEdit: function () {
       axios
-        .get(`/api/postings/${id}`, {
+        .get(`/api/profiles`, {
           headers: {
             uid: this.headers["uid"],
             "access-token": this.headers["access-token"],
@@ -176,40 +177,40 @@ export default {
           },
         })
         .then((response) => {
-          // this.post.id = response.data.id;
-          this.title = response.data.title;
-          this.description = response.data.description;
-          this.content = response.data.content;
-          this.grade_range = response.data.grade_range;
-          this.scene_type = response.data.scene_type;
+          this.name = response.data.name;
+          this.self_introduction = response.data.self_introduction;
           this.status = response.data.status;
+          this.prefecture = response.data.prefecture;
         });
     },
-    updatePost: function () {
-      var id = this.$route.params.id;
+    updateMyProfile: function () {
       if (!this.headers) return;
-      axios
-        .put(
-          `/api/postings/${id}`,
-          {
-            title: this.title,
-            description: this.description,
-            content: this.content,
-            grade_range: this.grade_range,
-            scene_type: this.scene_type,
-            status: this.status,
-          },
-          {
-            headers: {
-              uid: this.headers["uid"],
-              "access-token": this.headers["access-token"],
-              client: this.headers["client"],
-            },
-          }
-        )
+      this.$store.dispatch("auth/updateProfile", {
+        name: this.name,
+        self_introduction: this.self_introduction,
+        status: this.status,
+        prefecture: this.prefecture
+      })
+      // axios
+      //   .put(
+      //     `/auth`,
+      //     {
+      //       name: this.name,
+      //       self_introduction: this.self_introduction,
+      //       status: this.status,
+      //       prefecture: this.prefecture,
+      //     },
+      //     {
+      //       headers: {
+      //         uid: this.headers["uid"],
+      //         "access-token": this.headers["access-token"],
+      //         client: this.headers["client"],
+      //       },
+      //     }
+      //   )
         .then(
           (response) => {
-            this.$router.push({ name: "Postings" });
+            this.$router.push({ name: "MyProfile" });
           },
           (error) => {
             console.log(error);
@@ -217,12 +218,10 @@ export default {
         );
     },
     clear() {
-      this.title = "";
-      this.description = "";
-      this.content = "";
-      this.grade_range = "";
-      this.scene_type = "";
+      this.name = "";
+      this.self_indtroduction = "";
       this.status = "";
+      this.prefecture = "";
       this.$refs.observer.reset();
     },
   },
@@ -230,5 +229,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

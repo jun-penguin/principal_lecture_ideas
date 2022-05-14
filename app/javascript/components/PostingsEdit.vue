@@ -138,33 +138,10 @@ export default {
       { label: "公開", value: "published" },
     ],
   }),
-  // post: {
-  //   title: "",
-  //   description: "",
-  //   content: "",
-  //   grade_range: null,Ç
-  //   scene_type: null,
-  //   grade_range_select: ["小学生", "中学生"],
-  //   scene_type_select: ["全校集会", "行事"],
-  // },
   computed: {
     ...mapState("auth", {
       headers: (state) => state.headers,
     }),
-    // ja_grade_range: function () {
-    //   if (this.grade_range == "中学生") {
-    //     return (this.grade_range = "junior_high");
-    //   } else {
-    //     return (this.grade_range = "elementary");
-    //   }
-    // },
-    // ja_scene_type: function () {
-    //   if (this.scene_type == "行事") {
-    //     return (this.scene_type = "event");
-    //   } else {
-    //     return (this.scene_type = "all_scholl_assembly");
-    //   }
-    // },
   },
   mounted: function () {
     this.setpostEdit();
