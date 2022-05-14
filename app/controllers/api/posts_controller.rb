@@ -1,5 +1,5 @@
 class Api::PostsController < ApplicationController
-  before_action :authenticate_user!, only: %w[create update destroy]
+  before_action :authenticate_user!, only: %i[create update destroy]
   def index
     @posts = Post.published
     render :index, formats: :json, handlers: 'jbuilder'
