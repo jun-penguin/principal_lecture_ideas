@@ -97,6 +97,7 @@
 <script>
 import axios from "axios";
 import { mapState } from "vuex";
+import { mapActions } from 'vuex'
 import { required } from "vee-validate/dist/rules";
 import {
   extend,
@@ -147,6 +148,7 @@ export default {
     this.setpostEdit();
   },
   methods: {
+    ...mapActions("message", ["showMessage"]),...mapActions("message", ["showMessage"]),
     submit: function () {
       this.$refs.observer.validate();
     },
@@ -194,6 +196,11 @@ export default {
         )
         .then(
           (response) => {
+            this.showMessage({
+              message: "編集しました。",
+              type: "success",
+              status: true
+            }),
             this.$router.push({ name: "Postings" });
           },
           (error) => {

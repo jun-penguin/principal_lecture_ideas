@@ -3,6 +3,7 @@
     <h1>
     </h1>
     <v-row>
+      <p v-if="!posts.length">検索条件に合致する講話はありませんでした。</p>
       <v-col v-for="post in posts" :key="post.id" cols="12" sm="4">
         <v-card class="mx-auto" max-width="344">
           <v-img
@@ -37,8 +38,11 @@
 
 export default {
   name: "SearchResult",
-  props: ['posts'],
-
+  props: {
+    posts: Array
+  },
+  
+  
 
   
 };

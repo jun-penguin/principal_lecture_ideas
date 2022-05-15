@@ -53,10 +53,11 @@
                   >
                     <v-text-field
                       label="パスワード"
-                      type="password"
                       v-model="password"
                       :error-messages="errors"
-                    
+                      :type="showPassword ? 'text' : 'password'"
+                      :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                      @click:append="showPassword = !showPassword"
                     ></v-text-field>
                   </validation-provider>
                 </v-flex>
@@ -68,9 +69,13 @@
                   >
                     <v-text-field
                       label="パスワード（確認用）"
-                      type="password"
                       v-model="password_confirmation"
                       :error-messages="errors"
+                      :type="showPasswordConfirm ? 'text' : 'password'"
+                      :append-icon="
+                        showPasswordConfirm ? 'mdi-eye' : 'mdi-eye-off'
+                      "
+                      @click:append="showPasswordConfirm = !showPasswordConfirm"
                     ></v-text-field>
                   </validation-provider>
                 </v-flex>
@@ -107,34 +112,22 @@ import {
 
 setInteractionMode("eager");
 
-extend(
-  "required",
-  {
-    ...required,
-    message: "{_field_} は空欄にできません。",
-  },
-)
-extend(
-  "email",
-  {
-    ...email,
-    message: "有効なメールアドレスではありません。",
-  }
-)
-extend(
-  "min",
-  {
-    ...min,
-    message: "{_field_} は6文字以上でなければなりません。",
-  }
-)
-extend(
-  "confirmed",
-  {
-    ...confirmed,
-    message: "{_field_} が一致しません。",
-  }
-);
+extend("required", {
+  ...required,
+  message: "{_field_} は空欄にできません。",
+});
+extend("email", {
+  ...email,
+  message: "有効なメールアドレスではありません。",
+});
+extend("min", {
+  ...min,
+  message: "{_field_} は6文字以上でなければなりません。",
+});
+extend("confirmed", {
+  ...confirmed,
+  message: "{_field_} が一致しません。",
+});
 export default {
   components: {
     ValidationProvider,
@@ -142,6 +135,8 @@ export default {
   },
   data() {
     return {
+      showPassword: false,
+      showPasswordConfirm: false,
       dialog: false,
       name: "",
       email: "",

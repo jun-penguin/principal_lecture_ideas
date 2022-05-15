@@ -77,12 +77,12 @@
             data-vv-name="select"
             required
           ></v-select>
-          {{status}}
         </validation-provider>
 
         <v-btn
           class="mr-4"
           type="submit"
+          color="success"
           v-on:click="createPost"
           :disabled="invalid"
         >
@@ -96,6 +96,7 @@
 
 <script>
 import axios from "axios";
+import { mapActions } from 'vuex'
 import { mapState } from "vuex";
 import { required } from "vee-validate/dist/rules";
 import {
@@ -158,6 +159,7 @@ export default {
   },
 
   methods: {
+    ...mapActions("message", ["showMessage"]),
     submit: function () {
       this.$refs.observer.validate();
     },
@@ -179,15 +181,16 @@ export default {
               uid: this.headers["uid"],
               "access-token": this.headers["access-token"],
               client: this.headers["client"],
-
-              // uid: window.localStorage.getItem("uid"),
-              // "access-token": window.localStorage.getItem("access-token"),
-              // client: window.localStorage.getItem("client"),
             },
           }
         )
         .then(
-          (res) => {
+          (response) => {
+            this.showMessage({
+              message: "投稿しました",
+              type: "success",
+              status: true
+            }),
             this.$router.push({ path: "postings" });
           },
           (error) => {

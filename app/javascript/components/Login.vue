@@ -39,7 +39,9 @@
                     label="パスワード"
                     v-model="password"
                     :error-messages="errors"
-                    type="password"
+                    :type="showPassword ? 'text' : 'password'"
+                    :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                    @click:append="showPassword = !showPassword"
                   ></v-text-field>
                 </validation-provider>
                 <v-btn
@@ -75,6 +77,7 @@
 
 <script>
 import { required, email, min } from "vee-validate/dist/rules";
+import { mapActions } from 'vuex'
 import {
   extend,
   ValidationObserver,
@@ -103,6 +106,7 @@ export default {
   },
   data() {
     return {
+      showPassword: false,
       dialog: false,
       email: "",
       password: "",
@@ -110,6 +114,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions("message", ["showMessage"]),
     loginHundler: function () {
       this.closeDialog();
       this.logIn();
