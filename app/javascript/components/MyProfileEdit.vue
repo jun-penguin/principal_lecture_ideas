@@ -59,9 +59,6 @@
         >
           上記内容で更新する
         </v-btn>
-        <v-btn color="blue-grey" class="white--text" @click="clear">
-          全て空にする
-        </v-btn>
       </form>
     </validation-observer>
   </v-container>
@@ -185,29 +182,30 @@ export default {
     },
     updateMyProfile: function () {
       if (!this.headers) return;
-      this.$store.dispatch("auth/updateProfile", {
-        name: this.name,
-        self_introduction: this.self_introduction,
-        status: this.status,
-        prefecture: this.prefecture
-      })
-      // axios
-      //   .put(
-      //     `/auth`,
-      //     {
-      //       name: this.name,
-      //       self_introduction: this.self_introduction,
-      //       status: this.status,
-      //       prefecture: this.prefecture,
-      //     },
-      //     {
-      //       headers: {
-      //         uid: this.headers["uid"],
-      //         "access-token": this.headers["access-token"],
-      //         client: this.headers["client"],
-      //       },
-      //     }
-      //   )
+      this.$store
+        .dispatch("auth/updateProfile", {
+          name: this.name,
+          self_introduction: this.self_introduction,
+          status: this.status,
+          prefecture: this.prefecture,
+        })
+        // axios
+        //   .put(
+        //     `/auth`,
+        //     {
+        //       name: this.name,
+        //       self_introduction: this.self_introduction,
+        //       status: this.status,
+        //       prefecture: this.prefecture,
+        //     },
+        //     {
+        //       headers: {
+        //         uid: this.headers["uid"],
+        //         "access-token": this.headers["access-token"],
+        //         client: this.headers["client"],
+        //       },
+        //     }
+        //   )
         .then(
           (response) => {
             this.$router.push({ name: "MyProfile" });
@@ -216,13 +214,6 @@ export default {
             console.log(error);
           }
         );
-    },
-    clear() {
-      this.name = "";
-      this.self_indtroduction = "";
-      this.status = "";
-      this.prefecture = "";
-      this.$refs.observer.reset();
     },
   },
 };

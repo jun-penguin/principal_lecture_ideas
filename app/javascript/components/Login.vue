@@ -4,51 +4,103 @@
       <v-btn rounded text large color="primary" v-on="on">ログイン</v-btn>
     </template>
     <v-card>
-      <v-card-title>
-        <span class="headline">ログイン</span>
-        <v-spacer></v-spacer>
-        <v-btn icon @click="dialog = false">
-          <v-icon>mdi-close</v-icon>
-        </v-btn>
-      </v-card-title>
-      <v-card-text>
-        <v-container grid-list-md>
-          <v-layout wrap>
-            <v-flex xs12>
-              <v-text-field
-                label="メールアドレス"
-                v-model="email"
-                required
-              ></v-text-field>
-            </v-flex>
-            <v-flex xs12>
-              <v-text-field
-                label="パスワード"
-                v-model="password"
-                type="password"
-                required
-              ></v-text-field>
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </v-card-text>
-      <v-card-actions>
-        <v-container grid-list-md>
-          <div class="error">{{ error }}</div>
-          <v-btn block color="success" dark @click="loginHundler"
-            >ログイン</v-btn
-          >
-        </v-container>
-      </v-card-actions>
+      <validation-observer ref="observer" v-slot="{ invalid }">
+        <v-card-title>
+          <span class="headline">ログイン</span>
+          <v-spacer></v-spacer>
+          <v-btn icon @click="dialog = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-card-text>
+          <v-container grid-list-md>
+            <v-layout wrap>
+              <v-flex xs12>
+                <validation-provider
+                  v-slot="{ errors }"
+                  name="メールアドレス"
+                  rules="required|email"
+                >
+                  <v-text-field
+                    label="メールアドレス"
+                    v-model="email"
+                    :error-messages="errors"
+                  ></v-text-field>
+                </validation-provider>
+              </v-flex>
+              <v-flex xs12>
+                <validation-provider
+                  v-slot="{ errors }"
+                  name="パスワード"
+                  rules="required|min:6"
+                  vid="password"
+                >
+                  <v-text-field
+                    label="パスワード"
+                    v-model="password"
+                    :error-messages="errors"
+                    type="password"
+                  ></v-text-field>
+                </validation-provider>
+                <v-btn
+                  block
+                  color="success"
+                  dark
+                  :disabled="invalid"
+                  v-on:click="loginHundler"
+                  >ログイン</v-btn
+                >
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card-text>
+        <!-- <v-card-actions>
+          <v-container grid-list-md>
+            <div class="error">{{ error }}</div>
+            <v-btn
+              block
+              color="success"
+              dark
+              :disabled="invalid"
+              v-on:click="loginHundler"
+              >ログイン</v-btn
+            >
+          </v-container>
+        </v-card-actions> -->
+      </validation-observer>
     </v-card>
   </v-dialog>
 </template>
 
 
 <script>
-// import axios from "axios";
-// import setItem from "../auth/setItem";
+import { required, email, min } from "vee-validate/dist/rules";
+import {
+  extend,
+  ValidationObserver,
+  ValidationProvider,
+  setInteractionMode,
+} from "vee-validate";
+
+setInteractionMode("eager");
+
+extend("required", {
+  ...required,
+  message: "{_field_} は空欄にできません。",
+});
+extend("email", {
+  ...email,
+  message: "有効なメールアドレスではありません。",
+});
+extend("min", {
+  ...min,
+  message: "{_field_} は6文字以上でなければなりません。",
+});
 export default {
+  components: {
+    ValidationProvider,
+    ValidationObserver,
+  },
   data() {
     return {
       dialog: false,
@@ -66,9 +118,11 @@ export default {
       this.dialog = false;
     },
     logIn: function () {
-      this.$store.dispatch('auth/logIn', {email: this.email, password: this.password})
-    }
-
+      this.$store.dispatch("auth/logIn", {
+        email: this.email,
+        password: this.password,
+      });
+    },
 
     // async login() {
     //   this.error = null;
