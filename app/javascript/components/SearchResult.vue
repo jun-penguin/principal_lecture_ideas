@@ -15,6 +15,7 @@
           </v-card-title>
 
           <v-card-subtitle>
+            {{ post.user.name }}
             {{ post.description }}
           </v-card-subtitle>
 

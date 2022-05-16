@@ -2,6 +2,8 @@
   <v-container>
     <h1>記事詳細</h1>
     <v-divider></v-divider>
+    <h2>投稿ユーザー</h2>
+    {{ post.user.name }}
     <h2>タイトル</h2>
     {{ post.title }}
     <h2>投稿者より一言</h2>
