@@ -62,6 +62,17 @@ const actions = {
           },
           { root: true }
         );
+      })
+      .catch((err) => {
+        context.dispatch(
+          "message/showMessage",
+          {
+            message: "ログインに失敗しました。",
+            type: "error",
+            status: true,
+          },
+          { root: true }
+        );
       });
   },
   // 新規登録：新規登録に必要なデータをAPIに投げる
@@ -85,6 +96,17 @@ const actions = {
           {
             message: "新規登録に成功しました.",
             type: "success",
+            status: true,
+          },
+          { root: true }
+        );
+      })
+      .catch((err) => {
+        context.dispatch(
+          "message/showMessage",
+          {
+            message: "新規登録に失敗しました。",
+            type: "error",
             status: true,
           },
           { root: true }
