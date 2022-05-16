@@ -2,7 +2,7 @@
   <v-container class="grey lighten-5">
     <h1>講話一覧</h1>
     <v-row>
-      <v-col v-for="post in posts" :key="post.id" cols="12" sm="4">
+      <v-col v-for="post in this.viewPosts" :key="post.id" cols="12" sm="4">
         <v-card class="mx-auto" max-width="344">
           <v-img
             src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
@@ -28,6 +28,11 @@
           </v-card-actions>
         </v-card>
       </v-col>
+      <v-pagination
+        v-model="page"
+        :length="length"
+        @input="handlePageChange"
+      ></v-pagination>
     </v-row>
   </v-container>
 </template>  
@@ -39,10 +44,23 @@ export default {
   data: function () {
     return {
       posts: [],
+      viewPosts: [],
+      length: 0,
+      page: 1,
+      pageSize:12
     };
   },
-  mounted() {
-    axios.get("/api/posts").then((res) => (this.posts = res.data.posts));
+  async mounted() {
+    await axios.get("/api/posts").then((res) => (this.posts = res.data.posts)
+    );
+    this.length = Math.ceil(this.posts.length/this.pageSize);
+    this.viewPosts = this.posts.slice(0,this.pageSize);
+  },
+
+  methods: {
+    handlePageChange: function (pageNumber) {
+      this.viewPosts = this.posts.slice(this.pageSize * (pageNumber - 1),this.pageSize * (pageNumber))
+    },
   },
 };
 </script>

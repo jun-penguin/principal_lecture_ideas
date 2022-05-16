@@ -1,4 +1,4 @@
-20.times do |number|
+250.times do |number|
   User.create!(name: Faker::Name.name,
                email: Faker::Internet.email,
                password: "password#{number + 1}",
