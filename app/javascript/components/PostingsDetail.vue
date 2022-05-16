@@ -28,6 +28,7 @@
 <script>
 import axios from "axios";
 import { mapState } from "vuex";
+import { mapActions } from 'vuex'
 export default {
   name: "PostingsDetail",
   data: function () {
@@ -44,6 +45,7 @@ export default {
     this.fetchPostingsDetail();
   },
   methods: {
+    ...mapActions("message", ["showMessage"]),
     fetchPostingsDetail: function () {
       var id = this.$route.params.id;
       axios
@@ -77,6 +79,11 @@ export default {
         })
         .then(
           (response) => {
+            this.showMessage({
+              message: "講話を削除しました。",
+              type: "warning",
+              status: true
+            }),
             this.$router.push({ name: "Postings" });
           },
           (error) => {
