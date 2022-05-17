@@ -1,8 +1,8 @@
 class Api::PostingsController < ApplicationController
-  before_action :authenticate_user!, only: ['index', 'show', 'delete', 'update']
+  before_action :authenticate_user!, only: %w[index show delete update]
   def index
-    @posts = current_user.posts
-    render :index, formats: :json, handlers: 'jbuilder'
+    @posts = current_user.posts.order(created_at: :desc)
+    render 'index', formats: :json, handlers: 'jbuilder'
   end
 
   def show
@@ -16,7 +16,7 @@ class Api::PostingsController < ApplicationController
       render 'show', formats: :json, handlers: 'jbuilder'
     else
       render json: @post.errors, status: :unprocessable_entity
-    end  
+    end
   end
 
   def destroy
@@ -25,7 +25,7 @@ class Api::PostingsController < ApplicationController
       head :no_content
     else
       render json: @post.errors, status: :unprocessable_entity
-    end  
+    end
   end
 
   private
@@ -33,5 +33,4 @@ class Api::PostingsController < ApplicationController
   def post_params
     params.permit(:title, :description, :content, :status, :grade_range, :scene_type)
   end
-
 end

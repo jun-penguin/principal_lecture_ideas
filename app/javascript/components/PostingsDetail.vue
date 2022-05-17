@@ -4,14 +4,14 @@
     <v-divider></v-divider>
     <h2>タイトル</h2>
     {{ post.title }}
-    <h2>投稿者より一言</h2>
+    <h2>投稿者から講話の紹介</h2>
     {{ post.description }}
     <h2>本文</h2>
     {{ post.content }}
     <h2>対象</h2>
-    　{{ post.grade_range }}
+    {{ post.grade_range_ja }}
     <h2>シーンタイプ</h2>
-    　{{ post.scene_type }}
+    {{ post.scene_type_ja }}
     <div>
       <v-btn depressed color="success">
         <router-link style="text-decoration: none; color: inherit;"  :to="{ path: `/postings/edit/${post.id}` }" class="btn"

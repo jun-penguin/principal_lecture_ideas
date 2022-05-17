@@ -10,6 +10,7 @@
     "@types/qs": "^6.9.7",
     "@vue/compiler-sfc": "^3.2.31",
     "axios": "^0.26.1",
+    "dayjs": "^1.11.2",
     "turbolinks": "^5.2.0",
     "vee-validate": "3.2.3",
     "vue": "2.6.14",

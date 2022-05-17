@@ -9,7 +9,7 @@
     <h2>一言自己紹介</h2>
     {{ profile.self_introduction }}
     <h2>ステータス</h2>
-    {{ profile.status }}
+    {{ profile.status_ja }}
     <h2>都道府県</h2>
     {{ profile.prefecture }}
     <div>

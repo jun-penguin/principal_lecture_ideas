@@ -11,7 +11,8 @@ class User < ActiveRecord::Base
   has_many :posts, dependent: :destroy
 
   enum role: { general: 0, admin: 1 }
-  enum status: { 未設定: 0, 小学校校長: 1, 中学校校長: 2, 元小学校校長: 3, 元中学校校長: 4 }, _prefix: true
+  enum status: { not_set: 0, elementary_school_principal: 1, junior_high_school_principal: 2, former_elementary_school_principal: 3, former_junior_high_school_principal: 4 },
+       _prefix: true
   enum prefecture: { 未設定: 0,
                      北海道: 1, 青森県: 2, 岩手県: 3, 宮城県: 4, 秋田県: 5, 山形県: 6, 福島県: 7,
                      茨城県: 8, 栃木県: 9, 群馬県: 10, 埼玉県: 11, 千葉県: 12, 東京都: 13, 神奈川県: 14,
