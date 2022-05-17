@@ -1,6 +1,6 @@
 <template>
   <v-container class="grey lighten-5">
-    <h1>講話一覧</h1>
+    <h1>講話一覧（新着順）</h1>
     <v-row>
       <v-col v-for="post in this.viewPosts" :key="post.id" cols="12" sm="4">
         <v-card class="mx-auto" max-width="344">
@@ -14,6 +14,7 @@
           </v-card-title>
 
           <v-card-subtitle>
+            {{ post.user.name }}
             {{ post.description }}
           </v-card-subtitle>
 

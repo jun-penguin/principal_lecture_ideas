@@ -1,7 +1,7 @@
 class Api::PostingsController < ApplicationController
   before_action :authenticate_user!, only: ['index', 'show', 'delete', 'update']
   def index
-    @posts = current_user.posts
+    @posts = current_user.posts.order(created_at: :desc)
     render :index, formats: :json, handlers: 'jbuilder'
   end
 

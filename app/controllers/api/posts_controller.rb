@@ -1,7 +1,7 @@
 class Api::PostsController < ApplicationController
   before_action :authenticate_user!, only: %i[create update destroy]
   def index
-    @posts = Post.published.order(created_at: :desc)
+    @posts = Post.published.preload(:user).order(created_at: :desc)
     render :index, formats: :json, handlers: 'jbuilder'
   end
 
@@ -38,7 +38,7 @@ class Api::PostsController < ApplicationController
   end
 
   def search
-    @q = Post.ransack(search_params)
+    @q = Post.preload(:user).ransack(search_params)
     @posts = @q.result(distinct: true).order(created_at: :desc)
     render :search, formats: :json, handlers: 'jbuilder'
   end
