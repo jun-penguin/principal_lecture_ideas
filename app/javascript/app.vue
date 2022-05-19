@@ -1,15 +1,15 @@
 <template>
   <v-app>
-    <Header></Header>
+    <Header />
     <p>
       こんにちは、<span class="name">{{ name }}</span
       >さん
     </p>
-    <Message></Message>
+    <Message />
+    <div class="pg-16">
     <router-view></router-view>
-    <v-footer>
-      <Footer></Footer>
-    </v-footer>
+    </div>
+    <Footer />
   </v-app>
 </template>  
 

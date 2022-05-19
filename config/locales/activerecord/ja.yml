@@ -1,0 +1,23 @@
+ja:
+  enums:
+    user:
+      role:
+        general: 一般
+        admin: 管理者
+      status:
+        not_set: 未設定
+        elementary_school_principal: 現小学校校長
+        junior_high_school_principal: 現中学校校長
+        former_elementary_school_principal: 元小学校校長
+        former_junior_high_school_principal: 元中学校校長
+
+    post:
+      status:
+        draft: 下書き
+        published: 公開済み
+      grade_range:
+        elementary: 小学生
+        junior_high: 中学生
+      scene_type:
+        all_school_assembly: 全校集会
+        event: 行事

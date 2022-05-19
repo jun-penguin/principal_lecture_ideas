@@ -45,9 +45,14 @@ export default {
             return Qs.stringify(params, { arrayFormat: "brackets" });
           },
         })
-        .then((response) => {
-          console.log(response);
-          this.posts = response.data.posts;
+        .then((res) => {
+          console.log(res);
+          const posts = res.data.posts;
+          for (const post of posts) {
+            post.readActivated = false;
+          }
+          this.posts = posts;
+          // this.posts = response.data.posts;
           this.$router.push({
             name: "SearchResult",
             params: { posts: this.posts, t: new Date().getTime() },

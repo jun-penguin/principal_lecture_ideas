@@ -28,6 +28,8 @@
           <v-select
             v-model="status"
             :items="status_select"
+            item-text="label"
+            item-value="value"
             :error-messages="errors"
             label="ステータス"
             data-vv-name="select"
@@ -94,11 +96,11 @@ export default {
     status: "",
     prefecture: "",
     status_select: [
-      "未設定",
-      "小学校校長",
-      "中学校校長",
-      "元小学校校長",
-      "元中学校校長",
+      { label: "未設定", value: "not_set" },
+      { label: "現小学校校長", value: "elementary_school_principal" },
+      { label: "現中学校校長", value: "junior_high_school_principal" },
+      { label: "元小学校校長", value: "former_elementary_school_principal" },
+      { label: "元中学校校長", value: "former_junior_high_school_principal:" },
     ],
     prefecture_select: [
       "未設定",
@@ -189,23 +191,6 @@ export default {
           status: this.status,
           prefecture: this.prefecture,
         })
-        // axios
-        //   .put(
-        //     `/auth`,
-        //     {
-        //       name: this.name,
-        //       self_introduction: this.self_introduction,
-        //       status: this.status,
-        //       prefecture: this.prefecture,
-        //     },
-        //     {
-        //       headers: {
-        //         uid: this.headers["uid"],
-        //         "access-token": this.headers["access-token"],
-        //         client: this.headers["client"],
-        //       },
-        //     }
-        //   )
         .then(
           (response) => {
             this.$router.push({ name: "MyProfile" });
