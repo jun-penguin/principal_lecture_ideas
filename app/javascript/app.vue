@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <Header />
-    <p>
+    <p v-if="this.$route.path =='/'">
       こんにちは、<span class="name">{{ name }}</span
       >さん
     </p>
