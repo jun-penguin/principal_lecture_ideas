@@ -3,6 +3,7 @@
     <h1>新規投稿</h1>
     <validation-observer ref="observer" v-slot="{ invalid }">
       <form @submit.prevent="submit">
+        <!-- タイトル -->
         <validation-provider
           v-slot="{ errors }"
           name="タイトル"
@@ -12,23 +13,30 @@
             v-model="title"
             :error-messages="errors"
             label="タイトル"
-            required
           ></v-text-field>
         </validation-provider>
-        <v-text-field
-          v-model="description"
-          label="投稿者から一言！"
-        ></v-text-field>
 
+        <!-- 講話の紹介 -->
+        <validation-provider v-slot="{ errors }" name="講話の紹介" rules="required">
+        <v-textarea
+          v-model="description"
+          label="講話の紹介"
+          :error-messages="errors"
+          rows="4"
+        ></v-textarea>
+        </validation-provider>
+
+        <!-- 本文 -->
         <validation-provider v-slot="{ errors }" name="本文" rules="required">
           <v-textarea
             v-model="content"
             :error-messages="errors"
             label="本文"
             auto-grow
-            required
           ></v-textarea>
         </validation-provider>
+
+        <!-- 対象選択 -->
         <validation-provider
           v-slot="{ errors }"
           name="対象学年"
@@ -42,9 +50,10 @@
             :error-messages="errors"
             label="対象学年"
             data-vv-name="select"
-            required
           ></v-select>
         </validation-provider>
+
+        <!-- シーン選択 -->
         <validation-provider
           v-slot="{ errors }"
           name="シーンタイプ"
@@ -58,10 +67,10 @@
             :error-messages="errors"
             label="シーンタイプ"
             data-vv-name="select"
-            required
           ></v-select>
         </validation-provider>
         
+        <!-- 公開設定 -->
         <validation-provider
           v-slot="{ errors }"
           name="公開設定"
@@ -75,7 +84,6 @@
             :error-messages="errors"
             label="公開設定"
             data-vv-name="select"
-            required
           ></v-select>
         </validation-provider>
 
@@ -130,7 +138,7 @@ export default {
       { label: "中学生", value: "junior_high" },
     ],
     scene_type_select: [
-      { label: "全校集会", value: "all_scholl_assembly" },
+      { label: "全校集会", value: "all_school_assembly" },
       { label: "行事", value: "event" },
     ],
     status_select: [

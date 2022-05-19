@@ -4,42 +4,56 @@
     <v-row>
       <v-col v-for="post in this.viewPosts" :key="post.id" cols="12" sm="4">
         <v-card class="mx-auto" max-width="344">
-          <v-img
-            src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-            height="200px"
-          ></v-img>
-
-          <v-card-title>
-            {{ post.title }}
-          </v-card-title>
-
-          <v-card-subtitle>
-            {{ post.user.name }}
-            {{ post.description }}
-          </v-card-subtitle>
-
-          <v-card-actions>
-            <v-btn color="orange lighten-2" text>
-              <router-link :to="{ path: `/post/${post.id}` }">
-                講話の詳細ページへ
+          <v-card-text>
+            <div>投稿者: {{ post.user.name }}</div>
+            <div>
+              <router-link
+                :to="{ path: `/post/${post.id}` }"
+                style="text-decoration: none"
+              >
+                <p class="text-h5 orange--text">{{ post.title }}</p>
               </router-link>
-            </v-btn>
-
-            <v-spacer></v-spacer>
-          </v-card-actions>
+            </div>
+            <p>{{ post.grade_range_ja }} {{ post.scene_type_ja }}</p>
+            <p>更新日 {{ formatDate(post.updated_at) }}</p>
+            <!-- readmore部分 -->
+            <div>
+              <p>
+                <span v-if="!post.readActivated">
+                {{ post.description.slice(0, 100) }}
+                </span>
+                <button
+                  class="blue--text"
+                  v-if="!post.readActivated && post.description.length > 100"
+                  @click="post.readActivated = !post.readActivated"
+                >
+                  ...もっと読む
+                </button>
+              </p>
+              <p v-if="post.readActivated">{{ post.description }}</p>
+              <button
+                class="read blue--text"
+                v-if="post.readActivated"
+                @click="post.readActivated = !post.readActivated"
+              >
+                閉じる
+              </button>
+            </div>
+          </v-card-text>
         </v-card>
       </v-col>
-      <v-pagination
-        v-model="page"
-        :length="length"
-        @input="handlePageChange"
-      ></v-pagination>
     </v-row>
+    <v-pagination
+      v-model="page"
+      :length="length"
+      @input="handlePageChange"
+    ></v-pagination>
   </v-container>
-</template>  
+</template>
 
 <script>
 import axios from "axios";
+import dayjs from "dayjs";
 export default {
   name: "PostIndex",
   data: function () {
@@ -48,20 +62,31 @@ export default {
       viewPosts: [],
       length: 0,
       page: 1,
-      pageSize:12
+      pageSize: 12,
     };
   },
   async mounted() {
-    await axios.get("/api/posts").then((res) => (this.posts = res.data.posts)
-    );
-    this.length = Math.ceil(this.posts.length/this.pageSize);
-    this.viewPosts = this.posts.slice(0,this.pageSize);
+    await axios.get("/api/posts").then((res) => {
+      const posts = res.data.posts;
+      for (const post of posts) {
+        post.readActivated = false;
+      }
+      this.posts = posts;
+    });
+    this.length = Math.ceil(this.posts.length / this.pageSize);
+    this.viewPosts = this.posts.slice(0, this.pageSize);
+    console.info(dayjs().format());
   },
 
   methods: {
     handlePageChange: function (pageNumber) {
-      this.viewPosts = this.posts.slice(this.pageSize * (pageNumber - 1),this.pageSize * (pageNumber))
+      this.viewPosts = this.posts.slice(
+        this.pageSize * (pageNumber - 1),
+        this.pageSize * pageNumber
+      );
     },
+
+    formatDate: (dateStr) => dayjs(dateStr).format("YYYY年MM月DD日"),
   },
 };
 </script>

@@ -1,122 +1,122 @@
 <template>
-<v-container class="grey lighten-5">
-  <h1>講話の管理</h1>
-  <v-tabs>
-  <v-tab href="#tab-1">公開中</v-tab>
-  <v-tab href="#tab-2">下書き</v-tab>
-  
-
-  <v-tab-item value="tab-1">
-    <v-row>
-      <v-col v-for="post in publishedFilter" :key="post.id" cols="12" sm="4">
-        <v-card class="mx-auto" max-width="344">
-          <v-img
-            src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-            height="200px"
-          ></v-img>
-
-          <v-card-title>
-            {{ post.title }}
-          </v-card-title>
-
-          <v-card-subtitle>
-            {{ post.description }}
-          </v-card-subtitle>
-
-          <v-card-actions>
-            <v-btn color="orange lighten-2" text>
-              <router-link :to="'/postings/' + post.id">
-                講話の詳細ページへ
-              </router-link>
-            </v-btn>
-
-            <v-spacer></v-spacer>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-tab-item>
-  <v-tab-item value="tab-2">
-    <v-row>
-      <v-col v-for="post in draftFilter" :key="post.id" cols="12" sm="4">
-        <v-card class="mx-auto" max-width="344">
-          <v-img
-            src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-            height="200px"
-          ></v-img>
-
-          <v-card-title>
-            {{ post.title }}
-          </v-card-title>
-
-          <v-card-subtitle>
-            {{ post.description }}
-          </v-card-subtitle>
-
-          <v-card-actions>
-            <v-btn color="orange lighten-2" text>
-              <router-link :to="'/postings/' + post.id">
-                講話の詳細ページへ
-              </router-link>
-            </v-btn>
-
-            <v-spacer></v-spacer>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-tab-item>
-</v-tabs>
-</v-container>
+  <v-container class="grey lighten-5">
+    <h1>講話の管理</h1>
+    <v-tabs>
+      <v-tab href="#tab-1">公開中</v-tab>
+      <v-tab href="#tab-2">下書き</v-tab>
+      <!-- 公開中 -->
+      <v-tab-item value="tab-1">
+        <v-row>
+          <v-col
+            v-for="post in publishedFilter"
+            :key="post.id"
+            cols="12"
+            sm="4"
+          >
+            <v-card class="mx-auto" max-width="344">
+              <v-card-text>
+                <div>
+                  <router-link
+                    :to="{ path: `/post/${post.id}` }"
+                    style="text-decoration: none"
+                  >
+                    <p class="text-h5 orange--text">{{ post.title }}</p>
+                  </router-link>
+                </div>
+                <p>{{ post.grade_range_ja }} {{ post.scene_type_ja }}</p>
+                <p>更新日 {{ formatDate(post.updated_at) }}</p>
+                <!-- readmore部分 -->
+                <div>
+                  <p>
+                    <span v-if="!post.readActivated">
+                      {{ post.description.slice(0, 100) }}
+                    </span>
+                    <button
+                      class="blue--text"
+                      v-if="
+                        !post.readActivated && post.description.length > 100
+                      "
+                      @click="post.readActivated = !post.readActivated"
+                    >
+                      ...もっと読む
+                    </button>
+                  </p>
+                  <p v-if="post.readActivated">{{ post.description }}</p>
+                  <button
+                    class="read blue--text"
+                    v-if="post.readActivated"
+                    @click="post.readActivated = !post.readActivated"
+                  >
+                    閉じる
+                  </button>
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-tab-item>
+      <!-- 下書き -->
+      <v-tab-item value="tab-2">
+        <v-row>
+          <v-col v-for="post in draftFilter" :key="post.id" cols="12" sm="4">
+            <v-card class="mx-auto" max-width="344">
+              <v-card-text>
+                <div>
+                  <router-link
+                    :to="{ path: `/post/${post.id}` }"
+                    style="text-decoration: none"
+                  >
+                    <p class="text-h5 orange--text">{{ post.title }}</p>
+                  </router-link>
+                </div>
+                <p>{{ post.grade_range_ja }} {{ post.scene_type_ja }}</p>
+                <p>更新日 {{ formatDate(post.updated_at) }}</p>
+                <!-- readmore部分 -->
+                <div>
+                  <p>
+                    <span v-if="!post.readActivated">
+                      {{ post.description.slice(0, 100) }}
+                    </span>
+                    <button
+                      class="blue--text"
+                      v-if="
+                        !post.readActivated && post.description.length > 100
+                      "
+                      @click="post.readActivated = !post.readActivated"
+                    >
+                      ...もっと読む
+                    </button>
+                  </p>
+                  <p v-if="post.readActivated">{{ post.description }}</p>
+                  <button
+                    class="read blue--text"
+                    v-if="post.readActivated"
+                    @click="post.readActivated = !post.readActivated"
+                  >
+                    閉じる
+                  </button>
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-tab-item>
+    </v-tabs>
+  </v-container>
 </template>
 
-  <!-- <v-container class="grey lighten-5">
-    <h1>投稿した講話一覧</h1>
-
-    <v-row>
-      <v-col v-for="post in posts" :key="post.id" cols="12" sm="4">
-        <v-card class="mx-auto" max-width="344">
-          <v-img
-            src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-            height="200px"
-          ></v-img>
-
-          <v-card-title>
-            {{ post.title }}
-          </v-card-title>
-
-          <v-card-subtitle>
-            {{ post.description }}
-          </v-card-subtitle>
-
-          <v-card-actions>
-            <v-btn color="orange lighten-2" text>
-              <router-link :to="'/postings/' + post.id">
-                講話の詳細ページへ
-              </router-link>
-            </v-btn>
-
-            <v-spacer></v-spacer>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
-</template>   -->
 
 <script>
 import axios from "axios";
 import { mapState } from "vuex";
+import dayjs from "dayjs";
 export default {
   name: "Postings",
   data: function () {
     return {
       posts: [],
       tab: null,
-      items: [
-        { tab: "公開中"  },
-        { tab: "下書き" },
-      ],
+      items: [{ tab: "公開中" }, { tab: "下書き" }],
     };
   },
   computed: {
@@ -125,21 +125,21 @@ export default {
     }),
     draftFilter() {
       const data = this.posts;
-      const result = data.filter(function(post) {
-        return post.status == "draft"
+      const result = data.filter(function (post) {
+        return post.status == "draft";
       });
       return result;
     },
     publishedFilter() {
       const data = this.posts;
-      const result = data.filter(function(post) {
-        return post.status == "published"
+      const result = data.filter(function (post) {
+        return post.status == "published";
       });
       return result;
     },
   },
 
-  mounted () {
+  mounted() {
     this.getPostings();
   },
 
@@ -153,8 +153,15 @@ export default {
             client: this.headers["client"],
           },
         })
-        .then((res) => (this.posts = res.data.posts));
+        .then((res) => {
+          const posts = res.data.posts;
+          for (const post of posts) {
+            post.readActivated = false;
+          }
+          this.posts = posts;
+        });
     },
+    formatDate: (dateStr) => dayjs(dateStr).format("YYYY年MM月DD日"),
   },
 };
 </script>
