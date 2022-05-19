@@ -17,7 +17,7 @@
               <v-card-text>
                 <div>
                   <router-link
-                    :to="{ path: `/post/${post.id}` }"
+                    :to="{ path: `/postings/${post.id}` }"
                     style="text-decoration: none"
                   >
                     <p class="text-h5 orange--text">{{ post.title }}</p>
@@ -63,7 +63,7 @@
               <v-card-text>
                 <div>
                   <router-link
-                    :to="{ path: `/post/${post.id}` }"
+                    :to="{ path: `/postings/${post.id}` }"
                     style="text-decoration: none"
                   >
                     <p class="text-h5 orange--text">{{ post.title }}</p>

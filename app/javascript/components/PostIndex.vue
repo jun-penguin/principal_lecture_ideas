@@ -1,5 +1,5 @@
 <template>
-  <v-container class="grey lighten-5">
+  <v-container pb-15 class="grey lighten-5">
     <h1>講話一覧（新着順）</h1>
     <v-row>
       <v-col v-for="post in this.viewPosts" :key="post.id" cols="12" sm="4">

@@ -16,7 +16,7 @@
           ></v-text-field>
         </validation-provider>
 
-        Ï<!-- 講話の紹介 -->
+        <!-- 講話の紹介 -->
         <validation-provider
           v-slot="{ errors }"
           name="講話の紹介"

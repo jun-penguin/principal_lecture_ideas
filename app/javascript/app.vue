@@ -1,15 +1,15 @@
 <template>
   <v-app>
-    <Header></Header>
-    <p>
+    <Header />
+    <p v-if="this.$route.path =='/'">
       こんにちは、<span class="name">{{ name }}</span
       >さん
     </p>
-    <Message></Message>
+    <Message />
+    <div class="pg-16">
     <router-view></router-view>
-    <v-footer>
-      <Footer></Footer>
-    </v-footer>
+    </div>
+    <Footer />
   </v-app>
 </template>  
 
