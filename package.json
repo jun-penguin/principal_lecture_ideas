@@ -14,6 +14,7 @@
     "turbolinks": "^5.2.0",
     "vee-validate": "3.2.3",
     "vue": "2.6.14",
+    "vue-loader": "15.9.8",
     "vue-router": "3.5.2",
     "vuetify": "^2.6.4",
     "vuex": "3.6.2",
@@ -23,7 +24,6 @@
   },
   "version": "0.1.0",
   "devDependencies": {
-    "vue-loader": "15.9.8",
     "vue-template-compiler": "^2.6.14",
     "webpack-dev-server": "^3"
   }
