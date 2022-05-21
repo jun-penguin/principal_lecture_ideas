@@ -33,6 +33,11 @@ gem 'devise_token_auth'
 # 検索機能
 gem 'ransack'
 
+# mailer
+gem 'net-imap'
+gem 'net-pop'
+gem 'net-smtp'
+
 # enum
 gem 'enum_help'
 
