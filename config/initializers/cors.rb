@@ -9,7 +9,7 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
     if Rails.env.production?
-      origins 'https://principal-lecture-ideas.herokuapp.com' 
+      origins 'https://principal-lecture-ideas.herokuapp.com'
     else
       origins 'http://localhost:3000'
     end
@@ -20,4 +20,3 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
              methods: %i[get post put patch delete options head]
   end
 end
-## ====== 👆 ここまでコメントを外す =======
