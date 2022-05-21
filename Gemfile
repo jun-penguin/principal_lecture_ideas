@@ -30,6 +30,9 @@ gem 'draper'
 gem 'devise'
 gem 'devise_token_auth'
 
+# CORS
+gem 'rack-cors'
+
 # 検索機能
 gem 'ransack'
 
