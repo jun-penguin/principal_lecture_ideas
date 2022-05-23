@@ -12,7 +12,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import Qs from "qs";
 
 export default {
@@ -36,7 +35,7 @@ export default {
 
   methods: {
     search: function () {
-      axios
+      this.$axios
         .get("/api/posts/search", {
           params: {
             q: this.query,

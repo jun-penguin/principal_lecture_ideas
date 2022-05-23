@@ -52,7 +52,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import dayjs from "dayjs";
 export default {
   name: "PostIndex",
@@ -66,7 +65,7 @@ export default {
     };
   },
   async mounted() {
-    await axios.get("/api/posts").then((res) => {
+    await this.$axios.get("/api/posts").then((res) => {
       const posts = res.data.posts;
       for (const post of posts) {
         post.readActivated = false;

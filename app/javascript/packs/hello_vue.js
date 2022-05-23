@@ -1,5 +1,5 @@
 import Vue from "vue";
-
+import axios from "../plugins/axios.js";
 //import { ValidationProvider, extend, localize } from "vee-validate";
 //import { required } from "vee-validate/dist/rules";
 //import ja from "vee-validate/dist/locale/ja.json";
@@ -14,6 +14,7 @@ import "@mdi/font/css/materialdesignicons.css";
 
 Vue.use(Vuetify);
 const vuetify = new Vuetify();
+Vue.prototype.$axios = axios;
 
 // 日付の日本語表示
 dayjs.locale("ja");

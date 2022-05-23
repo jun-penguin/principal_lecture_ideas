@@ -109,7 +109,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import { mapState } from "vuex";
 import { mapActions } from "vuex";
 import { required } from "vee-validate/dist/rules";
@@ -169,7 +168,7 @@ export default {
     },
     setpostEdit: function () {
       var id = this.$route.params.id;
-      axios
+      this.$axios
         .get(`/api/postings/${id}`, {
           headers: {
             uid: this.headers["uid"],
@@ -190,7 +189,7 @@ export default {
     updatePost: function () {
       var id = this.$route.params.id;
       if (!this.headers) return;
-      axios
+      this.$axios
         .put(
           `/api/postings/${id}`,
           {
