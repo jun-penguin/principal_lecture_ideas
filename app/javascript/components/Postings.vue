@@ -107,7 +107,6 @@
 
 
 <script>
-import axios from "axios";
 import { mapState } from "vuex";
 import dayjs from "dayjs";
 export default {
@@ -145,7 +144,7 @@ export default {
 
   methods: {
     getPostings() {
-      axios
+      this.$axios
         .get("/api/postings", {
           headers: {
             uid: this.headers["uid"],

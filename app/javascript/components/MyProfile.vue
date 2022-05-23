@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import { mapState } from "vuex";
 export default {
   name: "MyProfile",
@@ -44,7 +43,7 @@ export default {
   },
   methods: {
     fetchMyProfile: function () {
-      axios
+      this.$axios
         .get("/api/profiles/", {
           headers: {
             uid: this.headers["uid"],

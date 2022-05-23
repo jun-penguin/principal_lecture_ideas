@@ -38,7 +38,7 @@ const actions = {
   // ログイン：emailとpasswordをAPIに投げる
   logIn(context, { email, password }) {
     axios
-      .post("http://localhost:3000/auth/sign_in", {
+      .post("/auth/sign_in", {
         email: email,
         password: password,
       })
@@ -78,7 +78,7 @@ const actions = {
   // 新規登録：新規登録に必要なデータをAPIに投げる
   signUp(context, { name, email, password, password_confirmation }) {
     axios
-      .post("http://localhost:3000/auth", {
+      .post("/auth", {
         name: name,
         email: email,
         password: password,
@@ -116,7 +116,7 @@ const actions = {
   logOut(context) {
     axios
       // ヘッダ情報を呼び出してDeleteリクに投げる
-      .delete("http://localhost:3000/auth/sign_out", {
+      .delete("/auth/sign_out", {
         headers: context.state.headers,
       })
       .then(function () {
@@ -139,7 +139,7 @@ const actions = {
   updateProfile(context, { name, self_introduction, status, prefecture }) {
     axios
       .put(
-        "http://localhost:3000/auth",
+        "/auth",
         {
           name: name,
           self_introduction: self_introduction,

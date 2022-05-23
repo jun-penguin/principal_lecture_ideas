@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import axios from "axios";
+
 import { mapState } from "vuex";
 import { required } from "vee-validate/dist/rules";
 import {
@@ -167,7 +167,7 @@ export default {
       this.$refs.observer.validate();
     },
     setProfileEdit: function () {
-      axios
+      this.$axios
         .get(`/api/profiles`, {
           headers: {
             uid: this.headers["uid"],

@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import { mapState } from "vuex";
 import { mapActions } from 'vuex'
 export default {
@@ -48,7 +47,7 @@ export default {
     ...mapActions("message", ["showMessage"]),
     fetchPostingsDetail: function () {
       var id = this.$route.params.id;
-      axios
+      this.$axios
         .get("/api/postings/" + id, {
           headers: {
             uid: this.headers["uid"],

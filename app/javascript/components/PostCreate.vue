@@ -103,7 +103,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import { mapActions } from 'vuex'
 import { mapState } from "vuex";
 import { required } from "vee-validate/dist/rules";
@@ -173,7 +172,7 @@ export default {
     },
     createPost: function () {
       if (!this.headers) return; //headerが空ならばここで処理を終了させる。とりあえずの処置。
-      axios
+      this.$axios
         .post(
           "/api/posts",
           {

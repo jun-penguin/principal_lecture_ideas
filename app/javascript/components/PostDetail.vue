@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   name: "PostDetail",
   data: function () {
@@ -32,7 +31,7 @@ export default {
   methods: {
     fetchPostDetail: function () {
       var id = this.$route.params.id;
-      axios.get("/api/posts/" + id).then(
+      this.$axios.get("/api/posts/" + id).then(
         (response) => {
           this.post = response.data;
           console.log(response);
