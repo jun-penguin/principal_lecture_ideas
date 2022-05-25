@@ -1,9 +1,4 @@
 Rails.application.routes.draw do
-  namespace :api do
-    get 'likes/index'
-    get 'likes/create'
-    get 'likes/destroy'
-  end
   mount_devise_token_auth_for 'User', at: 'auth', controllers: {
     registrations: 'auth/registrations'
   }

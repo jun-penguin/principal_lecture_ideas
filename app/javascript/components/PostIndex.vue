@@ -5,7 +5,7 @@
       <v-col v-for="post in this.viewPosts" :key="post.id" cols="12" sm="4">
         <v-card class="mx-auto" max-width="344">
           <v-card-text>
-            <div>投稿者: {{ post.user.name }}</div>
+            <div>投稿者: {{ post.user.name }}   <LikeCount :postId="post.id" /></div>
             <div>
               <router-link
                 :to="{ path: `/post/${post.id}` }"
@@ -53,8 +53,12 @@
 
 <script>
 import dayjs from "dayjs";
+import LikeCount from "./LikeCount.vue";
 export default {
   name: "PostIndex",
+  components: {
+    LikeCount
+  },
   data: function () {
     return {
       posts: [],
