@@ -1,6 +1,6 @@
 <template>
   <span>
-    <v-icon medium color="red lighten-2" left>mdi-heart </v-icon>
+    <v-icon medium color="red lighten-2" left >mdi-heart</v-icon>
     <span>{{ count }}</span>
   </span>
 </template>
