@@ -128,27 +128,6 @@ export default {
         password: this.password,
       });
     },
-
-    // async login() {
-    //   this.error = null;
-    //   try {
-    //     const res = await axios.post("http://localhost:3000/auth/sign_in", {
-    //       email: this.email,
-    //       password: this.password,
-    //     });
-    //     if (!res) {
-    //       throw new Error("メールアドレスかパスワードが違います");
-    //     }
-    //     if (!this.error) {
-    //       // ======= 👇 ここから変更する =======
-    //       setItem(res.headers, res.data.data.name);
-    //       this.$emit('redirectToHome');
-    //       // ====== 👆 ここまで変更する =======
-    //     }
-    //   } catch (error) {
-    //     this.error = "メールアドレスかパスワードが違います";
-    //   }
-    // },
   },
 };
 </script>

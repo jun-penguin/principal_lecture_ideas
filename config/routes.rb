@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     end
     resources :postings, only: %i[index show update destroy]
     resources :likes, only: %i[index create destroy]
+    get 'mylikes' => 'likes#show'
+
     resource :profiles, only: %i[show]
   end
 

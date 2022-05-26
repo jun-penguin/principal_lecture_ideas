@@ -14,7 +14,10 @@
     {{ post.scene_type_ja }}
     <div>
       <v-btn depressed color="success">
-        <router-link style="text-decoration: none; color: inherit;"  :to="{ path: `/postings/edit/${post.id}` }" class="btn"
+        <router-link
+          style="text-decoration: none; color: inherit"
+          :to="{ path: `/postings/edit/${post.id}` }"
+          class="btn"
           >編集</router-link
         >
       </v-btn>
@@ -27,7 +30,7 @@
 
 <script>
 import { mapState } from "vuex";
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 export default {
   name: "PostingsDetail",
   data: function () {
@@ -81,9 +84,9 @@ export default {
             this.showMessage({
               message: "講話を削除しました。",
               type: "warning",
-              status: true
+              status: true,
             }),
-            this.$router.push({ name: "Postings" });
+              this.$router.push({ name: "Postings" });
           },
           (error) => {
             console.log(error);

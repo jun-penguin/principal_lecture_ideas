@@ -1,6 +1,5 @@
 class Api::LikesController < ApplicationController
-  before_action :authenticate_user!
-  # , only: %i[create destroy]
+  before_action :authenticate_user!, only: %i[show create destroy]
 
   def index
     @likes = Like.filter_by_post(params[:post_id])
@@ -8,6 +7,11 @@ class Api::LikesController < ApplicationController
     @user = current_user
     #  if user_signed_in?
     render :index, formats: :json, handlers: 'jbuilder'
+  end
+
+  def show
+    @posts = current_user.favorites
+    render :show, formats: :json, handlers: 'jbuilder'
   end
 
   def create

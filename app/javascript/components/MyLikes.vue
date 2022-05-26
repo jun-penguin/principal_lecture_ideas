@@ -9,7 +9,7 @@
               投稿者: {{ post.user.name }}
               <!-- likecount -->
               <span class="ml-8">
-                 <!-- v-if="loggedIn" -->
+                <!-- v-if="loggedIn" -->
                 <LikeCount :postId="post.id" />
               </span>
             </div>
@@ -59,7 +59,7 @@
 </template>
 
 <script>
-// import { mapState } from "vuex";
+import { mapState } from "vuex";
 import dayjs from "dayjs";
 import LikeCount from "./LikeCount.vue";
 export default {
@@ -76,19 +76,27 @@ export default {
       pageSize: 12,
     };
   },
-  // computed: {
-  //   ...mapState("auth", {
-  //     loggedIn: (state) => state.loggedIn,
-  //   }),
-  // },
+  computed: {
+    ...mapState("auth", {
+      headers: (state) => state.headers,
+    }),
+  },
   async mounted() {
-    await this.$axios.get("/api/posts").then((res) => {
-      const posts = res.data.posts;
-      for (const post of posts) {
-        post.readActivated = false;
-      }
-      this.posts = posts;
-    });
+    await this.$axios
+      .get("/api/mylikes", {
+        headers: {
+          uid: this.headers["uid"],
+          "access-token": this.headers["access-token"],
+          client: this.headers["client"],
+        },
+      })
+      .then((res) => {
+        const posts = res.data.posts;
+        for (const post of posts) {
+          post.readActivated = false;
+        }
+        this.posts = posts;
+      });
     this.length = Math.ceil(this.posts.length / this.pageSize);
     this.viewPosts = this.posts.slice(0, this.pageSize);
     console.info(dayjs().format());

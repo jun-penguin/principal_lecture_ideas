@@ -10,6 +10,7 @@ import Search from "../components/Search.vue";
 import SearchResult from "../components/SearchResult.vue";
 import MyProfile from "../components/MyProfile.vue";
 import MyProfileEdit from "../components/MyProfileEdit.vue";
+import MyLikes from "../components/MyLikes.vue";
 
 
 Vue.use(Router);
@@ -71,6 +72,11 @@ export default new Router({
       path: "/myProfile/edit",
       name: "myProfileEdit",
       component: MyProfileEdit
+    },
+    {
+      path: "/mylikes",
+      name: "myLikes",
+      component: MyLikes
     },
   ],
 });

@@ -1,28 +1,32 @@
 <template>
-  <div>
-    <div v-if="isLiked" @click="deleteLike()"><v-btn
-      tile
-      color=""
-    >
-      <v-icon medium left >
-        mdi-heart
-      </v-icon>
-      参考になったを取り消す  {{ count }}
-    </v-btn></div>
-    <div v-else @click="registerLike()"><v-btn
-      tile
-      color=""
-    >
-      <v-icon medium left dark>
-        mdi-heart-outline
-      </v-icon>
-      参考になりました  {{ count }}
-    </v-btn></div>
+  <div v-if="loggedIn">
+    <div v-if="isLiked" @click="deleteLike()">
+      <v-btn tile color="">
+        <v-icon medium left> mdi-heart </v-icon>
+        参考になったを取り消す {{ count }}
+      </v-btn>
+    </div>
+    <div v-else @click="registerLike()">
+      <v-btn tile color="">
+        <v-icon medium left dark> mdi-heart-outline </v-icon>
+        参考になりました {{ count }}
+      </v-btn>
+    </div>
+  </div>
+
+  <div v-else>
+    <div>
+      <v-btn @click="showAlert()" tile color="">
+        <v-icon medium left dark> mdi-heart-outline </v-icon>
+        参考になりました {{ count }}
+      </v-btn>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import { mapActions } from "vuex";
 export default {
   props: ["postId"],
   data() {
@@ -34,6 +38,7 @@ export default {
   computed: {
     ...mapState("auth", {
       headers: (state) => state.headers,
+      loggedIn: (state) => state.loggedIn,
     }),
     // データが変更されるたび動く
     // ここではlikeListが変更される度に、count,isLikedが再構築される
@@ -57,6 +62,7 @@ export default {
     });
   },
   methods: {
+    ...mapActions("message", ["showMessage"]),
     fetchLikeByPostId: async function () {
       // async function()
       // jsの非同期処理
@@ -98,6 +104,7 @@ export default {
       }
       this.fetchLikeByPostId().then((result) => {
         this.likeList = result.likes;
+        this.current_user_id = result.current_user_id;
       });
     },
     deleteLike: async function () {
@@ -123,6 +130,13 @@ export default {
       if (like) {
         return like.id;
       }
+    },
+    showAlert: function () {
+      this.showMessage({
+        message: "この操作にはユーザー登録、ログインが必要です",
+        type: "warning",
+        status: true,
+      });
     },
   },
 };

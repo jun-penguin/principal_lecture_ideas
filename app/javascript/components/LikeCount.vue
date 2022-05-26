@@ -1,7 +1,7 @@
 <template>
   <span>
-    <v-icon medium color="red lighten-2" left >mdi-heart</v-icon>
-    <span>{{ count }}</span>
+    <v-icon medium color="red lighten-2" left>mdi-heart</v-icon>
+    <span class="ml-n2">{{ count }}</span>
   </span>
 </template>
 
@@ -16,7 +16,7 @@ export default {
   },
   computed: {
     ...mapState("auth", {
-      headers: (state) => state.headers,
+    loggedIn: (state) => state.loggedIn,
     }),
     // データが変更されるたび動く
     // ここではlikeListが変更される度に、count,isLikedが再構築される
@@ -27,6 +27,7 @@ export default {
   },
   created: function () {
     // vueインスタンスの作成、初期化直後に実行される
+
     this.fetchLikeByPostId().then((result) => {
       this.likeList = result.likes;
     });
@@ -36,14 +37,14 @@ export default {
       // async function()
       // jsの非同期処理
       const response = await this.$axios.get(
-        `/api/likes/?post_id=${this.postId}`,
-        {
-          headers: {
-            uid: this.headers["uid"],
-            "access-token": this.headers["access-token"],
-            client: this.headers["client"],
-          },
-        }
+        `/api/likes/?post_id=${this.postId}`
+        // {
+        //   headers: {
+        //     uid: this.headers["uid"],
+        //     "access-token": this.headers["access-token"],
+        //     client: this.headers["client"],
+        //   },
+        // }
       );
       // await
       // その投稿のいいね一覧を取得したい
