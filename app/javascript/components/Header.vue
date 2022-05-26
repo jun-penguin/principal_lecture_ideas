@@ -15,7 +15,7 @@
 
       <!-- いいねした講話リンク（仮） -->
       <v-btn v-if="loggedIn" rounded text large color="primary" class="mr-2"
-        ><router-link to="/favorite">いいねした講話</router-link></v-btn
+        ><router-link to="/mylikes">参考にした講話</router-link></v-btn
       >
       <!-- マイページメニュー -->
       <v-menu v-if="loggedIn" offset-y>
@@ -62,7 +62,7 @@ export default {
   data() {
     return {
       items: [
-        { title: "投稿した講話", link: "/postings", action: "" },
+        { title: "投稿した講話の管理", link: "/postings", action: "" },
         { title: "講話の投稿", link: "/create", action: "" },
         { title: "プロフィールの確認・編集", link: "/myProfile" },
         { title: "ログアウト", link: "", action: "logOut" },
@@ -82,32 +82,10 @@ export default {
     triggerClick(action) {
       if (action === "logOut") {
         this.logOut();
-        // } else if (action === action2) {
-        //   anyAction2();
       }
     },
     redirectToHome() {
       this.$router.push({ name: "PostIndex" });
-      // async logout() {
-      //   try {
-      //     const res = await axios.delete("http://localhost:3000/auth/sign_out", {
-      //       headers: {
-      //         uid: this.email,
-      //         "access-token": window.localStorage.getItem("access-token"),
-      //         client: window.localStorage.getItem("client"),
-      //       },
-      //     });
-      //     console.log("ログアウトしました");
-      //     window.localStorage.removeItem("access-token");
-      //     window.localStorage.removeItem("client");
-      //     window.localStorage.removeItem("uid");
-      //     window.localStorage.removeItem("name");
-      //     this.$router.push({ name: 'PostIndex' });
-      //     return res;
-      //   } catch (error) {
-      //     console.log({ error });
-      //   }
-      // },
     },
   },
 };

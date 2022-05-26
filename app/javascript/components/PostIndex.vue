@@ -5,7 +5,14 @@
       <v-col v-for="post in this.viewPosts" :key="post.id" cols="12" sm="4">
         <v-card class="mx-auto" max-width="344">
           <v-card-text>
-            <div>投稿者: {{ post.user.name }}</div>
+            <div>
+              投稿者: {{ post.user.name }}
+              <!-- likecount -->
+              <span class="ml-8">
+                 <!-- v-if="loggedIn" -->
+                <LikeCount :postId="post.id" />
+              </span>
+            </div>
             <div>
               <router-link
                 :to="{ path: `/post/${post.id}` }"
@@ -20,7 +27,7 @@
             <div>
               <p>
                 <span v-if="!post.readActivated">
-                {{ post.description.slice(0, 100) }}
+                  {{ post.description.slice(0, 100) }}
                 </span>
                 <button
                   class="blue--text"
@@ -52,9 +59,14 @@
 </template>
 
 <script>
+// import { mapState } from "vuex";
 import dayjs from "dayjs";
+import LikeCount from "./LikeCount.vue";
 export default {
   name: "PostIndex",
+  components: {
+    LikeCount,
+  },
   data: function () {
     return {
       posts: [],
@@ -64,6 +76,11 @@ export default {
       pageSize: 12,
     };
   },
+  // computed: {
+  //   ...mapState("auth", {
+  //     loggedIn: (state) => state.loggedIn,
+  //   }),
+  // },
   async mounted() {
     await this.$axios.get("/api/posts").then((res) => {
       const posts = res.data.posts;

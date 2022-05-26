@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container pb-15>
     <h1>記事詳細</h1>
     <v-divider></v-divider>
     <h2>投稿ユーザー</h2>
@@ -13,13 +13,18 @@
     <h2>対象</h2>
     {{ post.grade_range_ja }}
     <h2>シーンタイプ</h2>
-    {{ post.scene_type_ja }}
+    {{ post.scene_type_ja }} 
+    <LikeButton :postId="this.post.id" />
   </v-container>
 </template>
 
 <script>
+import LikeButton from "./LikeButton.vue";
 export default {
   name: "PostDetail",
+  components: {
+    LikeButton
+  },
   data: function () {
     return {
       post: [],
