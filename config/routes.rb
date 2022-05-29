@@ -12,7 +12,10 @@ Rails.application.routes.draw do
     resources :likes, only: %i[index create destroy]
     get 'mylikes' => 'likes#show'
 
-    resource :profiles, only: %i[show]
+    resource :profiles, only: %i[] do
+      get :mypage, on: :collection
+      get '/:username', to: 'profiles#show'
+    end  
   end
 
   get '*path', to: 'static_pages#top'
