@@ -1,13 +1,13 @@
 <template>
   <v-app>
     <Header />
-    <p v-if="this.$route.path =='/'">
+    <p v-if="this.$route.path == '/' && loggedIn">
       こんにちは、<span class="name">{{ name }}</span
       >さん
     </p>
     <Message />
     <div class="pg-16">
-    <router-view></router-view>
+      <router-view></router-view>
     </div>
     <Footer />
   </v-app>
@@ -24,15 +24,15 @@ export default {
   components: {
     Header,
     Footer,
-    Message
+    Message,
   },
-  
-computed: {
-  ...mapState('auth', 
-  {
-    name: state => state.name
-  })  
-}
+
+  computed: {
+    ...mapState("auth", {
+      name: (state) => state.name,
+      loggedIn: (state) => state.loggedIn,
+    }),
+  },
   // data() {
   //   return {
   //     name: window.localStorage.getItem("name"),

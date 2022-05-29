@@ -2,10 +2,13 @@
   <v-container class="grey lighten-5">
     <h1>検索結果</h1>
     <v-row>
+      <p v-if="!posts.length">検索条件に合致する講話はありませんでした。</p>
       <v-col v-for="post in this.viewPosts" :key="post.id" cols="12" sm="4">
         <v-card class="mx-auto" max-width="344">
           <v-card-text>
-            <div>投稿者: {{ post.user.name }}  <LikeCount :postId="post.id" /></div>
+            <div>
+              投稿者: {{ post.user.name }} <LikeCount :postId="post.id" />
+            </div>
             <div>
               <router-link
                 :to="{ path: `/post/${post.id}` }"
@@ -57,7 +60,7 @@ import LikeCount from "./LikeCount.vue";
 export default {
   name: "SearchResult",
   components: {
-    LikeCount
+    LikeCount,
   },
   props: {
     posts: Array,

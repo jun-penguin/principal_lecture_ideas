@@ -1,71 +1,76 @@
 <template>
-  <v-container pb-15 class="grey lighten-5">
-    <h1>講話一覧（新着順）</h1>
-    <v-row>
-      <v-col v-for="post in this.viewPosts" :key="post.id" cols="12" sm="4">
-        <v-card class="mx-auto" max-width="344">
-          <v-card-text>
-            <div>
-              投稿者: {{ post.user.name }}
-              <!-- likecount -->
-              <span class="ml-8">
-                 <!-- v-if="loggedIn" -->
-                <LikeCount :postId="post.id" />
-              </span>
-            </div>
-            <div>
-              <router-link
-                :to="{ path: `/post/${post.id}` }"
-                style="text-decoration: none"
-              >
-                <p class="text-h5 orange--text">{{ post.title }}</p>
-              </router-link>
-            </div>
-            <p>{{ post.grade_range_ja }} {{ post.scene_type_ja }}</p>
-            <p>更新日 {{ formatDate(post.updated_at) }}</p>
-            <!-- readmore部分 -->
-            <div>
-              <p>
-                <span v-if="!post.readActivated">
-                  {{ post.description.slice(0, 100) }}
+  <div>
+    <TopPage />
+    <v-container pb-15 class="grey lighten-5">
+      <p class="text-h5 text-center title font-weight-bold">講話一覧(新着順)</p>
+      <v-row>
+        <v-col v-for="post in this.viewPosts" :key="post.id" cols="12" sm="4">
+          <v-card class="mx-auto" max-width="344">
+            <v-card-text>
+              <div>
+                投稿者: {{ post.user.name }}
+                <!-- likecount -->
+                <span class="ml-8">
+                  <!-- v-if="loggedIn" -->
+                  <LikeCount :postId="post.id" />
                 </span>
+              </div>
+              <div>
+                <router-link
+                  :to="{ path: `/post/${post.id}` }"
+                  style="text-decoration: none"
+                >
+                  <p class="text-h5 orange--text">{{ post.title }}</p>
+                </router-link>
+              </div>
+              <p>{{ post.grade_range_ja }} {{ post.scene_type_ja }}</p>
+              <p>更新日 {{ formatDate(post.updated_at) }}</p>
+              <!-- readmore部分 -->
+              <div>
+                <p>
+                  <span v-if="!post.readActivated">
+                    {{ post.description.slice(0, 100) }}
+                  </span>
+                  <button
+                    class="blue--text"
+                    v-if="!post.readActivated && post.description.length > 100"
+                    @click="post.readActivated = !post.readActivated"
+                  >
+                    ...もっと読む
+                  </button>
+                </p>
+                <p v-if="post.readActivated">{{ post.description }}</p>
                 <button
-                  class="blue--text"
-                  v-if="!post.readActivated && post.description.length > 100"
+                  class="read blue--text"
+                  v-if="post.readActivated"
                   @click="post.readActivated = !post.readActivated"
                 >
-                  ...もっと読む
+                  閉じる
                 </button>
-              </p>
-              <p v-if="post.readActivated">{{ post.description }}</p>
-              <button
-                class="read blue--text"
-                v-if="post.readActivated"
-                @click="post.readActivated = !post.readActivated"
-              >
-                閉じる
-              </button>
-            </div>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-    <v-pagination
-      v-model="page"
-      :length="length"
-      @input="handlePageChange"
-    ></v-pagination>
-  </v-container>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+      <v-pagination
+        v-model="page"
+        :length="length"
+        @input="handlePageChange"
+      ></v-pagination>
+    </v-container>
+  </div>
 </template>
 
 <script>
 // import { mapState } from "vuex";
+import TopPage from "./TopPage.vue";
 import dayjs from "dayjs";
 import LikeCount from "./LikeCount.vue";
 export default {
   name: "PostIndex",
   components: {
     LikeCount,
+    TopPage,
   },
   data: function () {
     return {
