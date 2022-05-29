@@ -2,7 +2,7 @@
   <div>
     <TopPage />
     <v-container pb-15 class="grey lighten-5">
-      <h1>講話一覧（新着順）</h1>
+      <p class="text-h5 text-center title font-weight-bold">講話一覧(新着順)</p>
       <v-row>
         <v-col v-for="post in this.viewPosts" :key="post.id" cols="12" sm="4">
           <v-card class="mx-auto" max-width="344">
