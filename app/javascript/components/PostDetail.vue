@@ -3,7 +3,13 @@
     <h1>記事詳細</h1>
     <v-divider></v-divider>
     <h2>投稿ユーザー</h2>
-    {{ post.user.name }}
+     <router-link
+                  :to="{ path: `/${post.user.name}` }"
+                  style="text-decoration: none"
+                >
+                  <p> {{ post.user.name }}</p>
+                </router-link>
+    
     <h2>タイトル</h2>
     {{ post.title }}
     <h2>投稿者から講話の紹介</h2>

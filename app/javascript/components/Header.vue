@@ -3,7 +3,7 @@
     <v-app-bar color="gray accent-4" dark>
       <!-- サイトタイトル -->
       <v-toolbar-title @click="$router.push('/')" style="cursor:pointer"
-        >Principal_lecture_Ideas</v-toolbar-title
+        >Principal_Lecture_Ideas</v-toolbar-title
       >
 
       <v-spacer></v-spacer>

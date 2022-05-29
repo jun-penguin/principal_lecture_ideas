@@ -1,6 +1,17 @@
 <template>
-  <v-container pb-15 class="grey lighten-5">
-    <h1>参考にした講話一覧</h1>
+  <v-container>
+    <h1>ユーザープロフィール</h1>
+    <v-divider></v-divider>
+    <h2>ユーザー名</h2>
+    {{ profile.name }}
+    <h2>一言自己紹介</h2>
+    {{ profile.self_introduction }}
+    <h2>ステータス</h2>
+    {{ profile.status_ja }}
+    <h2>都道府県</h2>
+    {{ profile.prefecture }}
+    <h1 class="pt-5">{{ profile.name }}さんの投稿一覧</h1>
+    <v-divider class="pb-5"></v-divider>
     <v-row>
       <v-col v-for="post in this.viewPosts" :key="post.id" cols="12" sm="4">
         <v-card class="mx-auto" max-width="344">
@@ -59,16 +70,15 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 import dayjs from "dayjs";
 import LikeCount from "./LikeCount.vue";
 export default {
-  name: "MyLikes",
   components: {
     LikeCount,
   },
   data: function () {
     return {
+      profile: [],
       posts: [],
       viewPosts: [],
       length: 0,
@@ -76,43 +86,43 @@ export default {
       pageSize: 12,
     };
   },
-  computed: {
-    ...mapState("auth", {
-      headers: (state) => state.headers,
-    }),
-  },
   async mounted() {
-    await this.$axios
-      .get("/api/mylikes", {
-        headers: {
-          uid: this.headers["uid"],
-          "access-token": this.headers["access-token"],
-          client: this.headers["client"],
-        },
-      })
-      .then((res) => {
-        const posts = res.data.posts;
-        for (const post of posts) {
-          post.readActivated = false;
-        }
-        this.posts = posts;
-      });
+    var username = this.$route.params.username;
+    this.fetchProfile();
+    await this.$axios.get("/api/profiles/" + username).then((res) => {
+      const posts = res.data.posts;
+      for (const post of posts) {
+        post.readActivated = false;
+      }
+      this.posts = posts;
+    });
     this.length = Math.ceil(this.posts.length / this.pageSize);
     this.viewPosts = this.posts.slice(0, this.pageSize);
     console.info(dayjs().format());
   },
-
   methods: {
+    fetchProfile: function () {
+      var username = this.$route.params.username;
+      this.$axios.get("/api/profiles/" + username).then(
+        (response) => {
+          this.profile = response.data;
+          console.log(response);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
     handlePageChange: function (pageNumber) {
       this.viewPosts = this.posts.slice(
         this.pageSize * (pageNumber - 1),
         this.pageSize * pageNumber
       );
     },
-
     formatDate: (dateStr) => dayjs(dateStr).format("YYYY年MM月DD日"),
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

@@ -8,6 +8,7 @@
           <v-card class="mx-auto" max-width="344">
             <v-card-text>
               <div>
+                
                 投稿者: {{ post.user.name }}
                 <!-- likecount -->
                 <span class="ml-8">
