@@ -50,7 +50,6 @@ class Api::PostsController < ApplicationController
   end
 
   def search_params
-    params.require(:q).permit(:title_or_content_cont, :status_eq)
+    params.require(:q).permit(:title_or_description_or_content_cont, :status_eq, :grade_range_eq, :scene_type_eq)
   end
-
 end

@@ -53,7 +53,7 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-pagination
+      <v-pagination class="pt-3"
         v-model="page"
         :length="length"
         @input="handlePageChange"

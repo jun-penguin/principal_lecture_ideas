@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "http://localhost:3000"
-  // baseURL: "https://principal-lecture-ideas.herokuapp.com",
+  // baseURL: "http://localhost:3000"
+  baseURL: "https://principal-lecture-ideas.herokuapp.com",
 });
