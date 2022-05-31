@@ -1,8 +1,8 @@
 <template>
   <!-- 検索フォーム -->
   <v-text-field
-    v-model="query.title_or_content_cont"
-    placeholder="タイトル・本文で検索"
+    v-model="query.title_or_description_or_content_cont"
+    placeholder="タイトル・概要・本文で検索"
     type="text"
   >
     <template v-slot:append-outer>
@@ -21,7 +21,7 @@ export default {
     return {
       // posts: [],
       query: {
-        title_or_content_cont: null,
+        title_or_description_or_content_cont: null,
         status_eq: 1, //公開済みのみ検索対象に
       },
     };
@@ -56,7 +56,7 @@ export default {
           })
           this.$router.push({
             name: "SearchResult",
-            // params: { posts: this.posts},
+            params: { title_or_description_or_content_cont: this.query.title_or_description_or_content_cont},
             query: {
               t: new Date().getTime(),
             },
