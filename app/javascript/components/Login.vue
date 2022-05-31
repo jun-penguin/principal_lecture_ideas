@@ -56,19 +56,7 @@
             </v-layout>
           </v-container>
         </v-card-text>
-        <!-- <v-card-actions>
-          <v-container grid-list-md>
-            <div class="error">{{ error }}</div>
-            <v-btn
-              block
-              color="success"
-              dark
-              :disabled="invalid"
-              v-on:click="loginHundler"
-              >ログイン</v-btn
-            >
-          </v-container>
-        </v-card-actions> -->
+
       </validation-observer>
     </v-card>
   </v-dialog>
@@ -114,7 +102,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions("message", ["showMessage"]),
+    // ...mapActions("message", ["showMessage"]),
     loginHundler: function () {
       this.closeDialog();
       this.logIn();

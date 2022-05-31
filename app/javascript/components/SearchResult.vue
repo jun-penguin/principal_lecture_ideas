@@ -57,34 +57,51 @@
 <script>
 import dayjs from "dayjs";
 import LikeCount from "./LikeCount.vue";
+
 export default {
   name: "SearchResult",
   components: {
     LikeCount,
   },
-  props: {
-    posts: Array,
-  },
+  // props: {
+  //   posts: Array,
+  // },
 
   data: function () {
     return {
+      posts: [],
       viewPosts: [],
       length: 0,
       page: 1,
       pageSize: 12,
     };
   },
-  mounted() {
+
+  async mounted() {
+    await this.setPosts();
+    // const posts = await this.setPosts.posts;
+    // this.posts = await posts;
     this.setResult();
   },
 
+  // computed: {
+  //   setPosts: function () {
+  //     return this.$store.getters["responseDate/posts"];
+  //   },
+  // },
+
   watch: {
-    $route() {
+    async $route() {
+      await this.setPosts();
       this.setResult();
     },
   },
 
   methods: {
+    setPosts: function () {
+      this.posts = this.$store.getters["responseDate/posts"].posts;
+      // return this.$store.getters['responseDate/posts'];
+    },
     setResult: function () {
       this.length = Math.ceil(this.posts.length / this.pageSize);
       this.viewPosts = this.posts.slice(0, this.pageSize);

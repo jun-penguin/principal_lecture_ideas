@@ -146,20 +146,6 @@ export default {
     ],
   }),
   computed: {
-    // ja_grade_range: function () {
-    //   if (this.grade_range == "中学生") {
-    //     return (this.grade_range = "junior_high");
-    //   } else {
-    //     return (this.grade_range = "elementary");
-    //   }
-    // },
-    // ja_scene_type: function () {
-    //   if (this.scene_type == "行事") {
-    //     return (this.scene_type = "event");
-    //   } else {
-    //     return (this.scene_type = "all_scholl_assembly");
-    //   }
-    // },
     ...mapState("auth", {
       headers: (state) => state.headers,
     }),

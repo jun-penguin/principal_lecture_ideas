@@ -19,7 +19,7 @@ export default {
 
   data: function () {
     return {
-      posts: [],
+      // posts: [],
       query: {
         title_or_content_cont: null,
         status_eq: 1, //公開済みのみ検索対象に
@@ -50,11 +50,13 @@ export default {
           for (const post of posts) {
             post.readActivated = false;
           }
-          this.posts = posts;
-          // this.posts = response.data.posts;
+          // this.posts = posts;
+          this.$store.dispatch("responseDate/getPosts", {
+            posts: posts
+          })
           this.$router.push({
             name: "SearchResult",
-            params: { posts: this.posts, t: new Date().getTime() },
+            // params: { posts: this.posts},
             query: {
               t: new Date().getTime(),
             },
