@@ -52,13 +52,18 @@ export default {
           }
           // this.posts = posts;
           this.$store.dispatch("responseDate/getPosts", {
-            posts: posts
-          })
+            posts: posts,
+          });
           this.$router.push({
             name: "SearchResult",
-            params: { title_or_description_or_content_cont: this.query.title_or_description_or_content_cont},
+            params: {
+              title_or_description_or_content_cont:
+                this.query.title_or_description_or_content_cont,
+            },
             query: {
-              t: new Date().getTime(),
+              a: {
+                t: new Date().getTime(),
+              },
             },
           });
         })

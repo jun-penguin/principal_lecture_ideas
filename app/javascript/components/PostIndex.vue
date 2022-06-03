@@ -8,7 +8,6 @@
           <v-card class="mx-auto" max-width="344">
             <v-card-text>
               <div>
-                
                 投稿者: {{ post.user.name }}
                 <!-- likecount -->
                 <span class="ml-8">
@@ -53,17 +52,17 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-pagination class="pt-3"
+      <v-pagination
+        class="pt-3"
         v-model="page"
         :length="length"
-        @input="handlePageChange"
+        @input="changePage"
       ></v-pagination>
     </v-container>
   </div>
 </template>
 
 <script>
-// import { mapState } from "vuex";
 import TopPage from "./TopPage.vue";
 import dayjs from "dayjs";
 import LikeCount from "./LikeCount.vue";
@@ -73,6 +72,9 @@ export default {
     LikeCount,
     TopPage,
   },
+  // props: {
+  //   currentPage: Number,
+  // },
   data: function () {
     return {
       posts: [],
@@ -80,14 +82,33 @@ export default {
       length: 0,
       page: 1,
       pageSize: 12,
+      // currentPage: this.$route.query.page
     };
   },
+
+  // watch: {
+  //   "$route.query.page": {
+  //     handler: function () {
+  //       console.log("watch");
+  //       this.page = Number(this.$route.query.page || 1);
+  //       this.handlePageChange(Number(this.$route.query.page) || 1);
+  //     },
+  //     immediate: true,
+  //   },
+  // },
+  // "$route.query.page"() {
+  //   console.log('Hi')
+  //   this.handlePageChange(this.$route.query.page || 1)
+  //   this.page = Number(this.$route.query.page || 1)
+  // },
+  // },
   // computed: {
   //   ...mapState("auth", {
   //     loggedIn: (state) => state.loggedIn,
   //   }),
   // },
   async mounted() {
+    console.log("mounted");
     await this.$axios.get("/api/posts").then((res) => {
       const posts = res.data.posts;
       for (const post of posts) {
@@ -98,17 +119,50 @@ export default {
     this.length = Math.ceil(this.posts.length / this.pageSize);
     this.viewPosts = this.posts.slice(0, this.pageSize);
     console.info(dayjs().format());
+    this.$watch("$route.query.page", {
+      handler: function () {
+        console.log("watch");
+        this.page = Number(this.$route.query.page || 1);
+        this.handlePageChange(Number(this.$route.query.page) || 1);
+      },
+      immediate: true,
+    });
   },
 
   methods: {
     handlePageChange: function (pageNumber) {
+      console.log(pageNumber);
+      // this.viewPosts =
+      // this.viewPosts = JSON.parse(JSON.stringify(this.viewPosts))
       this.viewPosts = this.posts.slice(
         this.pageSize * (pageNumber - 1),
         this.pageSize * pageNumber
       );
+      console.log(this.posts);
+      console.log(this.pageSize * (pageNumber - 1));
+      console.log(this.pageSize * pageNumber);
+      console.log(this.viewPosts);
+      // const aaa = JSON.stringify(this.viewPosts);
+      // this.viewPosts = aaa;
+
+      // this.$router.push({
+      //   query: {
+      //     page: Number(pageNumber),
+      //   },
+      // });
+      // var page = this.$route.params.page;
+      // console.log(page);
     },
 
     formatDate: (dateStr) => dayjs(dateStr).format("YYYY年MM月DD日"),
+    changePage: function () {
+      console.log("routerPush");
+      this.$router.push({
+        query: {
+          page: Number(this.page),
+        },
+      });
+    },
   },
 };
 </script>

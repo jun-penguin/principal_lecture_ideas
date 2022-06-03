@@ -21,7 +21,9 @@
 
     <h1>検索結果</h1>
     <v-row>
-      <p class="pt-5" v-if="!posts.length">検索条件に合致する講話はありませんでした。</p>
+      <p class="pt-5" v-if="!posts.length">
+        検索条件に合致する講話はありませんでした。
+      </p>
       <v-col v-for="post in this.viewPosts" :key="post.id" cols="12" sm="4">
         <v-card class="mx-auto" max-width="344">
           <v-card-text>
@@ -65,7 +67,8 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-pagination class="pt-3"
+    <v-pagination
+      class="pt-3"
       v-model="page"
       :length="length"
       @input="handlePageChange"
@@ -140,6 +143,14 @@ export default {
       this.query.title_or_description_or_content_cont =
         this.title_or_description_or_content_cont;
     },
+    "$route.query.page": {
+      handler: function () {
+        console.log("Hi");
+        this.handlePageChange(this.$route.query.a.page || 1);
+        this.page = Number(this.$route.query.a.page || 1);
+      },
+      immediate: true,
+    },
   },
 
   methods: {
@@ -155,7 +166,16 @@ export default {
     handlePageChange: function (pageNumber) {
       this.viewPosts = this.posts.slice(
         this.pageSize * (pageNumber - 1),
-        this.pageSize * pageNumber
+        this.pageSize * pageNumber,
+        this.$router.push({
+          query: {
+            a: {
+                page: pageNumber,
+              },
+            
+            // t: new Date().getTime(),
+          },
+        })
       );
     },
     // 絞り込み検索
@@ -180,14 +200,16 @@ export default {
             posts: posts,
           });
           this.$router.push({
-            name: "SearchResult",
+            // name: "SearchResult",
             // params: { posts: this.posts},
             params: {
               title_or_description_or_content_cont:
                 this.query.title_or_description_or_content_cont,
             },
             query: {
-              t: new Date().getTime(),
+              a: {
+                t: new Date().getTime(),
+              },
             },
           });
         })
