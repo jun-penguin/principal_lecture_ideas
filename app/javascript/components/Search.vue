@@ -53,17 +53,25 @@ export default {
           // this.posts = posts;
           this.$store.dispatch("responseDate/getPosts", {
             posts: posts,
+          })
+          this.$store.dispatch("responseDate/getWord", {
+            word: this.query.title_or_description_or_content_cont
+          })
+          this.$store.dispatch("responseDate/getGrade_range", {
+            grade_range: null
+          });
+          this.$store.dispatch("responseDate/getScene_type", {
+            scene_type: null
           });
           this.$router.push({
             name: "SearchResult",
-            params: {
-              title_or_description_or_content_cont:
-                this.query.title_or_description_or_content_cont,
-            },
+            // params: {
+            //   title_or_description_or_content_cont:
+            //     this.query.title_or_description_or_content_cont,
+            // },
             query: {
-              a: {
                 t: new Date().getTime(),
-              },
+                // page: 1,
             },
           });
         })

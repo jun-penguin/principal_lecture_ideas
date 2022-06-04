@@ -65,7 +65,6 @@
 
 <script>
 import { required, email, min } from "vee-validate/dist/rules";
-import { mapActions } from 'vuex'
 import {
   extend,
   ValidationObserver,
