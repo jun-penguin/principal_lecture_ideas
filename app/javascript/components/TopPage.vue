@@ -33,9 +33,9 @@
       </p>
       <v-row class="pb-10">
         <v-col cols="12" sm="4">
-          <v-card class="mx-auto" max-width="344">
+          <v-card class="mx-auto pt-5" max-width="344">
             <v-img
-              class="pt-5 mx-auto"
+              class="pt-10 mx-auto"
               v-bind:src="require('../../assets/images/glass.jpeg')"
               max-height="100px"
               max-width="100px"
@@ -49,7 +49,7 @@
           </v-card>
         </v-col>
         <v-col cols="12" sm="4">
-          <v-card class="mx-auto" max-width="344">
+          <v-card class="mx-auto pt-5" max-width="344">
             <v-img
               class="mx-auto"
               v-bind:src="require('../../assets/images/bookmark.jpeg')"
@@ -65,7 +65,7 @@
           </v-card>
         </v-col>
         <v-col cols="12" sm="4">
-          <v-card class="mx-auto" max-width="344">
+          <v-card class="mx-auto pt-5" max-width="344">
             <v-img
               class="mx-auto"
               v-bind:src="require('../../assets/images/pen.jpeg')"
