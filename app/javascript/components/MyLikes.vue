@@ -51,9 +51,10 @@
       </v-col>
     </v-row>
     <v-pagination
+      class="pt-3"
       v-model="page"
       :length="length"
-      @input="handlePageChange"
+      @input="changePage"
     ></v-pagination>
   </v-container>
 </template>
@@ -100,6 +101,14 @@ export default {
     this.length = Math.ceil(this.posts.length / this.pageSize);
     this.viewPosts = this.posts.slice(0, this.pageSize);
     console.info(dayjs().format());
+    this.$watch("$route.query.page", {
+      handler: function () {
+        console.log("watch");
+        this.page = Number(this.$route.query.page || 1);
+        this.handlePageChange(Number(this.$route.query.page) || 1);
+      },
+      immediate: true,
+    });
   },
 
   methods: {
@@ -111,6 +120,14 @@ export default {
     },
 
     formatDate: (dateStr) => dayjs(dateStr).format("YYYY年MM月DD日"),
+    changePage: function () {
+      console.log("routerPush");
+      this.$router.push({
+        query: {
+          page: Number(this.page),
+        },
+      });
+    },
   },
 };
 </script>
