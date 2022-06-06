@@ -47,7 +47,7 @@
                 <v-btn
                   block
                   color="success"
-                  dark
+                
                   :disabled="invalid"
                   v-on:click="loginHundler"
                   >ログイン</v-btn

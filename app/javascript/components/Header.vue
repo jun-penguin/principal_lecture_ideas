@@ -25,7 +25,7 @@
 
       <!-- 参考にした講話リンク  -->
       <v-btn v-if="loggedIn" rounded text large color="primary" class="mr-2"
-        ><router-link to="/mylikes">参考にした講話</router-link></v-btn
+        ><router-link to="/mylikes" style="text-decoration: none">参考にした講話</router-link></v-btn
       >
       <!-- マイページメニュー -->
       <v-menu v-if="loggedIn" offset-y>
@@ -47,10 +47,10 @@
         </v-list>
       </v-menu>
       <!-- 新規ユーザー登録 -->
-      <Signup v-if="!loggedIn" @redirectToHome="redirectToHome" />
+      <Signup v-if="!loggedIn" />
 
       <!-- ログインボタン -->
-      <Login v-if="!loggedIn" @redirectToHome="redirectToHome" />
+      <Login v-if="!loggedIn" />
     </v-app-bar>
   </div>
 </template>

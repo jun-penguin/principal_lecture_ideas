@@ -48,7 +48,7 @@
           </v-card>
         </v-col>
         <v-col cols="12" sm="4">
-          <v-card class="mx-auto pt-5" max-width="344">
+          <v-card class="mx-auto pt-5" max-width="344" max-height="300">
             <v-img
               class="mx-auto"
               v-bind:src="require('../../assets/images/bookmark.jpeg')"
@@ -75,7 +75,7 @@
             <v-card-title class="justify-center"> 投稿する </v-card-title>
 
             <v-card-subtitle class="text-center"
-              >お持ちの講話アイディアを投稿することで、<br />プラットフォームを充実させることができます。<br />
+              >お持ちの講話アイディアを投稿することで、<br />プラットフォームを充実させ、全国の校長先生にアイディアを提供することができます。<br />
             </v-card-subtitle>
           </v-card>
         </v-col>
