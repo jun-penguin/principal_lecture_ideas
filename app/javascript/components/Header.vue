@@ -19,13 +19,13 @@
       <v-spacer></v-spacer>
 
       <!-- 検索フォーム -->
-      <Search />
+      <Search class="pt-3" />
 
       <v-spacer></v-spacer>
 
       <!-- 参考にした講話リンク  -->
-      <v-btn v-if="loggedIn" rounded text large color="primary" class="mr-2"
-        ><router-link to="/mylikes" style="text-decoration: none">参考にした講話</router-link></v-btn
+      <v-btn v-if="loggedIn" rounded text large class="mr-2"
+        ><router-link to="/mylikes"  style="text-decoration: none; color: white; ">参考にした講話</router-link></v-btn
       >
       <!-- マイページメニュー -->
       <v-menu v-if="loggedIn" offset-y>

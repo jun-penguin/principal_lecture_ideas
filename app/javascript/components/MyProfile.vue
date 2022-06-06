@@ -43,8 +43,11 @@ export default {
   },
   methods: {
     fetchMyProfile: function () {
+      // const delay = 1000; // スリーブ時間 ms
+      console.log("プロフィールデータの取得開始")
       this.$axios
         .get("/api/profiles/mypage", {
+          timeout :5000,
           headers: {
             uid: this.headers["uid"],
             "access-token": this.headers["access-token"],
@@ -54,7 +57,7 @@ export default {
         .then(
           (response) => {
             this.profile = response.data;
-            console.log(response);
+            console.log("ここでプロフィール情報の決定");
           },
           (error) => {
             console.log(error);

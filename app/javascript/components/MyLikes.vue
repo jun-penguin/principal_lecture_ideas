@@ -1,9 +1,9 @@
 <template>
-  <v-container pb-15 class="grey lighten-5">
+  <v-container pb-15 class="grey lighten-5 pt-10">
     <h1>参考にした講話一覧</h1>
     <v-row>
-      <v-col v-for="post in this.viewPosts" :key="post.id" cols="12" sm="4">
-        <v-card class="mx-auto" max-width="344">
+      <v-col v-for="post in this.viewPosts" :key="post.id" cols="12" sm="4" >
+        <v-card class="mx-auto" max-width="344" >
           <v-card-text>
             <div>
               投稿者: {{ post.user.name }}

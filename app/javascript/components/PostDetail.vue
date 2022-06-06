@@ -12,7 +12,7 @@
     
     <h2>タイトル</h2>
     {{ post.title }}
-    <h2>投稿者から講話の紹介</h2>
+    <h2>講話の紹介</h2>
     {{ post.description }}
     <h2>本文</h2>
     {{ post.content }}

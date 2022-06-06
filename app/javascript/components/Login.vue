@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" max-width="600px">
     <template v-slot:activator="{ on }">
-      <v-btn rounded text large color="primary" v-on="on">ログイン</v-btn>
+      <v-btn rounded text large color="white" v-on="on">ログイン</v-btn>
     </template>
     <v-card>
       <validation-observer ref="observer" v-slot="{ invalid }">
