@@ -11,7 +11,6 @@
                 投稿者: {{ post.user.name }}
                 <!-- likecount -->
                 <span class="ml-8">
-                  <!-- v-if="loggedIn" -->
                   <LikeCount :postId="post.id" />
                 </span>
               </div>

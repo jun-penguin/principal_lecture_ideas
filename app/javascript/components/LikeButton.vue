@@ -54,7 +54,8 @@ export default {
       return Boolean(this.findLikeId());
     },
   },
-  created: function () {
+  mounted: function () {
+    console.log("created")
     // vueインスタンスの作成、初期化直後に実行される
     this.fetchLikeByPostId().then((result) => {
       this.likeList = result.likes;
@@ -66,6 +67,8 @@ export default {
     fetchLikeByPostId: async function () {
       // async function()
       // jsの非同期処理
+      console.log("fetchlkebypostid");
+      console.log(this.postId)
       const response = await this.$axios.get(
         `/api/likes/?post_id=${this.postId}`,
         {
@@ -76,12 +79,13 @@ export default {
           },
         }
       );
+      console.log(response.data);
       // await
       // その投稿のいいね一覧を取得したい
       if (response.status !== 200) {
         process.exit();
       }
-      // もし処理が失敗したらプロセスから抜ける(処理をやめる？)
+      // もし処理が失敗したらプロセスから抜ける
       return response.data;
     },
     registerLike: async function () {

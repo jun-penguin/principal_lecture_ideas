@@ -2,17 +2,18 @@
   <v-container>
     <h1>記事詳細</h1>
     <v-divider></v-divider>
-    <h2>タイトル</h2>
+    <h2 class="pb-2">タイトル</h2>
     {{ post.title }}
-    <h2>投稿者から講話の紹介</h2>
+    <h2 class="pt-4 pb-2">投稿者から講話の紹介</h2>
     {{ post.description }}
-    <h2>本文</h2>
+    <h2 class="pt-4 pb-2">本文</h2>
     {{ post.content }}
-    <h2>対象</h2>
+    <h2 class="pt-4 pb-2">対象</h2>
     {{ post.grade_range_ja }}
-    <h2>シーンタイプ</h2>
+    <h2 class="pt-4 ">シーンタイプ</h2>
     {{ post.scene_type_ja }}
-    <div>
+    <LikeButton class="pt-5 pb-3" :postId="this.$route.params.id" />
+    <div class="pt-4 ">
       <v-btn depressed color="success">
         <router-link
           style="text-decoration: none; color: inherit"
@@ -31,8 +32,12 @@
 <script>
 import { mapState } from "vuex";
 import { mapActions } from "vuex";
+import LikeButton from "./LikeButton.vue";
 export default {
   name: "PostingsDetail",
+  components: {
+    LikeButton,
+  },
   data: function () {
     return {
       post: [],
@@ -61,8 +66,8 @@ export default {
         .then(
           (response) => {
             this.post = response.data;
-            console.log(response);
-            this.user = response.data;
+            console.log("取得完了");
+            // this.user = response.data;
           },
           (error) => {
             console.log(error);
@@ -71,7 +76,7 @@ export default {
     },
     deletePost: function () {
       var id = this.$route.params.id;
-      axios
+      this.$axios
         .delete("/api/postings/" + id, {
           headers: {
             uid: this.headers["uid"],
