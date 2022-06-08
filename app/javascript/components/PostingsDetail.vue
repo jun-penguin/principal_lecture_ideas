@@ -1,10 +1,12 @@
 <template>
   <v-container>
-    <h1>記事詳細</h1>
+    <h1>講話詳細</h1>
     <v-divider></v-divider>
     <h2 class="pb-2">タイトル</h2>
+    <p class="text-h6">
     {{ post.title }}
-    <h2 class="pt-4 pb-2">投稿者から講話の紹介</h2>
+    </p>
+    <h2 class="pt-4 pb-2">講話の紹介</h2>
     {{ post.description }}
     <h2 class="pt-4 pb-2">本文</h2>
     {{ post.content }}

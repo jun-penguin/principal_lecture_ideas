@@ -31,7 +31,7 @@
                     {{ post.description.slice(0, 100) }}
                   </span>
                   <button
-                    class="blue--text"
+                    class="blue--text" 
                     v-if="!post.readActivated && post.description.length > 100"
                     @click="post.readActivated = !post.readActivated"
                   >

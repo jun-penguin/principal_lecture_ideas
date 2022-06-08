@@ -1,17 +1,19 @@
 <template>
   <v-container class="pb-15">
-    <h1>記事詳細</h1>
+    <h1>講話詳細</h1>
     <v-divider></v-divider>
-    <h2 class="thing">投稿ユーザー</h2>
-     <router-link
-                  :to="{ path: `/${post.user.name}` }"
-                  style="text-decoration: none"
-                >
-                  <p> {{ post.user.name }}</p>
-                </router-link>
-    
+    <h2>投稿ユーザー</h2>
+    <router-link
+      :to="{ path: `/${post.user.name}` }"
+      style="text-decoration: none"
+    >
+      <p>{{ post.user.name }}</p>
+    </router-link>
+
     <h2 class="pb-2">タイトル</h2>
+    <p class="text-h6">
     {{ post.title }}
+    </p>
     <h2 class="pt-4 pb-2">講話の紹介</h2>
     {{ post.description }}
     <h2 class="pt-4 pb-2">本文</h2>
@@ -19,8 +21,8 @@
     <h2 class="pt-4 pb-2">対象</h2>
     {{ post.grade_range_ja }}
     <h2 class="pt-4 pb-2">シーンタイプ</h2>
-    {{ post.scene_type_ja }} 
-    <LikeButton class="pt-5"  :postId="this.post.id" />
+    {{ post.scene_type_ja }}
+    <LikeButton class="pt-5" :postId="this.post.id" />
   </v-container>
 </template>
 
@@ -29,7 +31,7 @@ import LikeButton from "./LikeButton.vue";
 export default {
   name: "PostDetail",
   components: {
-    LikeButton
+    LikeButton,
   },
   data: function () {
     return {
