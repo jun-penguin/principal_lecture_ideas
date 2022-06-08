@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" max-width="600px">
     <template v-slot:activator="{ on }">
-      <v-btn rounded text large color="primary" class="mr-2" v-on="on"
+      <v-btn rounded text large color="white" class="mr-2" v-on="on"
         >新規登録</v-btn
       >
     </template>
@@ -88,7 +88,6 @@
               <v-btn
                 block
                 color="success"
-                dark
                 :disabled="invalid"
                 @click="signupHundler"
                 >登録</v-btn
@@ -161,29 +160,6 @@ export default {
         password_confirmation: this.password_confirmation,
       });
     },
-    //   async signUp() {
-    //     this.error = null;
-    //     try {
-    //       const res = await axios.post("http://localhost:3000/auth", {
-    //         name: this.name,
-    //         email: this.email,
-    //         password: this.password,
-    //         password_confirmation: this.password_confirmation,
-    //       });
-    //       if (!res) {
-    //         throw new Error("アカウントを登録できませんでした");
-    //       }
-    //       if (!this.error) {
-    //         this.$store.dispatch('auth/')
-    //         // setItem(res.headers, res.data.data.name);
-    //         this.$emit('redirectToHome');
-    //       }
-    //       console.log({ res });
-    //       return res;
-    //     } catch (error) {
-    //       this.error = "アカウントを登録できませんでした";
-    //     }
-    //   },
   },
 };
 </script>

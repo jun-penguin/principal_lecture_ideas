@@ -1,9 +1,9 @@
 <template>
-  <v-container pb-15 class="grey lighten-5">
+  <v-container pb-15 class="grey lighten-5 pt-10">
     <h1>参考にした講話一覧</h1>
     <v-row>
-      <v-col v-for="post in this.viewPosts" :key="post.id" cols="12" sm="4">
-        <v-card class="mx-auto" max-width="344">
+      <v-col v-for="post in this.viewPosts" :key="post.id" cols="12" sm="4" >
+        <v-card class="mx-auto" max-width="344" >
           <v-card-text>
             <div>
               投稿者: {{ post.user.name }}
@@ -51,9 +51,10 @@
       </v-col>
     </v-row>
     <v-pagination
+      class="pt-3"
       v-model="page"
       :length="length"
-      @input="handlePageChange"
+      @input="changePage"
     ></v-pagination>
   </v-container>
 </template>
@@ -100,6 +101,14 @@ export default {
     this.length = Math.ceil(this.posts.length / this.pageSize);
     this.viewPosts = this.posts.slice(0, this.pageSize);
     console.info(dayjs().format());
+    this.$watch("$route.query.page", {
+      handler: function () {
+        console.log("watch");
+        this.page = Number(this.$route.query.page || 1);
+        this.handlePageChange(Number(this.$route.query.page) || 1);
+      },
+      immediate: true,
+    });
   },
 
   methods: {
@@ -111,6 +120,14 @@ export default {
     },
 
     formatDate: (dateStr) => dayjs(dateStr).format("YYYY年MM月DD日"),
+    changePage: function () {
+      console.log("routerPush");
+      this.$router.push({
+        query: {
+          page: Number(this.page),
+        },
+      });
+    },
   },
 };
 </script>

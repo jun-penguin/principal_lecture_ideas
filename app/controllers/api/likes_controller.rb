@@ -3,6 +3,7 @@ class Api::LikesController < ApplicationController
 
   def index
     @likes = Like.filter_by_post(params[:post_id])
+    # binding.pry
     # .select(:id, :user_id, :post_id)
     @user = current_user
     #  if user_signed_in?

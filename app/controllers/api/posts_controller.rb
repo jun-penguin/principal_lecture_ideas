@@ -1,7 +1,7 @@
 class Api::PostsController < ApplicationController
   before_action :authenticate_user!, only: %i[create update destroy]
   def index
-    @posts = Post.published.preload(:user).order(created_at: :desc)
+    @posts = Post.published.preload(:user).order(updated_at: :desc)
     render :index, formats: :json, handlers: 'jbuilder'
   end
 

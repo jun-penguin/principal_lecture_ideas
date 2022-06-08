@@ -1,21 +1,31 @@
 <template>
   <div>
     <v-app-bar color="gray accent-4" dark>
+      <!-- サイトロゴ -->
+      <v-img
+        class="mx-2 pr-3"
+        v-bind:src="require('../../assets/images/logo.png')"
+        max-height="50"
+        max-width="60"
+        contain
+        @click="$router.push('/')"
+        style="cursor: pointer"
+      ></v-img>
       <!-- サイトタイトル -->
-      <v-toolbar-title @click="$router.push('/')" style="cursor:pointer"
-        >Principal_Lecture_Ideas</v-toolbar-title
+      <v-toolbar-title @click="$router.push('/')" style="cursor: pointer"
+        >校長講話アイディアボックス</v-toolbar-title
       >
 
       <v-spacer></v-spacer>
 
       <!-- 検索フォーム -->
-      <Search />
+      <Search class="pt-3" />
 
       <v-spacer></v-spacer>
 
-      <!-- いいねした講話リンク（仮） -->
-      <v-btn v-if="loggedIn" rounded text large color="primary" class="mr-2"
-        ><router-link to="/mylikes">参考にした講話</router-link></v-btn
+      <!-- 参考にした講話リンク  -->
+      <v-btn v-if="loggedIn" rounded text large class="mr-2"
+        ><router-link to="/mylikes"  style="text-decoration: none; color: white; ">参考にした講話</router-link></v-btn
       >
       <!-- マイページメニュー -->
       <v-menu v-if="loggedIn" offset-y>
@@ -37,10 +47,10 @@
         </v-list>
       </v-menu>
       <!-- 新規ユーザー登録 -->
-      <Signup v-if="!loggedIn" @redirectToHome="redirectToHome" />
+      <Signup v-if="!loggedIn" />
 
       <!-- ログインボタン -->
-      <Login v-if="!loggedIn" @redirectToHome="redirectToHome" />
+      <Login v-if="!loggedIn" />
     </v-app-bar>
   </div>
 </template>

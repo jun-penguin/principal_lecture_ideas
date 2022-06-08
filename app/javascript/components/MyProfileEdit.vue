@@ -67,7 +67,6 @@
 </template>
 
 <script>
-
 import { mapState } from "vuex";
 import { required } from "vee-validate/dist/rules";
 import {
@@ -193,7 +192,8 @@ export default {
         })
         .then(
           (response) => {
-            this.$router.push({ name: "MyProfile" });
+            setTimeout( () => this.$router.push({name: "MyProfile"}), 500);
+            // this.$router.push({ name: "MyProfile" });
           },
           (error) => {
             console.log(error);

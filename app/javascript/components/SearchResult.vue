@@ -21,7 +21,9 @@
 
     <h1>検索結果</h1>
     <v-row>
-      <p class="pt-5" v-if="!posts.length">検索条件に合致する講話はありませんでした。</p>
+      <p class="pt-5" v-if="!posts.length">
+        検索条件に合致する講話はありませんでした。
+      </p>
       <v-col v-for="post in this.viewPosts" :key="post.id" cols="12" sm="4">
         <v-card class="mx-auto" max-width="344">
           <v-card-text>
@@ -65,10 +67,11 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-pagination class="pt-3"
+    <v-pagination
+      class="pt-3 pb-6"
       v-model="page"
       :length="length"
-      @input="handlePageChange"
+      @input="changePage"
     ></v-pagination>
   </v-container>
 </template>  
@@ -85,9 +88,9 @@ export default {
   },
 
   // props:['title_or_description_or_content_cont'],
-  props: {
-    title_or_description_or_content_cont: String,
-  },
+  // props: {
+  //   title_or_description_or_content_cont: String,
+  // },
 
   data: function () {
     return {
@@ -97,8 +100,7 @@ export default {
       page: 1,
       pageSize: 12,
       query: {
-        title_or_description_or_content_cont:
-          this.title_or_description_or_content_cont,
+        title_or_description_or_content_cont: null,
         status_eq: 1, //公開済みのみ検索対象に
         grade_range_eq: null,
         scene_type_eq: null,
@@ -115,48 +117,106 @@ export default {
   },
 
   async mounted() {
+    console.log("mounted");
     await this.setPosts();
-    // const posts = await this.setPosts.posts;
-    // this.posts = await posts;
-    this.setResult();
+    this.setResult;
+    this.setWord;
+    this.setGrade_range;
+    this.setScene_type;
+    this.$watch("$route.query.page", {
+      handler: function () {
+        console.log("watch.query.page");
+        this.page = Number(this.$route.query.page || 1);
+        this.handlePageChange(Number(this.$route.query.page) || 1);
+      },
+      immediate: true,
+    });
   },
 
-  // computed: {
-  //   setPosts: function () {
-  //     return this.$store.getters["responseDate/posts"];
-  //   },
-  // },
+  computed: {
+    setResult: function () {
+      this.length = Math.ceil(this.posts.length / this.pageSize);
+      this.viewPosts = this.posts.slice(0, this.pageSize);
+      console.log("setResult");
+    },
+    setWord: function () {
+      this.query.title_or_description_or_content_cont =
+        this.$store.getters["responseDate/word"].word;
+      console.log("setWord");
+    },
+    setGrade_range: function () {
+      this.query.grade_range_eq =
+        this.$store.getters["responseDate/grade_range"].grade_range;
+      console.log("setGrade_range");
+    },
+    setScene_type: function () {
+      this.query.scene_type_eq =
+        this.$store.getters["responseDate/scene_type"].scene_type;
+      console.log("setScene_type");
+    },
+  },
 
   watch: {
-    async $route() {
+    async "$route.query.t"() {
+      console.log("watchDateTime");
       await this.setPosts();
-      this.setResult();
+      this.setResult;
+      this.setWord;
+      this.setGrade_range;
+      this.setScene_type;
     },
-    "query.title_or_description_or_content_cont"() {
-      this.query.grade_range_eq = null;
-      this.query.scene_type_eq = null;
-    },
-    title_or_description_or_content_cont() {
-      this.query.title_or_description_or_content_cont =
-        this.title_or_description_or_content_cont;
-    },
+    // "query.title_or_description_or_content_cont"() {
+    //   this.query.grade_range_eq = null;
+    //   this.query.scene_type_eq = null;
+    //   console.log("change.query.title_or_description_or_content_cont");
+    // },
+
+    // title_or_description_or_content_cont() {
+    //   console.log("watch.title_description_cont")
+    //   this.query.title_or_description_or_content_cont =
+    //     this.title_or_description_or_content_cont;
+    // },
+
+    // "$route.query.page": {
+    //   handler: function () {
+    //     console.log("Hi");
+    //     this.handlePageChange(this.$route.query.a.page || 1);
+    //     this.page = Number(this.$route.query.a.page || 1);
+    //   },
+    //   immediate: true,
+    // },
   },
 
   methods: {
     setPosts: function () {
       this.posts = this.$store.getters["responseDate/posts"].posts;
+      console.log("setPosts");
       // return this.$store.getters['responseDate/posts'];
     },
-    setResult: function () {
-      this.length = Math.ceil(this.posts.length / this.pageSize);
-      this.viewPosts = this.posts.slice(0, this.pageSize);
-    },
+    // setResult: function () {
+    //   this.length = Math.ceil(this.posts.length / this.pageSize);
+    //   this.viewPosts = this.posts.slice(0, this.pageSize);
+    //   console.log("setResult");
+    // },
 
     handlePageChange: function (pageNumber) {
       this.viewPosts = this.posts.slice(
         this.pageSize * (pageNumber - 1),
         this.pageSize * pageNumber
       );
+      console.log(this.posts);
+      console.log(this.pageSize * (pageNumber - 1));
+      console.log(this.pageSize * pageNumber);
+      console.log(this.viewPosts);
+      // this.$router.push({
+      //   query: {
+      //     a: {
+      //       page: pageNumber,
+      //     },
+
+      //     // t: new Date().getTime(),
+      //   },
+      // })
     },
     // 絞り込み検索
     research: function () {
@@ -179,13 +239,19 @@ export default {
           this.$store.dispatch("responseDate/getPosts", {
             posts: posts,
           });
+          this.$store.dispatch("responseDate/getGrade_range", {
+            grade_range: this.query.grade_range_eq,
+          });
+          this.$store.dispatch("responseDate/getScene_type", {
+            scene_type: this.query.scene_type_eq,
+          });
           this.$router.push({
-            name: "SearchResult",
+            // name: "SearchResult",
             // params: { posts: this.posts},
-            params: {
-              title_or_description_or_content_cont:
-                this.query.title_or_description_or_content_cont,
-            },
+            // params: {
+            //   title_or_description_or_content_cont:
+            //     this.query.title_or_description_or_content_cont,
+            // },
             query: {
               t: new Date().getTime(),
             },
@@ -196,6 +262,19 @@ export default {
         });
     },
     formatDate: (dateStr) => dayjs(dateStr).format("YYYY年MM月DD日"),
+    changePage: function () {
+      console.log("routerPush");
+      this.$router.push({
+        // params: {
+        //       title_or_description_or_content_cont:
+        //         this.query.title_or_description_or_content_cont,
+        //     },
+        query: {
+          page: Number(this.page),
+          // t: new Date().getTime()
+        },
+      });
+    },
   },
 };
 </script>

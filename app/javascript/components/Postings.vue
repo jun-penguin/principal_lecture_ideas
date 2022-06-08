@@ -6,7 +6,7 @@
       <v-tab href="#tab-2">下書き</v-tab>
       <!-- 公開中 -->
       <v-tab-item value="tab-1">
-        <v-row>
+        <v-row class="pt-5">
           <v-col
             v-for="post in publishedFilter"
             :key="post.id"
@@ -22,6 +22,9 @@
                   >
                     <p class="text-h5 orange--text">{{ post.title }}</p>
                   </router-link>
+                  <span class="pt-n5">
+                    <LikeCount :postId="post.id" />
+                  </span>
                 </div>
                 <p>{{ post.grade_range_ja }} {{ post.scene_type_ja }}</p>
                 <p>更新日 {{ formatDate(post.updated_at) }}</p>
@@ -57,7 +60,7 @@
       </v-tab-item>
       <!-- 下書き -->
       <v-tab-item value="tab-2">
-        <v-row>
+        <v-row class="pt-5">
           <v-col v-for="post in draftFilter" :key="post.id" cols="12" sm="4">
             <v-card class="mx-auto" max-width="344">
               <v-card-text>
@@ -68,6 +71,9 @@
                   >
                     <p class="text-h5 orange--text">{{ post.title }}</p>
                   </router-link>
+                  <span class="pt-n5">
+                    <LikeCount :postId="post.id" />
+                  </span>
                 </div>
                 <p>{{ post.grade_range_ja }} {{ post.scene_type_ja }}</p>
                 <p>更新日 {{ formatDate(post.updated_at) }}</p>
@@ -107,10 +113,14 @@
 
 
 <script>
+import LikeCount from "./LikeCount.vue";
 import { mapState } from "vuex";
 import dayjs from "dayjs";
 export default {
   name: "Postings",
+  components: {
+    LikeCount,
+  },
   data: function () {
     return {
       posts: [],

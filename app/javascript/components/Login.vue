@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" max-width="600px">
     <template v-slot:activator="{ on }">
-      <v-btn rounded text large color="primary" v-on="on">ログイン</v-btn>
+      <v-btn rounded text large color="white" v-on="on">ログイン</v-btn>
     </template>
     <v-card>
       <validation-observer ref="observer" v-slot="{ invalid }">
@@ -47,7 +47,7 @@
                 <v-btn
                   block
                   color="success"
-                  dark
+                
                   :disabled="invalid"
                   v-on:click="loginHundler"
                   >ログイン</v-btn
@@ -65,7 +65,6 @@
 
 <script>
 import { required, email, min } from "vee-validate/dist/rules";
-import { mapActions } from 'vuex'
 import {
   extend,
   ValidationObserver,

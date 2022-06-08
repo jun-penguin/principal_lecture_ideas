@@ -43,6 +43,7 @@ export default {
   },
   methods: {
     fetchMyProfile: function () {
+      console.log("プロフィールデータの取得開始")
       this.$axios
         .get("/api/profiles/mypage", {
           headers: {
@@ -54,7 +55,7 @@ export default {
         .then(
           (response) => {
             this.profile = response.data;
-            console.log(response);
+            console.log("ここでプロフィール情報の決定");
           },
           (error) => {
             console.log(error);

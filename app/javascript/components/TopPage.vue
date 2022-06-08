@@ -4,9 +4,9 @@
       <v-container fluid fill-height class="main_visual_content">
         <v-row>
           <v-col class="main_visual_content-text">
-            <p>校長講話をみんなのものに。</p>
+            <p>心に残る校長講話を。</p>
             <p class="subtext">
-              Principal_Lecture_Ideasは全国の校長先生がお持ちの講話アイディアを、<br />
+              校長講話アイディアボックスは全国の校長先生がお持ちの講話アイディアを、<br />
               共有するプラットフォームです。
             </p>
           </v-col>
@@ -20,9 +20,8 @@
           コンセプト
         </p>
         <p class="concept_description">
-          校長先生になられた先生方の多くが直面する「講話で何を話せばいいのか」という問題。<br />
-          Principal Lecture
-          Ideasは全国の校長先生と元校長先生の皆さんがお持ちの講話アイディアを<br />
+          校長先生になられた方の多くが直面する「講話で何を話せばいいのか」という問題。<br />
+          校長講話アイディアボックスは全国の校長先生と元校長先生の皆さんがお持ちの講話アイディアを<br />
           共有することでこの悩みの解消し、子どもたちの教育をより良いものにすること<br />を目指すプラットフォームです。<br />
         </p>
       </div>
@@ -33,9 +32,9 @@
       </p>
       <v-row class="pb-10">
         <v-col cols="12" sm="4">
-          <v-card class="mx-auto" max-width="344">
+          <v-card class="mx-auto pt-5" max-width="344">
             <v-img
-              class="pt-5 mx-auto"
+              class="pt-10 mx-auto"
               v-bind:src="require('../../assets/images/glass.jpeg')"
               max-height="100px"
               max-width="100px"
@@ -49,7 +48,7 @@
           </v-card>
         </v-col>
         <v-col cols="12" sm="4">
-          <v-card class="mx-auto" max-width="344">
+          <v-card class="mx-auto pt-5" max-width="344" max-height="300">
             <v-img
               class="mx-auto"
               v-bind:src="require('../../assets/images/bookmark.jpeg')"
@@ -65,7 +64,7 @@
           </v-card>
         </v-col>
         <v-col cols="12" sm="4">
-          <v-card class="mx-auto" max-width="344">
+          <v-card class="mx-auto pt-5" max-width="344">
             <v-img
               class="mx-auto"
               v-bind:src="require('../../assets/images/pen.jpeg')"
@@ -76,7 +75,7 @@
             <v-card-title class="justify-center"> 投稿する </v-card-title>
 
             <v-card-subtitle class="text-center"
-              >お持ちの講話アイディアを投稿することで、<br />プラットフォームを充実させることができます。<br />
+              >お持ちの講話アイディアを投稿することで、<br />プラットフォームを充実させ、全国の校長先生にアイディアを提供することができます。<br />
             </v-card-subtitle>
           </v-card>
         </v-col>

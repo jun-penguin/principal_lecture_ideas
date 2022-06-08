@@ -3,7 +3,7 @@
     <v-footer app bottom fixed padless>
       <div class="flex-grow-1"></div>
       <div>
-        &copy; 2022 - {{ new Date().getFullYear() }} Principal_lecture_Ideas
+        &copy; 2022 - {{ new Date().getFullYear() }} 校長講話アイディアボックス
       </div>
     </v-footer>
   </div>
