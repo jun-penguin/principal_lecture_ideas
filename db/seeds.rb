@@ -10,6 +10,6 @@
                content: Faker::Lorem.paragraph(sentence_count: 30),
                status: rand(0..1),
                grade_range: rand(0..1),
-               scene_type: rand(0..1),
+               scene_type: rand(0..3),
                user_id: (number + 1).to_s)
 end

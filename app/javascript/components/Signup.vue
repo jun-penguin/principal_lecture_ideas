@@ -28,6 +28,7 @@
                       label="ユーザー名"
                       v-model="name"
                       :error-messages="errors"
+                      placeholder="ユーザー名は公開されます（登録後にいつでも変更できます）。"
                     ></v-text-field>
                   </validation-provider>
                 </v-flex>

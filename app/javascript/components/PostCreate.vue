@@ -17,13 +17,18 @@
         </validation-provider>
 
         <!-- 講話の紹介 -->
-        <validation-provider v-slot="{ errors }" name="講話の紹介" rules="required">
-        <v-textarea
-          v-model="description"
-          label="講話の紹介"
-          :error-messages="errors"
-          rows="4"
-        ></v-textarea>
+        <validation-provider
+          v-slot="{ errors }"
+          name="講話の紹介"
+          rules="required"
+        >
+          <v-textarea
+            v-model="description"
+            label="講話の紹介"
+            placeholder="講話の狙いや作成の経緯、実際にお話した際の子どもたちの反応などをお書きください。"
+            :error-messages="errors"
+            rows="4"
+          ></v-textarea>
         </validation-provider>
 
         <!-- 本文 -->
@@ -32,6 +37,7 @@
             v-model="content"
             :error-messages="errors"
             label="本文"
+            placeholder="最初の挨拶からでも、お話のポイントのみでも、どのような書き方でも構いません。ただし、個人情報の取り扱いにはご注意ください。"
             auto-grow
           ></v-textarea>
         </validation-provider>
@@ -69,7 +75,7 @@
             data-vv-name="select"
           ></v-select>
         </validation-provider>
-        
+
         <!-- 公開設定 -->
         <validation-provider
           v-slot="{ errors }"
@@ -103,7 +109,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 import { mapState } from "vuex";
 import { required } from "vee-validate/dist/rules";
 import {
@@ -138,7 +144,12 @@ export default {
     ],
     scene_type_select: [
       { label: "全校集会", value: "all_school_assembly" },
-      { label: "行事", value: "event" },
+      {
+        label: "学校行事（運動会、学習発表会、修学旅行、水泳記録会など）",
+        value: "event",
+      },
+      { label: "儀式（入学式、始業式、離任式など）", value: "ceremony" },
+      { label: "その他（防災・避難訓練など）", value: "other" },
     ],
     status_select: [
       { label: "下書き（非公開）", value: "draft" },
@@ -182,9 +193,9 @@ export default {
             this.showMessage({
               message: "投稿しました",
               type: "success",
-              status: true
+              status: true,
             }),
-            this.$router.push({ path: "postings" });
+              this.$router.push({ path: "postings" });
           },
           (error) => {
             console.log(error);
