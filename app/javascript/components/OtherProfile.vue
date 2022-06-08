@@ -5,7 +5,10 @@
     <h2>ユーザー名</h2>
     {{ profile.name }}
     <h2>一言自己紹介</h2>
-    {{ profile.self_introduction }}
+    <p v-if="profile.self_introduction !== null && profile.self_introduction !== '' ">
+      {{ profile.self_introduction }}
+    </p>
+    <p v-else>自己紹介が設定されていません。</p>
     <h2>ステータス</h2>
     {{ profile.status_ja }}
     <h2>都道府県</h2>
