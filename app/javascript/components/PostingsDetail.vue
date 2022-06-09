@@ -24,9 +24,28 @@
           >編集</router-link
         >
       </v-btn>
-      <v-btn depressed color="error" v-on:click="deletePost(post.id)">
+      <v-btn depressed color="error" @click="confirm_dialog = true">
         削除
       </v-btn>
+      <v-dialog v-model="confirm_dialog" max-width="400">
+      <v-card>
+        <v-card-title>
+          <div>確認ダイアログ</div>
+        </v-card-title>
+        <v-card-text>
+          <p>本当に削除しますか？</p>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn  @click="confirm_dialog = false">いいえ、削除しません</v-btn>
+          <v-btn  @click="deletePost(post.id)" color="error">はい、削除します</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+      <!-- <v-btn depressed color="error" v-on:click="deletePost(post.id)">
+        削除
+      </v-btn> -->
     </div>
   </v-container>
 </template>
@@ -43,6 +62,7 @@ export default {
   data: function () {
     return {
       post: [],
+      confirm_dialog: false,
     };
   },
   computed: {
@@ -88,6 +108,7 @@ export default {
         })
         .then(
           (response) => {
+            this.confirm_dialog = false
             this.showMessage({
               message: "講話を削除しました。",
               type: "warning",

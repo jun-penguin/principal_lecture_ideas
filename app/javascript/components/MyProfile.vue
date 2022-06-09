@@ -7,19 +7,24 @@
     <h2>メールアドレス</h2>
     {{ headers.uid }}
     <h2>一言自己紹介</h2>
-    {{ profile.self_introduction }}
+    <p v-if="profile.self_introduction !== null && profile.self_introduction !== '' ">
+      {{ profile.self_introduction }}
+    </p>
+    <p v-else>自己紹介が設定されていません。</p>
     <h2>ステータス</h2>
     {{ profile.status_ja }}
     <h2>都道府県</h2>
     {{ profile.prefecture }}
-    <div>
+    <div class="pt-3">
       <v-btn depressed color="success">
-        <router-link style="text-decoration: none; color: inherit;"  :to="{ path: `/myProfile/edit` }" class="btn"
+        <router-link
+          style="text-decoration: none; color: inherit"
+          :to="{ path: `/myProfile/edit` }"
+          class="btn"
           >編集する</router-link
         >
       </v-btn>
-
-    </div> 
+    </div>
   </v-container>
 </template>
 
@@ -43,7 +48,7 @@ export default {
   },
   methods: {
     fetchMyProfile: function () {
-      console.log("プロフィールデータの取得開始")
+      console.log("プロフィールデータの取得開始");
       this.$axios
         .get("/api/profiles/mypage", {
           headers: {

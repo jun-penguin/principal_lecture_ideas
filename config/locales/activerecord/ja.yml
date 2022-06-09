@@ -20,4 +20,6 @@ ja:
         junior_high: 中学生
       scene_type:
         all_school_assembly: 全校集会
-        event: 行事
+        event: 学校行事
+        ceremony: 儀式
+        other: その他

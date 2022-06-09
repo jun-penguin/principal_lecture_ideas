@@ -145,7 +145,12 @@ export default {
     ],
     scene_type_select: [
       { label: "全校集会", value: "all_school_assembly" },
-      { label: "行事", value: "event" },
+      {
+        label: "学校行事（運動会、学習発表会、修学旅行、水泳記録会など）",
+        value: "event",
+      },
+      { label: "儀式（入学式、始業式、離任式など）", value: "ceremony" },
+      { label: "その他（防災・避難訓練など）", value: "other" },
     ],
     status_select: [
       { label: "下書き（非公開）", value: "draft" },
