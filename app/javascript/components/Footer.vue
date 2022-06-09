@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-footer app bottom fixed padless>
+    <v-footer app bottom fixed padless absolute>
       <div class="flex-grow-1"></div>
       <div>
         &copy; 2022 - {{ new Date().getFullYear() }} 校長講話アイディアボックス
