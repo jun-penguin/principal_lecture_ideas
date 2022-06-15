@@ -47,6 +47,10 @@ gem 'enum_help'
 # I18n
 gem 'rails-i18n'
 
+# admin-lte関連
+gem 'font-awesome-sass'
+gem 'jquery-rails'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password

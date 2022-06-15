@@ -12,7 +12,6 @@ class User < ActiveRecord::Base
   has_many :likes, dependent: :destroy
   has_many :favorites, through: :likes, source: :post
 
-  enum role: { general: 0, admin: 1 }
   enum status: { not_set: 0, elementary_school_principal: 1, junior_high_school_principal: 2, former_elementary_school_principal: 3, former_junior_high_school_principal: 4 },
        _prefix: true
   enum prefecture: { 未設定: 0,
