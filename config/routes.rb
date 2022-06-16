@@ -26,8 +26,12 @@ Rails.application.routes.draw do
     resource :profiles, only: %i[] do
       get :mypage, on: :collection
       get '/:username', to: 'profiles#show'
-    end  
+    end
   end
+
+  devise_for :admins, skip: %i[registrations password], controllers: {
+    sessions: 'admins/sessions'
+  }
 
   namespace :admin do
     root to: 'dashboards#index'
