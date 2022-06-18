@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2">
+      <h1><%= "講話の編集" %></h1>
+      <%= form_with model: @post, url: admins_post_path(@post), local: true do |f| %>
+        <%= render 'admins/shared/error_messages', object: f.object %>
+          <div class="form-group">
+            <%= f.label :title %>
+            <%= f.text_field :title, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :descriotion %>
+            <%= f.text_area :description, class: 'form-control', rows: 10 %>
+          </div>
+          <div class="form-group">
+            <%= f.label :content %>
+            <%= f.text_area :content, class: 'form-control', rows: 10 %>
+          </div>
+          
+          <%= f.submit class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+  </div>
+</div>
