@@ -37,7 +37,7 @@ export default {
       // async function()
       // jsの非同期処理
       const response = await this.$axios.get(
-        `/api/likes/?post_id=${this.postId}`
+        `/likes/?post_id=${this.postId}`
         // {
         //   headers: {
         //     uid: this.headers["uid"],

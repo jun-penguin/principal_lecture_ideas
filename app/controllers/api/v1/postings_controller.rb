@@ -1,4 +1,4 @@
-class Api::PostingsController < ApplicationController
+class Api::V1::PostingsController < Api::V1::ApplicationController
   before_action :authenticate_user!, only: %w[index show delete update]
   def index
     @posts = current_user.posts.order(created_at: :desc)

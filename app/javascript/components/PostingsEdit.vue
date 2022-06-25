@@ -174,7 +174,7 @@ export default {
     setpostEdit: function () {
       var id = this.$route.params.id;
       this.$axios
-        .get(`/api/postings/${id}`, {
+        .get(`/postings/${id}`, {
           headers: {
             uid: this.headers["uid"],
             "access-token": this.headers["access-token"],
@@ -196,7 +196,7 @@ export default {
       if (!this.headers) return;
       this.$axios
         .put(
-          `/api/postings/${id}`,
+          `/postings/${id}`,
           {
             title: this.title,
             description: this.description,

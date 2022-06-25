@@ -84,7 +84,7 @@ export default {
   },
   async mounted() {
     await this.$axios
-      .get("/api/mylikes", {
+      .get("/mylikes", {
         headers: {
           uid: this.headers["uid"],
           "access-token": this.headers["access-token"],

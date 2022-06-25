@@ -36,7 +36,7 @@ export default {
   methods: {
     search: function () {
       this.$axios
-        .get("/api/posts/search", {
+        .get("/search", {
           params: {
             q: this.query,
           },

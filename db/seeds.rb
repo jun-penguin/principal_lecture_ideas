@@ -13,3 +13,4 @@
                scene_type: rand(0..3),
                user_id: (number + 1).to_s)
 end
+

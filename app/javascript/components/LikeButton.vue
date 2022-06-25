@@ -70,7 +70,7 @@ export default {
       console.log("fetchlkebypostid");
       console.log(this.postId)
       const response = await this.$axios.get(
-        `/api/likes/?post_id=${this.postId}`,
+        `/likes/?post_id=${this.postId}`,
         {
           headers: {
             uid: this.headers["uid"],
@@ -91,7 +91,7 @@ export default {
     registerLike: async function () {
       // rails側のcreateアクションにリクエストするメソッド
       const response = await this.$axios.post(
-        "/api/likes",
+        "/likes",
         {
           post_id: this.postId,
         },
@@ -114,7 +114,7 @@ export default {
     deleteLike: async function () {
       // rails側のdestroyアクションにリクエストするメソッド
       const likeId = this.findLikeId();
-      const response = await this.$axios.delete(`/api/likes/${likeId}`, {
+      const response = await this.$axios.delete(`/likes/${likeId}`, {
         headers: {
           uid: this.headers["uid"],
           "access-token": this.headers["access-token"],

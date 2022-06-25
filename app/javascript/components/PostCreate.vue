@@ -37,8 +37,7 @@
             v-model="content"
             :error-messages="errors"
             label="本文"
-            placeholder="最初の挨拶からでも、お話のポイントのみでも、どのような書き方でも構いません。ただし、個人情どのような書き方でもOKです。初めの挨拶からでも、話の概要（ポイント）のみでも結構です。
-個人情報の取り扱いにはご注意ください。（生徒名、すぐ特定できるニックネーム、地域の有名な山河、旧跡、施設、会社などの固有名詞等）報の取り扱いにはご注意ください。"
+            placeholder="最初の挨拶からでも、お話のポイントのみでも、どのような書き方でも構いません。ただし、個人情報等（生徒名、すぐ特定できるニックネーム、地域の有名な山河、旧跡、施設、会社などの固有名詞等）の取り扱いにはご注意ください。"
             auto-grow
           ></v-textarea>
         </validation-provider>
@@ -172,7 +171,7 @@ export default {
       if (!this.headers) return; //headerが空ならばここで処理を終了させる。とりあえずの処置。
       this.$axios
         .post(
-          "/api/posts",
+          "/posts",
           {
             title: this.title,
             description: this.description,

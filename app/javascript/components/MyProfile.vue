@@ -50,7 +50,7 @@ export default {
     fetchMyProfile: function () {
       console.log("プロフィールデータの取得開始");
       this.$axios
-        .get("/api/profiles/mypage", {
+        .get("/profiles/mypage", {
           headers: {
             uid: this.headers["uid"],
             "access-token": this.headers["access-token"],
