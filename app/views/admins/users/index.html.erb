@@ -5,7 +5,7 @@
 =end%>
 
 <div class="container mb-5 pt-2">
-  <h1><%= "ユーザー一覧" %></h1>
+  <h1><%= t('.title') %></h1>
   <%
 =begin%>
  <div class="row">
@@ -20,16 +20,10 @@
       <table class="table table-striped">
         <thead>
         <tr>
-          <th scope="col"><%= "ID" %></th>
-          <th scope="col"><%=" ユーザーネーム" %></th>
-          <th scope="col"><%= "ステータス" %></th>
-          <%
-=begin%>
- <th scope="col"><%= "都道府県" %></th>
-          <th scope="col"><%= "自己紹介" %></th> 
-<%
-=end%>
-          <th scope="col"><%= "作成日時" %></th>
+          <th scope="col"><%= User.human_attribute_name(:id) %></th>
+          <th scope="col"><%= User.human_attribute_name(:name) %></th>
+          <th scope="col"><%= User.human_attribute_name(:status) %></th>
+          <th scope="col"><%= User.human_attribute_name(:status) %></th>
 
           <%
 =begin%>

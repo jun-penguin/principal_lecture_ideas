@@ -9,7 +9,7 @@
     <%= post.user.name %>
   </td>
   <td>
-    <%= l post.created_at, format: :long %>
+    <%= l post.updated_at, format: :long %>
   </td>
   <td>
     <%= link_to t('defaults.show'), admins_post_path(post), class: 'btn btn-info' %>

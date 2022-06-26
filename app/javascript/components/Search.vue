@@ -46,7 +46,7 @@ export default {
         })
         .then((res) => {
           console.log(res);
-          const posts = res.data.posts;
+          const posts = res.daavta.posts;
           for (const post of posts) {
             post.readActivated = false;
           }

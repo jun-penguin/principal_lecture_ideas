@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-      <h1><%= "ユーザー情報詳細" %></h1>
+      <h1><%= t('.title') %></h1>
       <div class="text-right mb-3">
         <%= link_to t('defaults.edit'), edit_admins_user_path(@user), class: 'btn btn-success' %>
         <%= link_to t('defaults.delete'), admins_user_path(@user), method: :delete, data: { confirm: t('defaults.message.delete_confirm') }, class: 'btn btn-danger' %>
@@ -13,24 +13,24 @@
         </tr>
 
         <tr>
-          <th scope="row"><%= "ユーザーネーム" %></th>
+          <th scope="row"><%= User.human_attribute_name(:name) %></th>
           <td><%= @user.name %></td>
         </tr>
         <tr>
-          <th scope="row"><%= "一言自己紹介" %></th>
+          <th scope="row"><%= User.human_attribute_name(:self_introduction) %></th>
           <td><%= @user.self_introduction %></td>
         </tr>
         <tr>
-          <th scope="row"><%= "ステータス" %></th>
-          <td><%= @user.status %></td>
+          <th scope="row"><%= User.human_attribute_name(:status) %></th>
+          <td><%= @user.status_i18n %></td>
         </tr>
         <tr>
-          <th scope="row"><%= "都道府県" %></th>
+          <th scope="row"><%=  User.human_attribute_name(:prefecture) %></th>
           <td><%= @user.prefecture %></td>
         </tr>
 
         <tr>
-          <th scope="row"><%= User.human_attribute_name(:created_at) %></th>
+          <th scope="row"><%= User.human_attribute_name(:updated_at) %></th>
           <td><%= l @user.created_at, format: :long %></td>
         </tr>
       </table>

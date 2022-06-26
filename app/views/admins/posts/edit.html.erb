@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-8 offset-lg-2">
-      <h1><%= "講話の編集" %></h1>
+      <h1><%= t '.title' %></h1>
       <%= form_with model: @post, url: admins_post_path(@post), local: true do |f| %>
       <%= render 'admins/shared/error_messages', object: f.object %>
       <div class="form-group">
@@ -9,7 +9,7 @@
         <%= f.text_field :title, class: 'form-control' %>
       </div>
       <div class="form-group">
-        <%= f.label :descriotion %>
+        <%= f.label :description %>
         <%= f.text_area :description, class: 'form-control', rows: 10 %>
       </div>
       <div class="form-group">
@@ -20,9 +20,12 @@
         <%= f.label :grade_range %>
         <%= f.select :grade_range, Post.grade_ranges_i18n.invert, {}, class: 'form-control' %>
       </div>
-      <div class="form-group">
         <%= f.label :scene_type %>
         <%= f.select :scene_type, Post.scene_types_i18n.invert, {}, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :status %>
+        <%= f.select :status, Post.statuses_i18n.invert, {}, class: 'form-control' %>
       </div>
 
       <%= f.submit class: 'btn btn-primary' %>

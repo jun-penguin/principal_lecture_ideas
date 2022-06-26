@@ -1,5 +1,5 @@
 <div class="container mb-5 pt-2">
-  <h1><%= "講話一覧" %></h1>
+  <h1><%= t('.title') %></h1>
   <div class="row">
     <div class="col-md-12 mb-3">
       <%
@@ -14,10 +14,10 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th scope="col"><%= "ID" %></th>
-            <th scope="col"><%= "タイトル" %></th>
-            <th scope="col"><%= "投稿者" %></th>
-            <th scope="col"><%= "投稿(更新)日時" %></th>
+            <th scope="col"><%= Post.human_attribute_name(:id) %></th>
+            <th scope="col"><%= Post.human_attribute_name(:title) %></th>
+            <th scope="col"><%= Post.human_attribute_name(:user) %></th>
+            <th scope="col"><%= Post.human_attribute_name(:updated_at) %></th>
           </tr>
         </thead>
         <tbody>
