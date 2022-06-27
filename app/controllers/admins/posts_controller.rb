@@ -2,7 +2,7 @@ class Admins::PostsController < Admins::BaseController
   before_action :set_post, only: %i[show edit update destroy]
 
   def index
-    @posts = Post.all.order(created_at: :desc)
+    @posts = Post.all.order(updated_at: :desc).includes(:user).page(params[:page])
   end
 
   def show; end

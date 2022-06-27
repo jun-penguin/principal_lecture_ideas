@@ -2,7 +2,7 @@ class Admins::UsersController < Admins::BaseController
   before_action :find_user, only: %i[show edit update destroy]
 
   def index
-    @users = User.all.order(created_at: :desc)
+    @users = User.all.order(created_at: :desc).page(params[:page])
   end
 
   def show; end
