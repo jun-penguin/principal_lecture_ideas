@@ -92,7 +92,7 @@ export default {
   async mounted() {
     var username = this.$route.params.username;
     this.fetchProfile();
-    await this.$axios.get("/api/profiles/" + username).then((res) => {
+    await this.$axios.get("/profiles/" + username).then((res) => {
       const posts = res.data.posts;
       for (const post of posts) {
         post.readActivated = false;
@@ -106,7 +106,7 @@ export default {
   methods: {
     fetchProfile: function () {
       var username = this.$route.params.username;
-      this.$axios.get("/api/profiles/" + username).then(
+      this.$axios.get("/profiles/" + username).then(
         (response) => {
           this.profile = response.data;
           console.log(response);

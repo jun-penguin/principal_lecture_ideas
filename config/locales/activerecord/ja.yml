@@ -1,16 +1,39 @@
 ja:
+  activerecord:
+    models:
+      user: 'ユーザー'
+      post: '講話'
+    attributes:
+      user:
+        id: 'ID'
+        name: 'ユーザーネーム'
+        email: 'メールアドレス'
+        self_introduction: "一言自己紹介"
+        status: "ステータス"
+        prefecture: "都道府県"
+        password: 'パスワード'
+        password_confirmation: 'パスワード確認'
+        created_at: '作成日時'
+        updated_at: '更新日時'
+      post:
+        title: 'タイトル'
+        description: '講話の紹介'
+        content: '本文'
+        user: '投稿者'
+        status: "公開・非公開"
+        grade_range: "対象学年"
+        scene_type: "使用シーン"
+        id: 'ID'
+        status: '状態'
+        updated_at: '更新日時'
   enums:
     user:
-      role:
-        general: 一般
-        admin: 管理者
       status:
         not_set: 未設定
         elementary_school_principal: 現小学校校長
         junior_high_school_principal: 現中学校校長
         former_elementary_school_principal: 元小学校校長
         former_junior_high_school_principal: 元中学校校長
-
     post:
       status:
         draft: 下書き

@@ -167,7 +167,7 @@ export default {
     },
     setProfileEdit: function () {
       this.$axios
-        .get(`/api/profiles/mypage`, {
+        .get(`/profiles/mypage`, {
           headers: {
             uid: this.headers["uid"],
             "access-token": this.headers["access-token"],
