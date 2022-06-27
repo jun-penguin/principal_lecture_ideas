@@ -108,7 +108,7 @@ export default {
   // },
   async mounted() {
     console.log("mounted");
-    await this.$axios.get("/api/posts").then((res) => {
+    await this.$axios.get("/posts").then((res) => {
       const posts = res.data.posts;
       for (const post of posts) {
         post.readActivated = false;

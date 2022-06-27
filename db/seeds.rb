@@ -6,10 +6,11 @@
                status: rand(0..4),
                prefecture: rand(0..47))
   Post.create!(title: Faker::Lorem.sentence(word_count: 1),
-               description: Faker::Lorem.paragraph(sentence_count: 7),
+               description: Faker::Lorem.paragraph(sentence_count: rand(3..15)),
                content: Faker::Lorem.paragraph(sentence_count: 30),
                status: rand(0..1),
                grade_range: rand(0..1),
                scene_type: rand(0..3),
                user_id: (number + 1).to_s)
 end
+

@@ -1,4 +1,4 @@
-class Api::ProfilesController < ApplicationController
+class Api::V1::ProfilesController < Api::V1::ApplicationController
   before_action :authenticate_user!, only: %i[mypage]
 
   def mypage

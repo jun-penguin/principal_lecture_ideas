@@ -155,7 +155,7 @@ export default {
   methods: {
     getPostings() {
       this.$axios
-        .get("/api/postings", {
+        .get("/postings", {
           headers: {
             uid: this.headers["uid"],
             "access-token": this.headers["access-token"],

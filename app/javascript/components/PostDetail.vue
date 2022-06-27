@@ -44,7 +44,7 @@ export default {
   methods: {
     fetchPostDetail: function () {
       var id = this.$route.params.id;
-      this.$axios.get("/api/posts/" + id).then(
+      this.$axios.get("/posts/" + id).then(
         (response) => {
           this.post = response.data;
           console.log("取得完了");

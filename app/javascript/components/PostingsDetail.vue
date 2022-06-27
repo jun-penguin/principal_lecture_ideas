@@ -78,7 +78,7 @@ export default {
     fetchPostingsDetail: function () {
       var id = this.$route.params.id;
       this.$axios
-        .get("/api/postings/" + id, {
+        .get("/postings/" + id, {
           headers: {
             uid: this.headers["uid"],
             "access-token": this.headers["access-token"],
@@ -99,7 +99,7 @@ export default {
     deletePost: function () {
       var id = this.$route.params.id;
       this.$axios
-        .delete("/api/postings/" + id, {
+        .delete("/postings/" + id, {
           headers: {
             uid: this.headers["uid"],
             "access-token": this.headers["access-token"],

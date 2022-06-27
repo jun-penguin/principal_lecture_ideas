@@ -1,4 +1,4 @@
-class Api::PostsController < ApplicationController
+class Api::V1::PostsController < Api::V1::ApplicationController
   before_action :authenticate_user!, only: %i[create update destroy]
   def index
     @posts = Post.published.preload(:user).order(updated_at: :desc)

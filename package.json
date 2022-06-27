@@ -9,6 +9,7 @@
     "@rails/webpacker": "5.4.3",
     "@types/qs": "^6.9.7",
     "@vue/compiler-sfc": "^3.2.31",
+    "admin-lte": "^3.2.0",
     "axios": "^0.26.1",
     "dayjs": "^1.11.2",
     "qs": "^6.10.3",

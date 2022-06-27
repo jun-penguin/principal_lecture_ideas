@@ -1,4 +1,4 @@
-class Api::LikesController < ApplicationController
+class Api::V1::LikesController < Api::V1::ApplicationController
   before_action :authenticate_user!, only: %i[show create destroy]
 
   def index
