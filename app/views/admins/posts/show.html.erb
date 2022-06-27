@@ -21,6 +21,10 @@
           <td><%= @post.user.name %></td>
         </tr>
         <tr>
+          <th scope="row"><%= Post.human_attribute_name(:description) %></th>
+          <td><%= @post.description %></td>
+        </tr>
+        <tr>
           <th scope="row"><%= Post.human_attribute_name(:content) %></th>
           <td><%= @post.content %></td>
         </tr>

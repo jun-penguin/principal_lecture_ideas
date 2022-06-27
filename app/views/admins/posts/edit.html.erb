@@ -20,16 +20,16 @@
         <%= f.label :grade_range %>
         <%= f.select :grade_range, Post.grade_ranges_i18n.invert, {}, class: 'form-control' %>
       </div>
-        <%= f.label :scene_type %>
-        <%= f.select :scene_type, Post.scene_types_i18n.invert, {}, class: 'form-control' %>
-      </div>
+      <%= f.label :scene_type %>
+      <%= f.select :scene_type, Post.scene_types_i18n.invert, {}, class: 'form-control' %>
       <div class="form-group">
         <%= f.label :status %>
         <%= f.select :status, Post.statuses_i18n.invert, {}, class: 'form-control' %>
       </div>
-
       <%= f.submit class: 'btn btn-primary' %>
-      <% end %>
     </div>
+
+    <% end %>
   </div>
+</div>
 </div>

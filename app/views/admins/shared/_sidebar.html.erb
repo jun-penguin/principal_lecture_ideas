@@ -1,10 +1,11 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
-  <a href="index3.html" class="brand-link">
-    <%= image_tag 'AdminLTELogo.png', class: 'brand-image img-circle elevation-3' %>
-    <span class="brand-text font-weight-light">管理者画面</span>
-  </a>
+  <%= link_to admins_root_path, class: "brand-link" do %>
+  <%= image_tag 'AdminLTELogo.png', class: 'brand-image img-circle elevation-3' %>
+  <span class="brand-text font-weight-light">管理者画面</span>
+  <% end %>
+
 
   <!-- Sidebar -->
   <div class="sidebar">
@@ -17,21 +18,19 @@
       </div>
       <%
 =end%>
-      <%
-=begin%>
- <div class="info">
-   <a href="#" class="d-block"><%= current_user.name %></a>
- </div>
-<%
-=end%>
-    
+      <div class="info">
+        <a href="#" class="d-block"><%= current_admin.email %></a>
+      </div>
+    </div>
+
+
 
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
-          
-  <%= link_to admins_posts_path, class: "nav-link #{active_if('admins/posts')}" do %>
+
+          <%= link_to admins_posts_path, class: "nav-link #{active_if('admins/posts')}" do %>
           <i class="nav-icon far fa-file"></i>
           <p>
             講話
@@ -39,8 +38,8 @@
           <% end %>
         </li>
         <li class="nav-item">
-          
- <%= link_to admins_users_path, class: "nav-link #{active_if('admins/users')}"  do %>
+
+          <%= link_to admins_users_path, class: "nav-link #{active_if('admins/users')}"  do %>
           <i class="nav-icon far fa-user"></i>
           <p>
             ユーザー

@@ -10,11 +10,9 @@
   <!-- Right navbar links -->
   <ul class="navbar-nav ml-auto">
     <li class="nav-item">
-      <%
-=begin%>
- <%= link_to t('defaults.logout'), admins_sign_out_path, class: 'nav-link', method: :delete %> 
-<%
-=end%>
+
+      <%= link_to t('defaults.logout'),  destroy_admin_session_path, class: 'nav-link', method: :delete %>
+
     </li>
   </ul>
 </nav>
