@@ -1,4 +1,4 @@
 require 'rails_helper'
 
-RSpec.describe Admin::BaseDecorator do
+RSpec.describe Admins::BaseDecorator do
 end
