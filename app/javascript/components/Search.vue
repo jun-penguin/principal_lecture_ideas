@@ -36,7 +36,7 @@ export default {
   methods: {
     search: function () {
       this.$axios
-        .get("/search", {
+        .get("/posts/search", {
           params: {
             q: this.query,
           },
@@ -45,8 +45,10 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res);
-          const posts = res.daavta.posts;
+          console.log(res.data.posts);
+          console.log("検索完了");
+
+          const posts = res.data.posts;
           for (const post of posts) {
             post.readActivated = false;
           }

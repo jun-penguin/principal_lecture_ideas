@@ -1,4 +1,4 @@
 require 'rails_helper'
 
-RSpec.describe Admin::DashboardDecorator do
+RSpec.describe Admins::DashboardDecorator do
 end
