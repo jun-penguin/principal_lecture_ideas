@@ -226,7 +226,7 @@ export default {
     // 絞り込み検索
     research: function () {
       this.$axios
-        .get("/api/posts/search", {
+        .get("/posts/search", {
           params: {
             q: this.query,
           },
