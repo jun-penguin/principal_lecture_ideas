@@ -65,6 +65,7 @@
       </v-col>
     </v-row>
     <v-pagination
+    class="pt-3 pb-15"
       v-model="page"
       :length="length"
       @input="handlePageChange"

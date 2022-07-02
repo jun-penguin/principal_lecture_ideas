@@ -1,5 +1,5 @@
 <template>
-  <v-container class="grey lighten-5">
+  <v-container pb-15 class="grey lighten-5">
     <h1 class="mt-5">検索条件の設定</h1>
     <v-select
       v-model="query.grade_range_eq"
@@ -68,7 +68,7 @@
       </v-col>
     </v-row>
     <v-pagination
-      class="pt-3 pb-6"
+      class="pt-3 pb-15"
       v-model="page"
       :length="length"
       @input="changePage"

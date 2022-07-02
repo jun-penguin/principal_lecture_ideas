@@ -22,7 +22,7 @@
     {{ post.grade_range_ja }}
     <h2 class="pt-4 pb-2">シーンタイプ</h2>
     {{ post.scene_type_ja }}
-    <LikeButton class="pt-5" :postId="this.post.id" />
+    <LikeButton class="pt-5 pb-15" :postId="this.post.id" />
   </v-container>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <div>
     <TopPage />
-    <v-container pb-15 class="grey lighten-5">
+    <v-container mb-15 class="grey lighten-5">
       <p class="text-h5 text-center title font-weight-bold">講話一覧(新着順)</p>
       <v-row>
         <v-col v-for="post in this.viewPosts" :key="post.id" cols="12" sm="4">
@@ -52,7 +52,7 @@
         </v-col>
       </v-row>
       <v-pagination
-        class="pt-3"
+        class="pt-3 pb-5"
         v-model="page"
         :length="length"
         @input="changePage"
