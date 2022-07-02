@@ -12,7 +12,8 @@ import MyProfile from "../components/MyProfile.vue";
 import MyProfileEdit from "../components/MyProfileEdit.vue";
 import OtherProfile from "../components/OtherProfile.vue";
 import MyLikes from "../components/MyLikes.vue";
-
+import PrivacyPolicy from "../components/PrivacyPolicy.vue";
+import Terms from "../components/Terms.vue";
 
 Vue.use(Router);
 
@@ -23,6 +24,16 @@ export default new Router({
       path: "/",
       name: "PostIndex",
       component: PostIndex,
+    },
+    {
+      path: "/privacyPolicy",
+      name: "PrivacyPolicy",
+      component: PrivacyPolicy,
+    },
+    {
+      path: "/terms",
+      name: "Terms",
+      component: Terms,
     },
     {
       path: "/search",
