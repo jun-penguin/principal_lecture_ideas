@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <Header />
-    <p v-if="this.$route.path == '/' && loggedIn">
+    <p class="font-weight-bold" v-if="this.$route.path == '/' && loggedIn">
       こんにちは、<span class="name">{{ name }}</span
       >さん
     </p>

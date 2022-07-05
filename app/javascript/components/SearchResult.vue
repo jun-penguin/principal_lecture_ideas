@@ -1,6 +1,6 @@
 <template>
   <v-container pb-15 class="grey lighten-5">
-    <h1 class="mt-5">検索条件の設定</h1>
+    <p class="text-h4 pt-5 title font-weight-bold">検索条件の設定</p>
     <v-select
       v-model="query.grade_range_eq"
       :items="grade_range_select"
@@ -17,28 +17,38 @@
       label="シーンタイプ"
     ></v-select>
 
-    <v-btn class="mb-10" @click="research" color="primary">絞り込む</v-btn>
+    <v-btn class="mb-10 font-weight-bold" @click="research" color="primary"
+      >絞り込む</v-btn
+    >
 
-    <h1>検索結果</h1>
+    <p class="text-h4 pt-5 pl-3 title font-weight-bold">検索結果</p>
     <v-row>
-      <p class="pt-5" v-if="!posts.length">
+      <p class="pt-5 pl-3 font-weight-bold" v-if="!posts.length">
         検索条件に合致する講話はありませんでした。
       </p>
       <v-col v-for="post in this.viewPosts" :key="post.id" cols="12" sm="4">
         <v-card class="mx-auto" max-width="344">
           <v-card-text>
             <div>
-              投稿者: {{ post.user.name }} <LikeCount :postId="post.id" />
+              <span
+                >投稿者:
+                <span class="font-weight-bold">{{ post.user.name }}</span></span
+              >
+              <span class="ml-8">
+                <LikeCount :postId="post.id" />
+              </span>
             </div>
             <div>
               <router-link
                 :to="{ path: `/post/${post.id}` }"
                 style="text-decoration: none"
               >
-                <p class="text-h5 orange--text">{{ post.title }}</p>
+                <p class="text-h5 blue--text font-weight-bold">
+                  {{ post.title }}
+                </p>
               </router-link>
             </div>
-            <p>{{ post.grade_range_ja }} {{ post.scene_type_ja }}</p>
+            <p class="font-weight-bold">{{ post.grade_range_ja }} / {{ post.scene_type_ja }}</p>
             <p>更新日 {{ formatDate(post.updated_at) }}</p>
             <!-- readmore部分 -->
             <div>

@@ -1,19 +1,28 @@
 <template>
   <v-container>
-    <h1>ユーザープロフィール</h1>
+    <p class="text-h4 pt-5 title font-weight-bold">
+      {{ profile.name }}さんのプロフィール
+    </p>
     <v-divider></v-divider>
-    <h2>ユーザー名</h2>
-    {{ profile.name }}
-    <h2>一言自己紹介</h2>
-    <p v-if="profile.self_introduction !== null && profile.self_introduction !== '' ">
+
+    <div class="text-h6 pt-2 font-weight-bold">
+      <p class="float-left pr-7">役職: {{ profile.status_ja }}</p>
+      <p>都道府県: {{ profile.prefecture }}</p>
+    </div>
+
+    <p class="text-h5 pt-5 font-weight-bold">一言自己紹介</p>
+    <p
+      v-if="
+        profile.self_introduction !== null && profile.self_introduction !== ''
+      "
+    >
       {{ profile.self_introduction }}
     </p>
     <p v-else>自己紹介が設定されていません。</p>
-    <h2>ステータス</h2>
-    {{ profile.status_ja }}
-    <h2>都道府県</h2>
-    {{ profile.prefecture }}
-    <h1 class="pt-5">{{ profile.name }}さんの投稿一覧</h1>
+
+    <p class="text-h5 pt-5 font-weight-bold">
+      {{ profile.name }}さんの投稿一覧
+    </p>
     <v-divider class="pb-5"></v-divider>
     <v-row>
       <v-col v-for="post in this.viewPosts" :key="post.id" cols="12" sm="4">
@@ -32,10 +41,14 @@
                 :to="{ path: `/post/${post.id}` }"
                 style="text-decoration: none"
               >
-                <p class="text-h5 orange--text">{{ post.title }}</p>
+                <p class="text-h5 font-weight-bold blue--text">
+                  {{ post.title }}
+                </p>
               </router-link>
             </div>
-            <p>{{ post.grade_range_ja }} {{ post.scene_type_ja }}</p>
+            <p class="font-weight-bold">
+              {{ post.grade_range_ja }} / {{ post.scene_type_ja }}
+            </p>
             <p>更新日 {{ formatDate(post.updated_at) }}</p>
             <!-- readmore部分 -->
             <div>
@@ -65,7 +78,7 @@
       </v-col>
     </v-row>
     <v-pagination
-    class="pt-3 pb-15"
+      class="pt-3 pb-15"
       v-model="page"
       :length="length"
       @input="handlePageChange"

@@ -5,16 +5,16 @@
       <v-img
         class="mx-2 pr-3"
         v-bind:src="require('../../assets/images/logo.png')"
-        max-height="50"
-        max-width="60"
+        max-height="65"
+        max-width="175"
         contain
         @click="$router.push('/')"
         style="cursor: pointer"
       ></v-img>
       <!-- サイトタイトル -->
-      <v-toolbar-title @click="$router.push('/')" style="cursor: pointer"
+      <!-- <v-toolbar-title @click="$router.push('/')" style="cursor: pointer"
         >校長講話アイディアボックス</v-toolbar-title
-      >
+      > -->
 
       <v-spacer></v-spacer>
 
@@ -24,13 +24,22 @@
       <v-spacer></v-spacer>
 
       <!-- 参考にした講話リンク  -->
-      <v-btn v-if="loggedIn" rounded text large class="mr-2"
-        ><router-link to="/mylikes"  style="text-decoration: none; color: white; ">参考にした講話</router-link></v-btn
+      <v-btn v-if="loggedIn" rounded text large class="mr-2 font-weight-bold"
+        ><router-link to="/mylikes" style="text-decoration: none; color: white"
+          ><v-icon class="pr-2">mdi-heart-outline</v-icon
+          >参考にした講話</router-link
+        ></v-btn
       >
       <!-- マイページメニュー -->
       <v-menu v-if="loggedIn" offset-y>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn color="primary" dark v-bind="attrs" v-on="on">
+          <v-btn
+            color="primary"
+            class="mr-2 font-weight-bold"
+            dark
+            v-bind="attrs"
+            v-on="on"
+          >
             マイページメニュー
           </v-btn>
         </template>
@@ -41,7 +50,13 @@
               :to="item.link"
               v-on:click="triggerClick(item.action)"
             >
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
+              <v-list-item-icon>
+                <v-icon v-text="item.icon"></v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+            <v-list-item-title v-text="item.title"></v-list-item-title>
+          </v-list-item-content>
+              <!-- <v-list-item-title>{{ item.title }}</v-list-item-title> -->
             </v-list-item>
           </template>
         </v-list>
@@ -72,10 +87,10 @@ export default {
   data() {
     return {
       items: [
-        { title: "投稿した講話の管理", link: "/postings", action: "" },
-        { title: "講話の投稿", link: "/create", action: "" },
-        { title: "プロフィールの確認・編集", link: "/myProfile" },
-        { title: "ログアウト", link: "", action: "logOut" },
+        { icon: 'mdi-file-edit-outline', title: "投稿した講話の管理", link: "/postings", action: "" },
+        { icon: 'mdi-note-plus', title: "講話の投稿", link: "/create", action: "" },
+        { icon: 'mdi-account-edit', title: "プロフィールの確認・編集", link: "/myProfile" },
+        { icon: 'mdi-account-cancel-outline', title: "ログアウト", link: "", action: "logOut" },
       ],
     };
   },

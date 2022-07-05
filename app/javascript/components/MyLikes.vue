@@ -1,6 +1,6 @@
 <template>
   <v-container pb-15 class="grey lighten-5 pt-10">
-    <h1>参考にした講話一覧</h1>
+    <p class="text-h4 pt-5 title font-weight-bold">参考にした講話一覧</p>
     <v-row>
       <v-col v-for="post in this.viewPosts" :key="post.id" cols="12" sm="4" >
         <v-card class="mx-auto" max-width="344" >
@@ -18,7 +18,7 @@
                 :to="{ path: `/post/${post.id}` }"
                 style="text-decoration: none"
               >
-                <p class="text-h5 orange--text">{{ post.title }}</p>
+                 <p class="text-h5 font-weight-bold blue--text">{{ post.title }}</p>
               </router-link>
             </div>
             <p>{{ post.grade_range_ja }} {{ post.scene_type_ja }}</p>
