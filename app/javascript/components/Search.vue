@@ -2,11 +2,11 @@
   <!-- 検索フォーム -->
   <v-text-field
     v-model="query.title_or_description_or_content_cont"
-    placeholder="タイトル・概要・本文で検索"
+    placeholder="タイトル・紹介文・本文で検索"
     type="text"
   >
     <template v-slot:append-outer>
-      <v-btn @click="search" color="primary">検索</v-btn>
+      <v-btn @click="search" class="font-weight-bold" color="primary">検索</v-btn>
     </template>
   </v-text-field>
 </template>

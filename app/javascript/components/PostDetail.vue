@@ -1,28 +1,33 @@
 <template>
-  <v-container class="pb-15">
-    <h1>講話詳細</h1>
+  <v-container class="pb-15 ml-15">
+    <div class="">
+    <p class="text-h4 pt-5 title font-weight-bold">{{ post.title }}</p>
     <v-divider></v-divider>
-    <h2>投稿ユーザー</h2>
-    <router-link
-      :to="{ path: `/${post.user.name}` }"
-      style="text-decoration: none"
-    >
-      <p>{{ post.user.name }}</p>
-    </router-link>
+    <div class="text-h6 pt-2 font-weight-bold">
+      <p class="float-left">対象: {{ post.grade_range_ja }}</p>
+      <p class="float-left pl-7">シーンタイプ: {{ post.scene_type_ja }}</p>
 
-    <h2 class="pb-2">タイトル</h2>
-    <p class="text-h6">
-    {{ post.title }}
-    </p>
-    <h2 class="pt-4 pb-2">講話の紹介</h2>
+      <p class="text-right">
+        投稿者:
+        <router-link
+          :to="{ path: `/${post.user.name}` }"
+          style="text-decoration: none"
+        >
+          {{ post.user.name }}
+        </router-link>
+      </p>
+    </div>
+
+    <p class="text-h5 pt-2 font-weight-bold">講話の紹介</p>
     {{ post.description }}
-    <h2 class="pt-4 pb-2">本文</h2>
+    <p class="text-h5 pt-5 font-weight-bold">本文</p>
     {{ post.content }}
-    <h2 class="pt-4 pb-2">対象</h2>
+    <!-- <p class="text-h5 pt-5 font-weight-bold">対象</p>
     {{ post.grade_range_ja }}
-    <h2 class="pt-4 pb-2">シーンタイプ</h2>
-    {{ post.scene_type_ja }}
+    <p class="text-h5 pt-5 font-weight-bold">シーンタイプ</p>
+    {{ post.scene_type_ja }} -->
     <LikeButton class="pt-5 pb-15" :postId="this.post.id" />
+    </div>
   </v-container>
 </template>
 

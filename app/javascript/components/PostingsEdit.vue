@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1>講話の編集</h1>
+    <p class="text-h4 pt-5 title font-weight-bold">講話の編集</p>
     <validation-observer ref="observer" v-slot="{ invalid }">
       <form @submit.prevent="submit">
         <!-- タイトル -->
@@ -22,12 +22,12 @@
           name="講話の紹介"
           rules="required"
         >
-          <v-text-field
+          <v-textarea
             v-model="description"
             label="講話の紹介"
             :error-messages="errors"
             rows="4"
-          ></v-text-field>
+          ></v-textarea>
         </validation-provider>
 
         <!-- 本文 -->
@@ -92,7 +92,7 @@
         </validation-provider>
 
         <v-btn
-          class="mr-4"
+          class="mr-4 font-weight-bold"
           type="submit"
           v-on:click="updatePost"
           color="success"
@@ -100,7 +100,7 @@
         >
           上記内容で更新する
         </v-btn>
-        <v-btn color="blue-grey" class="white--text" @click="clear">
+        <v-btn color="blue-grey" class="white--text font-weight-bold" @click="clear">
           全て空にする
         </v-btn>
       </form>

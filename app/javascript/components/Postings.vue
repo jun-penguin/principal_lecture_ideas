@@ -1,9 +1,9 @@
 <template>
   <v-container class="grey lighten-5">
-    <h1>講話の管理</h1>
+    <p class="text-h4 pt-5 title font-weight-bold">講話の管理</p>
     <v-tabs>
-      <v-tab href="#tab-1">公開中</v-tab>
-      <v-tab href="#tab-2">下書き</v-tab>
+      <v-tab class="font-weight-bold" href="#tab-1">公開中</v-tab>
+      <v-tab class="font-weight-bold" href="#tab-2">下書き</v-tab>
       <!-- 公開中 -->
       <v-tab-item value="tab-1">
         <v-row class="pt-5">
@@ -20,7 +20,7 @@
                     :to="{ path: `/postings/${post.id}` }"
                     style="text-decoration: none"
                   >
-                    <p class="text-h5 orange--text">{{ post.title }}</p>
+                    <p class="text-h5 font-weight-bold blue--text">{{ post.title }}</p>
                   </router-link>
                   <span class="pt-n5">
                     <LikeCount :postId="post.id" />
@@ -69,7 +69,7 @@
                     :to="{ path: `/postings/${post.id}` }"
                     style="text-decoration: none"
                   >
-                    <p class="text-h5 orange--text">{{ post.title }}</p>
+                    <p class="text-h5 font-weight-bold blue--text">{{ post.title }}</p>
                   </router-link>
                   <span class="pt-n5">
                     <LikeCount :postId="post.id" />

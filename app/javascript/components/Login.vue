@@ -1,12 +1,12 @@
 <template>
   <v-dialog v-model="dialog" max-width="600px">
     <template v-slot:activator="{ on }">
-      <v-btn rounded text large color="white" v-on="on">ログイン</v-btn>
+      <v-btn rounded text large class="font-weight-bold" color="white" v-on="on">ログイン</v-btn>
     </template>
     <v-card>
       <validation-observer ref="observer" v-slot="{ invalid }">
         <v-card-title>
-          <span class="headline">ログイン</span>
+          <span class="headline font-weight-bold pl-2">ログイン</span>
           <v-spacer></v-spacer>
           <v-btn icon @click="dialog = false">
             <v-icon>mdi-close</v-icon>

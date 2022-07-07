@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1>新規投稿</h1>
+    <p class="text-h4 pt-5 title font-weight-bold">新規投稿</p>
     <validation-observer ref="observer" v-slot="{ invalid }">
       <form @submit.prevent="submit">
         <!-- タイトル -->
@@ -25,7 +25,7 @@
           <v-textarea
             v-model="description"
             label="講話の紹介"
-            placeholder="講話の狙いや作成の経緯、実際にお話した際の子どもたちの反応などをお書きください。"
+            placeholder="講話の狙いや作成の経緯、実際にお話した際の子どもたちの反応などをお書きください。(ここで記載した紹介文がサイトの講話一覧ページに掲載されますので、どういった内容の講話であるのかが分かり易い文章ですと、講話が見られやすくなります。)"
             :error-messages="errors"
             rows="4"
           ></v-textarea>
@@ -94,7 +94,7 @@
         </validation-provider>
 
         <v-btn
-          class="mr-4"
+          class="mr-4 font-weight-bold"
           type="submit"
           color="success"
           v-on:click="createPost"
@@ -102,7 +102,7 @@
         >
           投稿する
         </v-btn>
-        <v-btn @click="clear"> 全て空にする </v-btn>
+        <v-btn class="font-weight-bold" @click="clear"> 全て空にする </v-btn>
       </form>
     </validation-observer>
   </v-container>

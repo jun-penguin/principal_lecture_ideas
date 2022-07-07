@@ -21,7 +21,7 @@
         </p>
         <p class="concept_description">
           校長講話アイディアボックスは、全国の校長先生と元校長先生の皆さんが<br />お持ちの講話アイディアを共有することで、<br />
-          多様性があり、また時事に即した講話を集約し、<br />校長先生の皆様の講話づくりの手助けをすることで、<br />子どもたちの教育をより良いものにすることを目指すサービスです。<br />
+          多様性に富み、かつ時事に即した講話を集約し、<br />校長先生の皆様の講話づくりの手助けをすることで、<br />子どもたちの教育をより良いものにすることを目指すサービスです。<br />
         </p>
       </div>
     </section>
@@ -39,7 +39,7 @@
               max-width="100px"
             ></v-img>
 
-            <v-card-title class="justify-center"> 見つける </v-card-title>
+            <v-card-title class="justify-center font-weight-bold"> 見つける </v-card-title>
 
             <v-card-subtitle class="text-center">
               サイト上部の検索バーを活用しながら、<br />お探しの条件に合致する講話を検索することができます。<br />
@@ -55,12 +55,13 @@
               max-width="100px"
             ></v-img>
 
-            <v-card-title class="justify-center"> 参考にする </v-card-title>
+            <v-card-title class="justify-center font-weight-bold"> 参考にする </v-card-title>
             <v-card-subtitle class="text-center">
               参考にしたい講話は「参考にする」ボタンを<br />押すことでブックマークをしつつ、<br />
               投稿者に感謝を示すことができます。
             </v-card-subtitle>
           </v-card>
+          
         </v-col>
         <v-col cols="12" sm="4">
           <v-card class="mx-auto pt-5" max-width="344">
@@ -71,12 +72,13 @@
               max-width="100px"
             ></v-img>
 
-            <v-card-title class="justify-center"> 投稿する </v-card-title>
+            <v-card-title class="justify-center font-weight-bold"> 投稿する </v-card-title>
 
             <v-card-subtitle class="text-center"
               >お持ちの講話アイディアを投稿することで、<br />プラットフォームを充実させ、全国の校長先生にアイディアを提供することができます。<br />
             </v-card-subtitle>
           </v-card>
+          <p class="text-caption">※「参考にする」「投稿する」機能の使用にはユーザー登録が必要です。</p>
         </v-col>
       </v-row>
     </v-container>
