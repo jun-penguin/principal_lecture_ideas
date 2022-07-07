@@ -1,5 +1,6 @@
 <template>
-  <v-container class="pb-15">
+  <v-container class="pb-15 ml-15">
+    <div class="">
     <p class="text-h4 pt-5 title font-weight-bold">{{ post.title }}</p>
     <v-divider></v-divider>
     <div class="text-h6 pt-2 font-weight-bold">
@@ -26,6 +27,7 @@
     <p class="text-h5 pt-5 font-weight-bold">シーンタイプ</p>
     {{ post.scene_type_ja }} -->
     <LikeButton class="pt-5 pb-15" :postId="this.post.id" />
+    </div>
   </v-container>
 </template>
 

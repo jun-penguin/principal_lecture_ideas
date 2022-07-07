@@ -22,7 +22,7 @@
 
         <validation-provider
           v-slot="{ errors }"
-          name="ステータス"
+          name="役職"
           rules="required"
         >
           <v-select
@@ -31,7 +31,7 @@
             item-text="label"
             item-value="value"
             :error-messages="errors"
-            label="ステータス"
+            label="役職"
             data-vv-name="select"
             required
           ></v-select>

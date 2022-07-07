@@ -61,6 +61,7 @@
               投稿者に感謝を示すことができます。
             </v-card-subtitle>
           </v-card>
+          
         </v-col>
         <v-col cols="12" sm="4">
           <v-card class="mx-auto pt-5" max-width="344">
@@ -77,6 +78,7 @@
               >お持ちの講話アイディアを投稿することで、<br />プラットフォームを充実させ、全国の校長先生にアイディアを提供することができます。<br />
             </v-card-subtitle>
           </v-card>
+          <p class="text-caption">※「参考にする」「投稿する」機能の使用にはユーザー登録が必要です。</p>
         </v-col>
       </v-row>
     </v-container>

@@ -1,5 +1,5 @@
 <template>
-  <v-container class="pb-15">
+  <v-container class="pb-15 ml-15">
     <p class="text-h4 pt-5 title font-weight-bold">{{ post.title }}</p>
     <v-divider></v-divider>
     <div class="text-h6 pt-2 font-weight-bold">

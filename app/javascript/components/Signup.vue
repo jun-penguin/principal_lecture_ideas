@@ -9,7 +9,7 @@
       <validation-observer ref="observer" v-slot="{ invalid }">
         <v-form @submit.prevent="submit">
           <v-card-title>
-            <span class="headline">新規登録</span>
+            <span class="headline font-weight-bold pl-2">新規登録</span>
             <v-spacer></v-spacer>
             <v-btn icon @click="dialog = false">
               <v-icon>mdi-close</v-icon>

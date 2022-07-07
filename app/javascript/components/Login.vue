@@ -6,7 +6,7 @@
     <v-card>
       <validation-observer ref="observer" v-slot="{ invalid }">
         <v-card-title>
-          <span class="headline">ログイン</span>
+          <span class="headline font-weight-bold pl-2">ログイン</span>
           <v-spacer></v-spacer>
           <v-btn icon @click="dialog = false">
             <v-icon>mdi-close</v-icon>
