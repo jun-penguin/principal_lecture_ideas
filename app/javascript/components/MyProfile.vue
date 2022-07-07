@@ -1,26 +1,29 @@
 <template>
-  <v-container>
-    <h1>ユーザープロフィール</h1>
+  <v-container class="pb-15 mt-5 ml-15 shades white rounded-lg">
+    <p class="text-h4 pt-5 title font-weight-bold">ユーザープロフィール</p>
     <v-divider></v-divider>
-    <h2>ユーザー名</h2>
-    {{ name }}
-    <h2>メールアドレス</h2>
+    <p class="text-h5 pt-3 font-weight-bold">ユーザー名</p>
+    {{ profile.name }}
+    <p class="text-h5 pt-3 font-weight-bold">メールアドレス</p>
     {{ headers.uid }}
-    <h2>一言自己紹介</h2>
-    <p v-if="profile.self_introduction !== null && profile.self_introduction !== '' ">
+    <p class="text-h5 pt-3 font-weight-bold">一言自己紹介</p>
+    <p
+      v-if="
+        profile.self_introduction !== null && profile.self_introduction !== ''
+      "
+    >
       {{ profile.self_introduction }}
     </p>
-    <p v-else>自己紹介が設定されていません。</p>
-    <h2>ステータス</h2>
+    <p class="text-h5 pt-3 font-weight-bold">役職</p>
     {{ profile.status_ja }}
-    <h2>都道府県</h2>
+    <p class="text-h5 pt-3 font-weight-bold">都道府県</p>
     {{ profile.prefecture }}
     <div class="pt-3">
-      <v-btn depressed color="success">
+      <v-btn  depressed color="success">
         <router-link
           style="text-decoration: none; color: inherit"
           :to="{ path: `/myProfile/edit` }"
-          class="btn"
+          class="font-weight-bold"
           >編集する</router-link
         >
       </v-btn>

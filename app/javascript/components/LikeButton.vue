@@ -1,13 +1,13 @@
 <template>
   <div v-if="loggedIn">
     <div v-if="isLiked" @click="deleteLike()">
-      <v-btn tile color="">
-        <v-icon medium left> mdi-heart </v-icon>
+      <v-btn class="font-weight-bold" tile color="">
+        <v-icon medium left color="red"> mdi-heart </v-icon>
         参考になったを取り消す {{ count }}
       </v-btn>
     </div>
     <div v-else @click="registerLike()">
-      <v-btn tile color="">
+      <v-btn class="font-weight-bold" tile color="">
         <v-icon medium left dark> mdi-heart-outline </v-icon>
         参考になりました {{ count }}
       </v-btn>
@@ -16,7 +16,7 @@
 
   <div v-else>
     <div>
-      <v-btn @click="showAlert()" tile color="">
+      <v-btn class="font-weight-bold" @click="showAlert()" tile color="">
         <v-icon medium left dark> mdi-heart-outline </v-icon>
         参考になりました {{ count }}
       </v-btn>

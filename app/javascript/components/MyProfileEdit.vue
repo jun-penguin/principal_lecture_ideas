@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <h1>プロフィールの編集</h1>
+  <v-container class="pb-15 mt-5 ml-15 shades white rounded-lg">
+    <p class="text-h4 pt-5 title font-weight-bold">プロフィールの編集</p>
     <validation-observer ref="observer" v-slot="{ invalid }">
       <form @submit.prevent="submit">
         <validation-provider
@@ -22,7 +22,7 @@
 
         <validation-provider
           v-slot="{ errors }"
-          name="ステータス"
+          name="役職"
           rules="required"
         >
           <v-select
@@ -31,7 +31,7 @@
             item-text="label"
             item-value="value"
             :error-messages="errors"
-            label="ステータス"
+            label="役職"
             data-vv-name="select"
             required
           ></v-select>
@@ -53,7 +53,7 @@
         </validation-provider>
 
         <v-btn
-          class="mr-4"
+          class="mr-4 font-weight-bold"
           type="submit"
           v-on:click="updateMyProfile"
           color="success"
@@ -192,7 +192,7 @@ export default {
         })
         .then(
           (response) => {
-            setTimeout( () => this.$router.push({name: "MyProfile"}), 500);
+            setTimeout(() => this.$router.push({ name: "MyProfile" }), 500);
             // this.$router.push({ name: "MyProfile" });
           },
           (error) => {

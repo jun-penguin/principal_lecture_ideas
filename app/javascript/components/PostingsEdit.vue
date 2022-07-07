@@ -1,17 +1,18 @@
 <template>
-  <v-container>
-    <h1>講話の編集</h1>
+  <v-container class="pb-15 mt-5 ml-15 shades white rounded-lg">
+    <p class="text-h4 pt-5 title font-weight-bold">講話の編集</p>
     <validation-observer ref="observer" v-slot="{ invalid }">
       <form @submit.prevent="submit">
         <!-- タイトル -->
         <validation-provider
           v-slot="{ errors }"
           name="タイトル"
-          rules="required"
+          rules="required|max_title:25"
         >
           <v-text-field
             v-model="title"
             :error-messages="errors"
+            :counter="25"
             label="タイトル"
           ></v-text-field>
         </validation-provider>
@@ -20,14 +21,15 @@
         <validation-provider
           v-slot="{ errors }"
           name="講話の紹介"
-          rules="required"
+          rules="required|max_description:100"
         >
-          <v-text-field
+          <v-textarea
             v-model="description"
             label="講話の紹介"
+            :counter="100"
             :error-messages="errors"
-            rows="4"
-          ></v-text-field>
+            rows="2"
+          ></v-textarea>
         </validation-provider>
 
         <!-- 本文 -->
@@ -92,7 +94,7 @@
         </validation-provider>
 
         <v-btn
-          class="mr-4"
+          class="mr-4 font-weight-bold"
           type="submit"
           v-on:click="updatePost"
           color="success"
@@ -100,7 +102,7 @@
         >
           上記内容で更新する
         </v-btn>
-        <v-btn color="blue-grey" class="white--text" @click="clear">
+        <v-btn color="blue-grey" class="white--text font-weight-bold" @click="clear">
           全て空にする
         </v-btn>
       </form>
@@ -111,7 +113,7 @@
 <script>
 import { mapState } from "vuex";
 import { mapActions } from "vuex";
-import { required } from "vee-validate/dist/rules";
+import { required, max } from "vee-validate/dist/rules";
 import {
   extend,
   ValidationObserver,
@@ -124,6 +126,15 @@ setInteractionMode("eager");
 extend("required", {
   ...required,
   message: "{_field_} は空欄にできません。",
+});
+
+extend("max_description", {
+  ...max,
+  message: "{_field_} は100文字以内でなければなりません。",
+});
+extend("_title", {
+  ...max,
+  message: "{_field_} は25文字以内でなければなりません。",
 });
 
 export default {

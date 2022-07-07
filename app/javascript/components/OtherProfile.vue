@@ -1,44 +1,68 @@
 <template>
-  <v-container>
-    <h1>ユーザープロフィール</h1>
+  <v-container class="shades white">
+    <p class="text-h4 pt-5 title font-weight-bold">
+      {{ profile.name }}さんのプロフィール
+    </p>
     <v-divider></v-divider>
-    <h2>ユーザー名</h2>
-    {{ profile.name }}
-    <h2>一言自己紹介</h2>
-    <p v-if="profile.self_introduction !== null && profile.self_introduction !== '' ">
+
+    <div class="text-h6 pt-2 font-weight-bold">
+      <p class="float-left pr-7">役職: {{ profile.status_ja }}</p>
+      <p>都道府県: {{ profile.prefecture }}</p>
+    </div>
+
+    <p class="text-h5 pt-5 font-weight-bold">一言自己紹介</p>
+    <p
+      v-if="
+        profile.self_introduction !== null && profile.self_introduction !== ''
+      "
+    >
       {{ profile.self_introduction }}
     </p>
     <p v-else>自己紹介が設定されていません。</p>
-    <h2>ステータス</h2>
-    {{ profile.status_ja }}
-    <h2>都道府県</h2>
-    {{ profile.prefecture }}
-    <h1 class="pt-5">{{ profile.name }}さんの投稿一覧</h1>
+
+    <!-- 投稿一覧 -->
+    <p class="text-h5 pt-5 font-weight-bold">
+      {{ profile.name }}さんの投稿一覧
+    </p>
     <v-divider class="pb-5"></v-divider>
     <v-row>
       <v-col v-for="post in this.viewPosts" :key="post.id" cols="12" sm="4">
-        <v-card class="mx-auto" max-width="344">
-          <v-card-text>
-            <div>
-              投稿者: {{ post.user.name }}
-              <!-- likecount -->
-              <span class="ml-8">
-                <!-- v-if="loggedIn" -->
-                <LikeCount :postId="post.id" />
-              </span>
-            </div>
-            <div>
-              <router-link
+        <v-hover v-slot="{ hover }">
+          <router-link :to="{ path: `/post/${post.id}` }">
+            <v-card class="mx-auto" max-width="344" :elevation="hover ? 12 : 2">
+              <v-card-text>
+                <div>
+                  <v-icon class="pb-1">mdi-account</v-icon> {{ post.user.name }}
+                  <!-- likecount -->
+                  <span class="ml-8">
+                    <!-- v-if="loggedIn" -->
+                    <LikeCount :postId="post.id" />
+                  </span>
+                </div>
+                <div>
+                  <!-- <router-link
                 :to="{ path: `/post/${post.id}` }"
                 style="text-decoration: none"
-              >
-                <p class="text-h5 orange--text">{{ post.title }}</p>
-              </router-link>
-            </div>
-            <p>{{ post.grade_range_ja }} {{ post.scene_type_ja }}</p>
-            <p>更新日 {{ formatDate(post.updated_at) }}</p>
-            <!-- readmore部分 -->
-            <div>
+              > -->
+                  <p
+                    :style="{ 'text-decoration': hover ? 'underline' : 'none' }"
+                    class="text-h5 font-weight-bold blue--text"
+                  >
+                    {{ post.title }}
+                  </p>
+                  <!-- </router-link> -->
+                </div>
+                <p class="font-weight-bold">
+                  {{ post.grade_range_ja }} / {{ post.scene_type_ja }}
+                </p>
+                <p>
+                  <v-icon class="pb-1">mdi-clock-outline</v-icon>
+                  {{ formatDate(post.updated_at) }}
+                </p>
+
+                <!-- 一旦消す -->
+                <!-- readmore部分 -->
+                <!-- <div>
               <p>
                 <span v-if="!post.readActivated">
                   {{ post.description.slice(0, 100) }}
@@ -59,13 +83,18 @@
               >
                 閉じる
               </button>
-            </div>
-          </v-card-text>
-        </v-card>
+            </div> -->
+                <div class="description">
+                  <p class="black--text">{{ post.description }}</p>
+                </div></v-card-text
+              >
+            </v-card>
+          </router-link>
+        </v-hover>
       </v-col>
     </v-row>
     <v-pagination
-    class="pt-3 pb-15"
+      class="pt-3 pb-15"
       v-model="page"
       :length="length"
       @input="handlePageChange"
@@ -129,4 +158,12 @@ export default {
 </script>
 
 <style scoped>
+.description {
+  padding: 0.5em 1em;
+  margin: 2em 0;
+  color: #232323;
+  background: #f5f5f5;
+  border-left: solid 5px #5d5d5d;
+  font-size: 15px;
+}
 </style>
