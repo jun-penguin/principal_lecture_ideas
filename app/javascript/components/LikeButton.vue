@@ -2,7 +2,7 @@
   <div v-if="loggedIn">
     <div v-if="isLiked" @click="deleteLike()">
       <v-btn class="font-weight-bold" tile color="">
-        <v-icon medium left> mdi-heart </v-icon>
+        <v-icon medium left color="red"> mdi-heart </v-icon>
         参考になったを取り消す {{ count }}
       </v-btn>
     </div>

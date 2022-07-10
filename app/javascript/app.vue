@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app  :style="{ background: $vuetify.theme.themes.light.background }">
     <Header />
     <p class="font-weight-bold" v-if="this.$route.path == '/' && loggedIn">
       こんにちは、<span class="name">{{ name }}</span

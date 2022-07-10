@@ -1,16 +1,19 @@
 <template>
-  <v-container class="pb-15 ml-15">
+  <v-container class="pb-15 mt-5 ml-15 shades white rounded-lg">
     <p class="text-h4 pt-5 title font-weight-bold">{{ post.title }}</p>
     <v-divider></v-divider>
     <div class="text-h6 pt-2 font-weight-bold">
-      <p class="float-left pr-7">対象: {{ post.grade_range_ja }}</p>
-      <p>シーンタイプ: {{ post.scene_type_ja }}</p>
+      <span class="box3 ml-1 mr-5">{{ post.grade_range_ja }}</span>
+      <span class="box3">{{ post.scene_type_ja }}</span>
     </div>
-    <p class="text-h5 pt-2 font-weight-bold">講話の紹介</p>
-    {{ post.description }}
-    <p class="text-h5 pt-5 font-weight-bold">本文</p>
-    {{ post.content }}
-    <LikeButton class="pt-5 pb-3" :postId="this.$route.params.id" />
+    <div class="box8">
+      <p class="content">{{ post.description }}</p>
+    </div>
+    <div class="box27">
+      <span class="box-title">講話本文</span>
+      <p class="content">{{ newLine(post.content) }}</p>
+    </div>
+    <LikeButton class="pb-3" :postId="this.$route.params.id" />
     <div class="pt-4">
       <v-btn depressed color="success" class="mr-2">
         <router-link
@@ -20,7 +23,12 @@
           >編集</router-link
         >
       </v-btn>
-      <v-btn depressed color="error" class="font-weight-bold" @click="confirm_dialog = true">
+      <v-btn
+        depressed
+        color="error"
+        class="font-weight-bold"
+        @click="confirm_dialog = true"
+      >
         削除
       </v-btn>
       <v-dialog v-model="confirm_dialog" max-width="400">
@@ -119,9 +127,58 @@ export default {
           }
         );
     },
+    newLine(content) {
+      return content.replace(/\\n/g, "\n");
+    },
   },
 };
 </script>
 
 <style scoped>
+.box8 {
+  padding: 0.5em 1em;
+  margin: 2em 0;
+  color: #232323;
+  background: #eafff0;
+  border-left: solid 10px #7d420aa4;
+  border-radius: 5px;
+}
+.box3 {
+  padding: 0.5em 0.5em;
+  /* margin: 2em 0; */
+  color: #2c2c2f;
+  background: #efefef; /*背景色*/
+  border-radius: 30px;
+}
+
+.box27 {
+  position: relative;
+  margin: 3em 0 2em 0;
+  padding: 0.5em 1em;
+  border: solid 3px #7d420aa4;
+  background: #eafff0;
+  border-radius: 5px;
+}
+.box27 .box-title {
+  position: absolute;
+  display: inline-block;
+  top: -27px;
+  left: -3px;
+  padding: 0 9px;
+  height: 25px;
+  line-height: 25px;
+  font-size: 17px;
+  background: #7d420aa4;
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 5px 5px 0 0;
+}
+.box27 p {
+  margin: 0;
+  padding: 0;
+}
+.content {
+  white-space: pre-line;
+  font-size: 19px;
+}
 </style>

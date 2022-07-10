@@ -27,31 +27,45 @@
         検索条件に合致する講話はありませんでした。
       </p>
       <v-col v-for="post in this.viewPosts" :key="post.id" cols="12" sm="4">
-        <v-card class="mx-auto" max-width="344">
-          <v-card-text>
-            <div>
-              <span
-                >投稿者:
-                <span class="font-weight-bold">{{ post.user.name }}</span></span
-              >
-              <span class="ml-8">
-                <LikeCount :postId="post.id" />
-              </span>
-            </div>
-            <div>
-              <router-link
+        <v-hover v-slot="{ hover }">
+          <router-link :to="{ path: `/post/${post.id}` }">
+            <v-card class="mx-auto" max-width="344" :elevation="hover ? 12 : 2">
+              <v-card-text>
+                <div>
+                  <span
+                    ><v-icon class="pb-1">mdi-account</v-icon>
+                    <span class="font-weight-bold">{{
+                      post.user.name
+                    }}</span></span
+                  >
+                  <span class="ml-8">
+                    <LikeCount :postId="post.id" />
+                  </span>
+                </div>
+                <div>
+                  <!-- <router-link
                 :to="{ path: `/post/${post.id}` }"
                 style="text-decoration: none"
-              >
-                <p class="text-h5 blue--text font-weight-bold">
-                  {{ post.title }}
+              > -->
+                  <p
+                    :style="{ 'text-decoration': hover ? 'underline' : 'none' }"
+                    class="text-h5 blue--text font-weight-bold"
+                  >
+                    {{ post.title }}
+                  </p>
+                  <!-- </router-link> -->
+                </div>
+                <p class="font-weight-bold">
+                  {{ post.grade_range_ja }} / {{ post.scene_type_ja }}
                 </p>
-              </router-link>
-            </div>
-            <p class="font-weight-bold">{{ post.grade_range_ja }} / {{ post.scene_type_ja }}</p>
-            <p>更新日 {{ formatDate(post.updated_at) }}</p>
-            <!-- readmore部分 -->
-            <div>
+                <p>
+                  <v-icon class="pb-1">mdi-clock-outline</v-icon>
+                  {{ formatDate(post.updated_at) }}
+                </p>
+
+                <!-- 一旦消す -->
+                <!-- readmore部分 -->
+                <!-- <div>
               <p>
                 <span v-if="!post.readActivated">
                   {{ post.description.slice(0, 100) }}
@@ -72,9 +86,14 @@
               >
                 閉じる
               </button>
-            </div>
-          </v-card-text>
-        </v-card>
+            </div> -->
+                <div class="description">
+                  <p class="black--text">{{ post.description }}</p>
+                </div>
+              </v-card-text>
+            </v-card>
+          </router-link>
+        </v-hover>
       </v-col>
     </v-row>
     <v-pagination
@@ -294,4 +313,13 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.description {
+  padding: 0.5em 1em;
+  margin: 2em 0;
+  color: #232323;
+  background: #f5f5f5;
+  border-left: solid 5px #5d5d5d;
+  font-size: 15px;
+}
+</style>font-size: 15px;

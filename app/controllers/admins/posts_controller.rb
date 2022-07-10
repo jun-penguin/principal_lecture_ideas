@@ -26,7 +26,7 @@ class Admins::PostsController < Admins::BaseController
   private
 
   def post_params
-    params.require(:post).permit(:title, :description, :content, :grade_range, :scene_type)
+    params.require(:post).permit(:title, :description, :content, :status, :grade_range, :scene_type)
   end
 
   def set_post

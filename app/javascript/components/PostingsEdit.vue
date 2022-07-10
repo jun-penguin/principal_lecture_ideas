@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="pb-15 mt-5 ml-15 shades white rounded-lg">
     <p class="text-h4 pt-5 title font-weight-bold">講話の編集</p>
     <validation-observer ref="observer" v-slot="{ invalid }">
       <form @submit.prevent="submit">
@@ -7,11 +7,12 @@
         <validation-provider
           v-slot="{ errors }"
           name="タイトル"
-          rules="required"
+          rules="required|max_title:25"
         >
           <v-text-field
             v-model="title"
             :error-messages="errors"
+            :counter="25"
             label="タイトル"
           ></v-text-field>
         </validation-provider>
@@ -20,13 +21,14 @@
         <validation-provider
           v-slot="{ errors }"
           name="講話の紹介"
-          rules="required"
+          rules="required|max_description:100"
         >
           <v-textarea
             v-model="description"
             label="講話の紹介"
+            :counter="100"
             :error-messages="errors"
-            rows="4"
+            rows="2"
           ></v-textarea>
         </validation-provider>
 
@@ -111,7 +113,7 @@
 <script>
 import { mapState } from "vuex";
 import { mapActions } from "vuex";
-import { required } from "vee-validate/dist/rules";
+import { required, max } from "vee-validate/dist/rules";
 import {
   extend,
   ValidationObserver,
@@ -124,6 +126,15 @@ setInteractionMode("eager");
 extend("required", {
   ...required,
   message: "{_field_} は空欄にできません。",
+});
+
+extend("max_description", {
+  ...max,
+  message: "{_field_} は100文字以内でなければなりません。",
+});
+extend("_title", {
+  ...max,
+  message: "{_field_} は25文字以内でなければなりません。",
 });
 
 export default {
