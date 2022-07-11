@@ -14,10 +14,11 @@ import OtherProfile from "../components/OtherProfile.vue";
 import MyLikes from "../components/MyLikes.vue";
 import PrivacyPolicy from "../components/PrivacyPolicy.vue";
 import Terms from "../components/Terms.vue";
+import store from "../store/store";
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: "history",
   routes: [
     {
@@ -54,6 +55,7 @@ export default new Router({
       path: "/postings",
       name: "Postings",
       component: Postings,
+      meta: { requiresAuth: true },
     },
     {
       path: "/post/:id(\\d+)",
@@ -64,31 +66,37 @@ export default new Router({
       path: "/postings/:id(\\d+)",
       name: "PostingsDetail",
       component: PostingsDetail,
+      meta: { requiresAuth: true },
     },
     {
       path: "/postings/edit/:id(\\d+)",
       name: "PostingsEdit",
       component: PostingsEdit,
+      meta: { requiresAuth: true },
     },
     {
       path: "/create",
       name: "PostCreate",
       component: PostCreate,
+      meta: { requiresAuth: true },
     },
     {
       path: "/myProfile",
       name: "MyProfile",
       component: MyProfile,
+      meta: { requiresAuth: true },
     },
     {
       path: "/myProfile/edit",
       name: "myProfileEdit",
       component: MyProfileEdit,
+      meta: { requiresAuth: true },
     },
     {
       path: "/mylikes",
       name: "myLikes",
       component: MyLikes,
+      meta: { requiresAuth: true },
     },
     {
       path: "/:username",
@@ -97,3 +105,14 @@ export default new Router({
     },
   ],
 });
+
+// ログインが必要なページでの要認証ナビゲーションガード
+router.beforeEach((to, from, next) => {
+  if(to.matched.some(record => record.meta.requiresAuth) && (!store.state.auth.loggedIn)){
+    next('/')
+  }else{
+    next()
+  }
+});
+
+export default router;
