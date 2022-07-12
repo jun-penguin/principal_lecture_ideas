@@ -1,7 +1,7 @@
 <template>
   <!-- 検索フォーム -->
   <v-text-field
-    v-model="query.title_or_description_or_content_cont"
+    v-model="query.title_or_description_or_content_cont_any"
     placeholder="タイトル・紹介文・本文で検索"
     type="text"
   >
@@ -21,7 +21,7 @@ export default {
     return {
       // posts: [],
       query: {
-        title_or_description_or_content_cont: null,
+        title_or_description_or_content_cont_any: null,
         status_eq: 1, //公開済みのみ検索対象に
       },
     };
@@ -57,7 +57,7 @@ export default {
             posts: posts,
           })
           this.$store.dispatch("responseDate/getWord", {
-            word: this.query.title_or_description_or_content_cont
+            word: this.query.title_or_description_or_content_cont_any
           })
           this.$store.dispatch("responseDate/getGrade_range", {
             grade_range: null

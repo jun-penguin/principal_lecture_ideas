@@ -3,6 +3,7 @@
     <TopPage />
     <v-container mb-15 class="shades white rounded-lg">
       <p class="text-h5 text-center title font-weight-bold">講話一覧(新着順)</p>
+      <v-divider class="pb-5"></v-divider>
       <v-row>
         <v-col v-for="post in this.viewPosts" :key="post.id" cols="12" sm="4">
           <v-hover v-slot="{ hover }">
