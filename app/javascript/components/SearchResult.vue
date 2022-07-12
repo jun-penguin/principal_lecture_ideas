@@ -129,7 +129,7 @@ export default {
       page: 1,
       pageSize: 12,
       query: {
-        title_or_description_or_content_cont: null,
+        title_or_description_or_content_cont_any: null,
         status_eq: 1, //公開済みのみ検索対象に
         grade_range_eq: null,
         scene_type_eq: null,
@@ -174,7 +174,7 @@ export default {
       console.log("setResult");
     },
     setWord: function () {
-      this.query.title_or_description_or_content_cont =
+      this.query.title_or_description_or_content_cont_any =
         this.$store.getters["responseDate/word"].word;
       console.log("setWord");
     },
