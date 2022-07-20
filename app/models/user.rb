@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
 
   include DeviseTokenAuth::Concerns::User
 
+  validates :name, uniqueness: true
+
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :favorites, through: :likes, source: :post
@@ -24,4 +26,12 @@ class User < ActiveRecord::Base
                      徳島県: 36, 香川県: 37, 愛媛県: 38, 高知県: 39,
                      福岡県: 40, 佐賀県: 41, 長崎県: 42, 熊本県: 43, 大分県: 44, 宮崎県: 45, 鹿児島県: 46,
                      沖縄県: 47 }, _prefix: true
+
+  # ゲストユーザーが存在しない場合、ゲストユーザーを作成
+  def self.guest
+    find_or_create_by!(email: 'guest@example.com') do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.name = 'ゲストユーザー'
+    end
+  end
 end

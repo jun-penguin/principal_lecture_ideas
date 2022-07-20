@@ -3,28 +3,26 @@
     <p class="text-h4 pt-5 title font-weight-bold">プロフィールの編集</p>
     <validation-observer ref="observer" v-slot="{ invalid }">
       <form @submit.prevent="submit">
-        <validation-provider
-          v-slot="{ errors }"
-          name="ユーザーネーム"
-          rules="required"
-        >
-          <v-text-field
-            v-model="name"
-            :error-messages="errors"
-            label="ユーザーネーム"
-            required
-          ></v-text-field>
-        </validation-provider>
+        <div v-if="!(name == 'ゲストユーザー')">
+          <validation-provider
+            v-slot="{ errors }"
+            name="ユーザーネーム"
+            rules="required"
+          >
+            <v-text-field
+              v-model="name"
+              :error-messages="errors"
+              label="ユーザーネーム"
+              required
+            ></v-text-field>
+          </validation-provider>
+        </div>
         <v-text-field
           v-model="self_introduction"
           label="一言自己紹介"
         ></v-text-field>
 
-        <validation-provider
-          v-slot="{ errors }"
-          name="役職"
-          rules="required"
-        >
+        <validation-provider v-slot="{ errors }" name="役職" rules="required">
           <v-select
             v-model="status"
             :items="status_select"

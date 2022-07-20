@@ -39,7 +39,9 @@
               max-width="100px"
             ></v-img>
 
-            <v-card-title class="justify-center font-weight-bold"> 見つける </v-card-title>
+            <v-card-title class="justify-center font-weight-bold">
+              見つける
+            </v-card-title>
 
             <v-card-subtitle class="text-center">
               サイト上部の検索バーを活用しながら、<br />お探しの条件に合致する講話を検索することができます。<br />
@@ -55,13 +57,14 @@
               max-width="100px"
             ></v-img>
 
-            <v-card-title class="justify-center font-weight-bold"> 参考にする </v-card-title>
+            <v-card-title class="justify-center font-weight-bold">
+              参考にする
+            </v-card-title>
             <v-card-subtitle class="text-center">
               参考にしたい講話は「参考にする」ボタンを<br />押すことでブックマークをしつつ、<br />
               投稿者に感謝を示すことができます。
             </v-card-subtitle>
           </v-card>
-          
         </v-col>
         <v-col cols="12" sm="4">
           <v-card class="mx-auto pt-5" max-width="344">
@@ -72,18 +75,49 @@
               max-width="100px"
             ></v-img>
 
-            <v-card-title class="justify-center font-weight-bold"> 投稿する </v-card-title>
+            <v-card-title class="justify-center font-weight-bold">
+              投稿する
+            </v-card-title>
 
             <v-card-subtitle class="text-center"
               >お持ちの講話アイディアを投稿することで、<br />プラットフォームを充実させ、全国の校長先生にアイディアを提供することができます。<br />
             </v-card-subtitle>
           </v-card>
-          <p class="text-caption">※「参考にする」「投稿する」機能の使用にはユーザー登録が必要です。</p>
+          <p class="text-caption">
+            ※「参考にする」「投稿する」機能の使用にはユーザー登録が必要です。
+          </p>
         </v-col>
+      </v-row>
+
+      <v-row class="justify-center" v-if="!loggedIn">
+        <v-btn
+          class="mr-4 font-weight-bold"
+          v-on:click="guestLogIn"
+          color="success"
+        >
+          ゲストユーザーとしてログイン
+        </v-btn>
       </v-row>
     </v-container>
   </div>
 </template>
+
+
+<script>
+import { mapState } from "vuex";
+export default {
+  computed: {
+    ...mapState("auth", {
+      loggedIn: (state) => state.loggedIn,
+    }),
+  },
+  methods: {
+    guestLogIn() {
+      this.$store.dispatch("auth/guestLogIn");
+    },
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 .main_visual_content {
