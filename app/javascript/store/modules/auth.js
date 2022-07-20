@@ -76,6 +76,43 @@ const actions = {
         );
       });
   },
+  // ゲストログイン
+  guestLogIn(context) {
+    axios
+      .post("/auth/guest_sign_in")
+      // APIからレスポンスヘッダーを受け取り"logIn"に渡す
+      .then(function (response) {
+        context.commit(
+          "logIn",
+          {
+            headers: response.headers,
+            name: response.data.data.name,
+          }
+          // setLoggedInを呼び出しtrueを渡す
+        );
+        context.commit("setLoggedIn", true);
+        context.dispatch(
+          "message/showMessage",
+          {
+            message: "ログインしました。",
+            type: "success",
+            status: true,
+          },
+          { root: true }
+        );
+      })
+      .catch((err) => {
+        context.dispatch(
+          "message/showMessage",
+          {
+            message: "ログインに失敗しました。",
+            type: "error",
+            status: true,
+          },
+          { root: true }
+        );
+      });
+  },
   // 新規登録：新規登録に必要なデータをAPIに投げる
   signUp(context, { name, email, password, password_confirmation }) {
     axios

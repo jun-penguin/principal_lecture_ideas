@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
   root to: 'static_pages#top'
   mount_devise_token_auth_for 'User', at: 'auth', controllers: {
-    registrations: 'api/v1/auth/registrations'
+    registrations: 'api/v1/auth/registrations',
+    sessions: 'api/v1/auth/sessions'
   }
+  devise_scope :user do
+    post 'auth/guest_sign_in', to: 'api/v1/auth/sessions#guest_sign_in'
+  end
   namespace :api do
     namespace :v1 do
       # mount_devise_token_auth_for 'User', at: 'auth', controllers: {
@@ -19,6 +23,9 @@ Rails.application.routes.draw do
         get :mypage, on: :collection
         get '/:username', to: 'profiles#show'
       end
+      # devise_scope :user do
+      #   post 'auth/guest_sign_in', to: 'auth/sessions#guest_sign_in'
+      # end
     end
   end
 
