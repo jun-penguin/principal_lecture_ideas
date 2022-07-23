@@ -80,7 +80,10 @@ export default {
               message: "コメントを投稿しました",
               type: "success",
               status: true,
-            });
+            }),
+              this.$emit("createComment");
+            this.clear();
+
             // this.$router.push({ path: "postings" });
           },
           (error) => {
