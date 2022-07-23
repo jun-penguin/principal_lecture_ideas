@@ -18,7 +18,7 @@ Rails.application.routes.draw do
       resources :postings, only: %i[index show update destroy]
       resources :likes, only: %i[index create destroy]
       get 'mylikes' => 'likes#show'
-
+      resources :comments, only: %i[index create update destroy]
       resource :profiles, only: %i[] do
         get :mypage, on: :collection
         get '/:username', to: 'profiles#show'

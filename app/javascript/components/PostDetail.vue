@@ -32,16 +32,20 @@
     <p class="text-h5 pt-5 font-weight-bold">シーンタイプ</p>
     {{ post.scene_type_ja }} -->
       <LikeButton :postId="this.post.id" />
+      <CommentForm :postId="this.post.id" />
     </div>
   </v-container>
+
 </template>
 
 <script>
 import LikeButton from "./LikeButton.vue";
+import CommentForm from "./CommentForm.vue";
 export default {
   name: "PostDetail",
   components: {
     LikeButton,
+    CommentForm
   },
   data: function () {
     return {
