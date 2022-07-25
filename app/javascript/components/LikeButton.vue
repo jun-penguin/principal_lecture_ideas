@@ -60,6 +60,8 @@ export default {
     this.fetchLikeByPostId().then((result) => {
       this.likeList = result.likes;
       this.current_user_id = result.current_user_id;
+      console.log(this.current_user_id)
+      this.$emit("setCurrentUser", this.current_user_id);
     });
   },
   methods: {

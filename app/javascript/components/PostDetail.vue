@@ -30,7 +30,7 @@
     {{ post.grade_range_ja }}
     <p class="text-h5 pt-5 font-weight-bold">シーンタイプ</p>
     {{ post.scene_type_ja }} -->
-    <LikeButton :postId="this.post.id" />
+    <LikeButton @setCurrentUser="setCurrentUser" :postId="this.post.id" />
     <CommentForm @createComment="fetchComments" :postId="this.post.id" />
     <v-row>
       <v-col v-for="comment in this.comments" :key="comment.id" cols="8" sm="8">
@@ -39,6 +39,9 @@
           <span class="font-weight-bold">{{ comment.user.name }}</span></span
         >
         <p>{{ comment.body }}{{ formatDate(comment.updated_at) }}</p>
+      
+        <p v-if="current_user_id === comment.user_id"></p>
+        <p v-else>これはログインユーザーの投稿ではありません。</p>
       </v-col></v-row
     >
   </v-container>
@@ -58,7 +61,19 @@ export default {
     return {
       comments: [],
       post: [],
+      current_user_id: null
     };
+  },
+  computed: {
+    // ...mapState("auth", {
+    //   headers: (state) => state.headers,
+    //   loggedIn: (state) => state.loggedIn,
+    // }),
+    // isCurrentUsersComment() {
+    //   // ログインユーザーのコメントかどうかを判定
+    //   return this.current_user_id === comment.user_id,
+    //   console.log(this.current_user_id === comment.user_id);
+    // },
   },
   mounted: function () {
     this.fetchPostDetail();
@@ -84,13 +99,19 @@ export default {
         (response) => {
           this.comments = response.data.comments;
           console.log("コメント取得完了");
-          console.log(comment.data);
+          console.log(response.data.comments);
+          console.log(response.data);
           // this.user = response.data;
         },
         (error) => {
           console.log(error);
         }
       );
+    },
+    setCurrentUser(currentUser){
+      this.current_user_id = currentUser
+      console.log("setCurrentUserUser発動")
+      console.log(this.current_user_id)
     },
     formatDate: (dateStr) => dayjs(dateStr).format("YYYY年MM月DD日"),
     newLine(content) {

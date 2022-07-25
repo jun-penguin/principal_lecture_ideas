@@ -4,8 +4,8 @@
     <validation-observer ref="observer" v-slot="{ invalid }">
       <form @submit.prevent="submit">
         <!-- コメント -->
-        <validation-provider name="コメント" auto-grow rules="required">
-          <v-textarea v-model="body" label="コメント" rows="1"></v-textarea>
+        <validation-provider  name="コメント" rules="required">
+          <v-textarea v-model="body" auto-grow label="コメント" rows="1"></v-textarea>
         </validation-provider>
         <v-btn
           class="mr-4 font-weight-bold"
@@ -25,13 +25,15 @@
 // <script>
 import { mapActions } from "vuex";
 import { mapState } from "vuex";
-// import { required } from "vee-validate/dist/rules";
+import { required } from "vee-validate/dist/rules";
 import {
+  extend,
   ValidationObserver,
   ValidationProvider,
   setInteractionMode,
 } from "vee-validate";
 
+extend('required', required);
 setInteractionMode("eager");
 
 export default {

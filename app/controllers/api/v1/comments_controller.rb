@@ -2,6 +2,7 @@ class Api::V1::CommentsController < Api::V1::ApplicationController
   before_action :authenticate_user!, only: %i[create update destroy]
   def index
     @comments = Comment.filter_by_post(params[:post_id])
+    @user = current_user
     render :index, formats: :json, handlers: 'jbuilder'
   end
 
