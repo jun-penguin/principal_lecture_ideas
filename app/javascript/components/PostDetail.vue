@@ -38,48 +38,109 @@
           ><v-icon class="pb-1">mdi-account</v-icon>
           <span class="font-weight-bold">{{ comment.user.name }}</span></span
         >
-        <p>{{ comment.body }}{{ formatDate(comment.updated_at) }}</p>
-      
-        <p v-if="current_user_id === comment.user_id"></p>
-        <p v-else>これはログインユーザーの投稿ではありません。</p>
+        <p>
+          {{ comment.body }}{{ formatDate(comment.updated_at) }}{{ comment.id }}
+        </p>
+        <div v-if="current_user_id === comment.user_id">
+          <comment-edit-form
+            @updateComment="fetchComments"
+            :setbody="comment.body"
+            :commentid="comment.id"
+          />
+
+          <!-- 削除用 -->
+          <v-btn
+            depressed
+            color="error"
+            class="font-weight-bold"
+            @click.stop="confirm_dialog(comment)"
+          >
+            削除
+          </v-btn>
+          <!-- <v-dialog v-model="dialog" v-if="currentComment" :retain-focus="false" max-width="400">
+        <v-card>
+          <v-card-title>
+            <div>確認ダイアログ</div>
+          </v-card-title>
+          <v-card-text>
+            <p>本当に削除しますか？</p>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn @click.stop="dialog = false">いいえ、削除しません</v-btn>
+            <v-btn @click.stop="deletePost(post.id)" color="error"
+              >はい、削除します</v-btn
+            >
+          </v-card-actions>
+        </v-card>
+      </v-dialog> -->
+        </div>
       </v-col></v-row
     >
+    <v-dialog
+      v-model="dialog"
+      v-if="currentComment"
+      :retain-focus="false"
+      max-width="400"
+    >
+      <v-card>
+        <v-card-title>
+          <div>確認ダイアログ</div>
+        </v-card-title>
+        <v-card-text>
+          <p>本当に削除しますか？</p>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn @click.stop="dialog = false">いいえ、削除しません</v-btn>
+          <v-btn
+            @click.stop="deleteComment(currentComment.id)"
+            color="error"
+            >はい、削除します</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
 <script>
+import { mapState } from "vuex";
+import { mapActions } from "vuex";
 import LikeButton from "./LikeButton.vue";
 import CommentForm from "./CommentForm.vue";
+import CommentEditForm from "./CommentEditForm.vue";
 import dayjs from "dayjs";
 export default {
   name: "PostDetail",
   components: {
     LikeButton,
     CommentForm,
+    CommentEditForm,
   },
   data: function () {
     return {
       comments: [],
       post: [],
-      current_user_id: null
+      current_user_id: null,
+      // confirm_dialog: false,
+      dialog: false,
+      currentComment: {},
     };
   },
   computed: {
-    // ...mapState("auth", {
-    //   headers: (state) => state.headers,
-    //   loggedIn: (state) => state.loggedIn,
-    // }),
-    // isCurrentUsersComment() {
-    //   // ログインユーザーのコメントかどうかを判定
-    //   return this.current_user_id === comment.user_id,
-    //   console.log(this.current_user_id === comment.user_id);
-    // },
+    ...mapState("auth", {
+      headers: (state) => state.headers,
+    }),
   },
   mounted: function () {
     this.fetchPostDetail();
     this.fetchComments();
   },
   methods: {
+    ...mapActions("message", ["showMessage"]),
     fetchPostDetail: function () {
       var id = this.$route.params.id;
       this.$axios.get("/posts/" + id).then(
@@ -108,10 +169,38 @@ export default {
         }
       );
     },
-    setCurrentUser(currentUser){
-      this.current_user_id = currentUser
-      console.log("setCurrentUserUser発動")
-      console.log(this.current_user_id)
+    setCurrentUser(currentUser) {
+      this.current_user_id = currentUser;
+      console.log("setCurrentUserUser発動");
+      console.log(this.current_user_id);
+    },
+    confirm_dialog(comment) {
+      this.dialog = true;
+      this.currentComment = comment;
+    },
+    deleteComment(id) {
+      this.$axios
+        .delete("/comments/" + id, {
+          headers: {
+            uid: this.headers["uid"],
+            "access-token": this.headers["access-token"],
+            client: this.headers["client"],
+          },
+        })
+        .then(
+          (response) => {
+            this.dialog = false;
+            this.showMessage({
+              message: "コメントを削除しました。",
+              type: "warning",
+              status: true,
+            }),
+              this.fetchComments();
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
     },
     formatDate: (dateStr) => dayjs(dateStr).format("YYYY年MM月DD日"),
     newLine(content) {
