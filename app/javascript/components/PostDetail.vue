@@ -17,8 +17,6 @@
       </p>
     </div>
 
-    <!-- <p class="text-h5 pt-2 font-weight-bold heading">講話の紹介</p>
-      <p class="box8 mt-n3">{{ post.description }}</p> -->
     <div class="box8">
       <p class="content">{{ post.description }}</p>
     </div>
@@ -26,38 +24,75 @@
       <span class="box-title">講話本文</span>
       <p class="content">{{ newLine(post.content) }}</p>
     </div>
-    <!-- <p class="text-h5 pt-5 font-weight-bold">対象</p>
-    {{ post.grade_range_ja }}
-    <p class="text-h5 pt-5 font-weight-bold">シーンタイプ</p>
-    {{ post.scene_type_ja }} -->
     <LikeButton @setCurrentUser="setCurrentUser" :postId="this.post.id" />
-    <CommentForm @createComment="fetchComments" :postId="this.post.id" />
-    <v-row>
-      <v-col v-for="comment in this.comments" :key="comment.id" cols="8" sm="8">
-        <span
-          ><v-icon class="pb-1">mdi-account</v-icon>
-          <span class="font-weight-bold">{{ comment.user.name }}</span></span
-        >
-        <p>
-          {{ comment.body }}{{ formatDate(comment.updated_at) }}{{ comment.id }}
-        </p>
-        <div v-if="current_user_id === comment.user_id">
-          <comment-edit-form
-            @updateComment="fetchComments"
-            :setbody="comment.body"
-            :commentid="comment.id"
-          />
 
-          <!-- 削除用 -->
-          <v-btn
-            depressed
-            color="error"
-            class="font-weight-bold"
-            @click.stop="confirm_dialog(comment)"
+    <v-divider class="mt-10"></v-divider>
+
+    <!-- コメント欄↓ -->
+    <p class="text-h6 pt-5 pb-3 title font-weight-bold">
+      <v-icon class="pb-1 pr-3">mdi-comment-processing-outline</v-icon
+      >コメント一覧
+    </p>
+
+    <!-- コメントがない場合 -->
+    <p v-if="!comments.length" class="text-h8 font-weight-bold">
+      現在コメントはありません。
+    </p>
+
+    <!-- コメント一覧表示 -->
+    <v-cantainer>
+      <v-row class="pb-10">
+        <v-col
+          v-for="comment in this.comments"
+          :key="comment.id"
+          cols="8"
+          sm="8"
+        >
+          <p class="float-left">
+            <v-icon class="pb-1">mdi-account</v-icon>
+            <span class="font-weight-bold">{{ comment.user.name }}</span>
+          </p>
+          <p class="text-right mb-n1 pr-8">
+            <v-icon class="pb-1">mdi-clock-outline</v-icon
+            >{{ formatDate(comment.updated_at) }}
+          </p>
+          <div class="body">
+            <p class="mt-n2">
+              {{ newLine(comment.body) }}
+            </p>
+          </div>
+
+          <!-- コメント編集フォーム -->
+          <div
+            class="text-right pr-8 pt-1"
+            v-if="current_user_id === comment.user_id"
           >
-            削除
-          </v-btn>
-          <!-- <v-dialog v-model="dialog" v-if="currentComment" :retain-focus="false" max-width="400">
+            <comment-edit-form
+              @updateComment="fetchComments"
+              :setbody="comment.body"
+              :commentid="comment.id"
+            />
+
+            <!-- コメント削除用ボタン -->
+            <v-btn
+              depressed
+              color="error"
+              class="font-weight-bold"
+              @click.stop="confirm_dialog(comment)"
+            >
+              削除
+            </v-btn>
+          </div>
+          <v-divider class="mt-3"></v-divider> </v-col
+      ></v-row>
+
+      <!-- コメント削除用ダイアログ -->
+      <v-dialog
+        v-model="dialog"
+        v-if="currentComment"
+        :retain-focus="false"
+        max-width="400"
+      >
         <v-card>
           <v-card-title>
             <div>確認ダイアログ</div>
@@ -69,40 +104,19 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn @click.stop="dialog = false">いいえ、削除しません</v-btn>
-            <v-btn @click.stop="deletePost(post.id)" color="error"
+            <v-btn @click.stop="deleteComment(currentComment.id)" color="error"
               >はい、削除します</v-btn
             >
           </v-card-actions>
         </v-card>
-      </v-dialog> -->
-        </div>
-      </v-col></v-row
-    >
-    <v-dialog
-      v-model="dialog"
-      v-if="currentComment"
-      :retain-focus="false"
-      max-width="400"
-    >
-      <v-card>
-        <v-card-title>
-          <div>確認ダイアログ</div>
-        </v-card-title>
-        <v-card-text>
-          <p>本当に削除しますか？</p>
-        </v-card-text>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn @click.stop="dialog = false">いいえ、削除しません</v-btn>
-          <v-btn
-            @click.stop="deleteComment(currentComment.id)"
-            color="error"
-            >はい、削除します</v-btn
-          >
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+      </v-dialog>
+      <!-- コメント投稿フォーム -->
+      <CommentForm
+        v-if="loggedIn"
+        @createComment="fetchComments"
+        :postId="this.post.id"
+      />
+    </v-cantainer>
   </v-container>
 </template>
 
@@ -122,17 +136,17 @@ export default {
   },
   data: function () {
     return {
-      comments: [],
       post: [],
-      current_user_id: null,
-      // confirm_dialog: false,
-      dialog: false,
+      comments: [],
       currentComment: {},
+      current_user_id: null,
+      dialog: false,
     };
   },
   computed: {
     ...mapState("auth", {
       headers: (state) => state.headers,
+      loggedIn: (state) => state.loggedIn,
     }),
   },
   mounted: function () {
@@ -159,10 +173,6 @@ export default {
       this.$axios.get(`/comments?post_id=${id}`).then(
         (response) => {
           this.comments = response.data.comments;
-          console.log("コメント取得完了");
-          console.log(response.data.comments);
-          console.log(response.data);
-          // this.user = response.data;
         },
         (error) => {
           console.log(error);
@@ -259,5 +269,15 @@ export default {
 .content {
   white-space: pre-line;
   font-size: 19px;
+}
+.body {
+  padding: 0.5em 1em;
+  margin: 0 2em 0 0;
+  color: #2c2c2f;
+  background: #e4ecf5; /*背景色*/
+  border-radius: 5px;
+}
+.body p {
+  white-space: pre-line;
 }
 </style>

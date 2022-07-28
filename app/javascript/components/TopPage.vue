@@ -61,7 +61,7 @@
               参考にする
             </v-card-title>
             <v-card-subtitle class="text-center">
-              参考にしたい講話は「参考にする」ボタンを<br />押すことでブックマークをしつつ、<br />
+              参考にしたい講話は「参考にする」ボタンや<br />コメント機能を活用することで、<br />
               投稿者に感謝を示すことができます。
             </v-card-subtitle>
           </v-card>

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+// import { mapState } from "vuex";
 export default {
   props: ["postId"],
   data() {
@@ -15,9 +15,9 @@ export default {
     };
   },
   computed: {
-    ...mapState("auth", {
-    loggedIn: (state) => state.loggedIn,
-    }),
+    // ...mapState("auth", {
+    // loggedIn: (state) => state.loggedIn,
+    // }),
     // データが変更されるたび動く
     // ここではlikeListが変更される度に、count,isLikedが再構築される
     count() {

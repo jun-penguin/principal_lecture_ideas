@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="text-h4 pt-5 title font-weight-bold">コメントの投稿</p>
+    <p class="text-h6 pt-5 title font-weight-bold"> <v-icon class="pb-1 pr-3">mdi-comment-edit-outline</v-icon>コメントを書く</p>
     <validation-observer ref="observer" v-slot="{ invalid }">
       <form @submit.prevent="submit">
         <!-- コメント -->
