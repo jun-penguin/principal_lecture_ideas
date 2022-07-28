@@ -3,6 +3,7 @@ ja:
     models:
       user: 'ユーザー'
       post: '講話'
+      comment: 'コメント'
     attributes:
       user:
         id: 'ID'
@@ -25,6 +26,14 @@ ja:
         scene_type: "使用シーン"
         id: 'ID'
         status: '状態'
+        created_at: '作成日時'
+        updated_at: '更新日時'
+      comment:
+        body: 'コメント'
+        id: 'ID'
+        post: '講話タイトル'
+        user: '投稿者'
+        created_at: '作成日時'
         updated_at: '更新日時'
   enums:
     user:
@@ -42,7 +51,7 @@ ja:
         elementary: 小学生
         junior_high: 中学生
       scene_type:
-        all_school_assembly: 全校集会
+        all_school_assembly: 全校朝会
         event: 学校行事
         ceremony: 儀式
         other: その他

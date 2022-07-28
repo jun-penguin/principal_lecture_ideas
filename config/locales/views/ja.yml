@@ -49,4 +49,11 @@ ja:
         title: 'ユーザー詳細'
       edit:
         title: 'ユーザー編集'
+    comments:
+      index:
+        title: 'コメント一覧'
+      show:
+        title: 'コメント詳細'
+      edit:
+        title: 'コメント編集'
     
