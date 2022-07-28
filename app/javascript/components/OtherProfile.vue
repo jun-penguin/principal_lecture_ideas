@@ -38,6 +38,9 @@
                     <!-- v-if="loggedIn" -->
                     <LikeCount :postId="post.id" />
                   </span>
+                  <span class="ml-3">
+                    <CommentCount :postId="post.id" />
+                  </span>
                 </div>
                 <div>
                   <!-- <router-link
@@ -105,9 +108,11 @@
 <script>
 import dayjs from "dayjs";
 import LikeCount from "./LikeCount.vue";
+import CommentCount from "./CommentCount.vue";
 export default {
   components: {
     LikeCount,
+    CommentCount,
   },
   data: function () {
     return {
