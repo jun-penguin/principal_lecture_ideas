@@ -1,57 +1,160 @@
 <template>
   <v-container class="pb-15 mt-5 ml-15 shades white rounded-lg">
-    <div class="">
-      <p class="text-h4 pt-5 title font-weight-bold">{{ post.title }}</p>
-      <v-divider></v-divider>
-      <div class="text-h6 pt-2 font-weight-bold">
-        <p class="float-left box3 ml-1 mr-5">{{ post.grade_range_ja }}</p>
-        <p class="float-left box3">{{ post.scene_type_ja }}</p>
+    <p class="text-h4 pt-5 title font-weight-bold">{{ post.title }}</p>
+    <v-divider></v-divider>
+    <div class="text-h6 pt-2 font-weight-bold">
+      <p class="float-left box3 ml-1 mr-5">{{ post.grade_range_ja }}</p>
+      <p class="float-left box3">{{ post.scene_type_ja }}</p>
 
-        <p class="text-right">
-          投稿者:
-          <router-link
-            :to="{ path: `/${post.user.name}` }"
-            style="text-decoration: none"
-          >
-            {{ post.user.name }}
-          </router-link>
-        </p>
-      </div>
-
-      <!-- <p class="text-h5 pt-2 font-weight-bold heading">講話の紹介</p>
-      <p class="box8 mt-n3">{{ post.description }}</p> -->
-      <div class="box8">
-        <p class="content">{{ post.description }}</p>
-      </div>
-      <div class="box27">
-        <span class="box-title">講話本文</span>
-        <p class="content">{{ newLine(post.content) }}</p>
-      </div>
-      <!-- <p class="text-h5 pt-5 font-weight-bold">対象</p>
-    {{ post.grade_range_ja }}
-    <p class="text-h5 pt-5 font-weight-bold">シーンタイプ</p>
-    {{ post.scene_type_ja }} -->
-      <LikeButton :postId="this.post.id" />
+      <p class="text-right">
+        投稿者:
+        <router-link
+          :to="{ path: `/${post.user.name}` }"
+          style="text-decoration: none"
+        >
+          {{ post.user.name }}
+        </router-link>
+      </p>
     </div>
+
+    <div class="box8">
+      <p class="content">{{ post.description }}</p>
+    </div>
+    <div class="box27">
+      <span class="box-title">講話本文</span>
+      <p class="content">{{ newLine(post.content) }}</p>
+    </div>
+    <LikeButton @setCurrentUser="setCurrentUser" :postId="this.post.id" />
+
+    <v-divider class="mt-10"></v-divider>
+
+    <!-- コメント欄↓ -->
+    <p class="text-h6 pt-5 pb-3 title font-weight-bold">
+      <v-icon class="pb-1 pr-3">mdi-comment-processing-outline</v-icon
+      >コメント一覧
+    </p>
+
+    <!-- コメントがない場合 -->
+    <p v-if="!comments.length" class="text-h8 font-weight-bold">
+      現在コメントはありません。
+    </p>
+
+    <!-- コメント一覧表示 -->
+    <v-cantainer>
+      <v-row class="pb-10">
+        <v-col
+          v-for="comment in this.comments"
+          :key="comment.id"
+          cols="8"
+          sm="8"
+        >
+          <p class="float-left">
+            <v-icon class="pb-1">mdi-account</v-icon>
+            <span class="font-weight-bold">{{ comment.user.name }}</span>
+          </p>
+          <p class="text-right mb-n1 pr-8">
+            <v-icon class="pb-1">mdi-clock-outline</v-icon
+            >{{ formatDate(comment.updated_at) }}
+          </p>
+          <div class="body">
+            <p class="mt-n2">
+              {{ newLine(comment.body) }}
+            </p>
+          </div>
+
+          <!-- コメント編集フォーム -->
+          <div
+            class="text-right pr-8 pt-1"
+            v-if="current_user_id === comment.user_id"
+          >
+            <comment-edit-form
+              @updateComment="fetchComments"
+              :setbody="comment.body"
+              :commentid="comment.id"
+            />
+
+            <!-- コメント削除用ボタン -->
+            <v-btn
+              depressed
+              color="error"
+              class="font-weight-bold"
+              @click.stop="confirm_dialog(comment)"
+            >
+              削除
+            </v-btn>
+          </div>
+          <v-divider class="mt-3"></v-divider> </v-col
+      ></v-row>
+
+      <!-- コメント削除用ダイアログ -->
+      <v-dialog
+        v-model="dialog"
+        v-if="currentComment"
+        :retain-focus="false"
+        max-width="400"
+      >
+        <v-card>
+          <v-card-title>
+            <div>確認ダイアログ</div>
+          </v-card-title>
+          <v-card-text>
+            <p>本当に削除しますか？</p>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn @click.stop="dialog = false">いいえ、削除しません</v-btn>
+            <v-btn @click.stop="deleteComment(currentComment.id)" color="error"
+              >はい、削除します</v-btn
+            >
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+      <!-- コメント投稿フォーム -->
+      <CommentForm
+        v-if="loggedIn"
+        @createComment="fetchComments"
+        :postId="this.post.id"
+      />
+    </v-cantainer>
   </v-container>
 </template>
 
 <script>
+import { mapState } from "vuex";
+import { mapActions } from "vuex";
 import LikeButton from "./LikeButton.vue";
+import CommentForm from "./CommentForm.vue";
+import CommentEditForm from "./CommentEditForm.vue";
+import dayjs from "dayjs";
 export default {
   name: "PostDetail",
   components: {
     LikeButton,
+    CommentForm,
+    CommentEditForm,
   },
   data: function () {
     return {
       post: [],
+      comments: [],
+      currentComment: {},
+      current_user_id: null,
+      dialog: false,
     };
+  },
+  computed: {
+    ...mapState("auth", {
+      headers: (state) => state.headers,
+      loggedIn: (state) => state.loggedIn,
+    }),
   },
   mounted: function () {
     this.fetchPostDetail();
+    this.fetchComments();
   },
   methods: {
+    ...mapActions("message", ["showMessage"]),
     fetchPostDetail: function () {
       var id = this.$route.params.id;
       this.$axios.get("/posts/" + id).then(
@@ -65,6 +168,51 @@ export default {
         }
       );
     },
+    fetchComments: function () {
+      var id = this.$route.params.id;
+      this.$axios.get(`/comments?post_id=${id}`).then(
+        (response) => {
+          this.comments = response.data.comments;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+    setCurrentUser(currentUser) {
+      this.current_user_id = currentUser;
+      console.log("setCurrentUserUser発動");
+      console.log(this.current_user_id);
+    },
+    confirm_dialog(comment) {
+      this.dialog = true;
+      this.currentComment = comment;
+    },
+    deleteComment(id) {
+      this.$axios
+        .delete("/comments/" + id, {
+          headers: {
+            uid: this.headers["uid"],
+            "access-token": this.headers["access-token"],
+            client: this.headers["client"],
+          },
+        })
+        .then(
+          (response) => {
+            this.dialog = false;
+            this.showMessage({
+              message: "コメントを削除しました。",
+              type: "warning",
+              status: true,
+            }),
+              this.fetchComments();
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    },
+    formatDate: (dateStr) => dayjs(dateStr).format("YYYY年MM月DD日"),
     newLine(content) {
       return content.replace(/\\n/g, "\n");
     },
@@ -121,5 +269,15 @@ export default {
 .content {
   white-space: pre-line;
   font-size: 19px;
+}
+.body {
+  padding: 0.5em 1em;
+  margin: 0 2em 0 0;
+  color: #2c2c2f;
+  background: #e4ecf5; /*背景色*/
+  border-radius: 5px;
+}
+.body p {
+  white-space: pre-line;
 }
 </style>

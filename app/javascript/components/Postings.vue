@@ -38,6 +38,9 @@
                       <span class="pt-n5">
                         <LikeCount :postId="post.id" />
                       </span>
+                      <span class="ml-3">
+                        <CommentCount :postId="post.id" />
+                      </span>
                     </div>
                     <p class="font-weight-bold">
                       {{ post.grade_range_ja }} / {{ post.scene_type_ja }}
@@ -112,6 +115,9 @@
                       <span class="pt-n5">
                         <LikeCount :postId="post.id" />
                       </span>
+                      <span class="ml-3">
+                        <CommentCount :postId="post.id" />
+                      </span>
                     </div>
                     <p class="font-weight-bold">
                       {{ post.grade_range_ja }} / {{ post.scene_type_ja }}
@@ -164,12 +170,14 @@
 
 <script>
 import LikeCount from "./LikeCount.vue";
+import CommentCount from "./CommentCount.vue";
 import { mapState } from "vuex";
 import dayjs from "dayjs";
 export default {
   name: "Postings",
   components: {
     LikeCount,
+    CommentCount,
   },
   data: function () {
     return {

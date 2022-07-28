@@ -1,6 +1,6 @@
 <template>
   <span>
-    <v-icon medium color="red lighten-2" left>mdi-heart</v-icon>
+    <v-icon medium color="red lighten-2" left>mdi-comment-outline</v-icon>
     <span class="ml-n2">{{ count }}</span>
   </span>
 </template>
@@ -11,7 +11,7 @@ export default {
   props: ["postId"],
   data() {
     return {
-      likeList: [],
+      commentList: [],
     };
   },
   computed: {
@@ -21,23 +21,23 @@ export default {
     // データが変更されるたび動く
     // ここではlikeListが変更される度に、count,isLikedが再構築される
     count() {
-      return this.likeList.length;
+      return this.commentList.length;
       // いいね数を返す
     },
   },
   created: function () {
     // vueインスタンスの作成、初期化直後に実行される
 
-    this.fetchLikeByPostId().then((result) => {
-      this.likeList = result.likes;
+    this.fetchCommentByPostId().then((result) => {
+      this.commentList = result.comments;
     });
   },
   methods: {
-    fetchLikeByPostId: async function () {
+    fetchCommentByPostId: async function () {
       // async function()
       // jsの非同期処理
       const response = await this.$axios.get(
-        `/likes/?post_id=${this.postId}`
+        `/comments/?post_id=${this.postId}`
         // {
         //   headers: {
         //     uid: this.headers["uid"],

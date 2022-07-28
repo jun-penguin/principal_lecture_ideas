@@ -25,6 +25,9 @@
                     <span class="ml-8">
                       <LikeCount :postId="post.id" />
                     </span>
+                    <span class="ml-3">
+                      <CommentCount :postId="post.id" />
+                    </span>
                   </div>
                   <div>
                     <!-- <router-link
@@ -96,10 +99,12 @@
 import TopPage from "./TopPage.vue";
 import dayjs from "dayjs";
 import LikeCount from "./LikeCount.vue";
+import CommentCount from "./CommentCount.vue";
 export default {
   name: "PostIndex",
   components: {
     LikeCount,
+    CommentCount,
     TopPage,
   },
   // props: {

@@ -41,6 +41,9 @@
                   <span class="ml-8">
                     <LikeCount :postId="post.id" />
                   </span>
+                   <span class="ml-3">
+                      <CommentCount :postId="post.id" />
+                    </span>
                 </div>
                 <div>
                   <!-- <router-link
@@ -108,12 +111,14 @@
 <script>
 import dayjs from "dayjs";
 import LikeCount from "./LikeCount.vue";
+import CommentCount from "./CommentCount.vue";
 import Qs from "qs";
 
 export default {
   name: "SearchResult",
   components: {
     LikeCount,
+    CommentCount
   },
 
   // props:['title_or_description_or_content_cont'],
