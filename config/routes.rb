@@ -39,6 +39,7 @@ Rails.application.routes.draw do
     root to: 'dashboards#index'
     resources :users
     resources :posts
+    resources :comments
   end
 
   get '*path', to: 'static_pages#top'
