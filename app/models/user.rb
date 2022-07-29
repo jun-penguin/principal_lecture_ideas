@@ -8,7 +8,8 @@ class User < ActiveRecord::Base
 
   include DeviseTokenAuth::Concerns::User
 
-  validates :name, uniqueness: true
+  validates :name, { presence: true, uniqueness: true }
+  validates :email, presence: true
 
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
