@@ -32,7 +32,7 @@ RSpec.describe User, type: :model do
 
     context 'ユーザーネームが指定されていないとき' do
       let(:user) { build(:user, name: nil) }
-      it 'エラーになる' do
+      it 'userの登録に失敗する' do
         user.valid?
         expect(user.errors[:name]).to include('が入力されていません。')
       end
@@ -41,9 +41,16 @@ RSpec.describe User, type: :model do
 
   context 'メールアドレスが指定されていないとき' do
     let(:user) { build(:user, email: nil) }
-    it 'エラーになる' do
+    it 'userの登録に失敗する' do
       user.valid?
       expect(user.errors[:email]).to include('が入力されていません。')
+    end
+  end
+  context 'パスワードが指定されていないとき' do
+    let(:user) { build(:user, password: nil) }
+    it 'userの登録に失敗する' do
+      user.valid?
+      expect(user.errors[:password]).to include('が入力されていません。')
     end
   end
 
@@ -51,7 +58,7 @@ RSpec.describe User, type: :model do
     context 'ユーザーネームが重複したとき' do
       let(:user1) { create(:user) }
       let(:user2) { build(:user, name: user1.name) }
-      it 'エラーになる' do
+      it 'userの登録に失敗する' do
         user2.valid?
         expect(user2.errors[:name]).to include('は既に使用されています。')
       end
@@ -59,9 +66,9 @@ RSpec.describe User, type: :model do
     context 'メールアドレスが重複したとき' do
       let(:user1) { create(:user) }
       let(:user2) { build(:user, email: user1.email) }
-      it 'エラーになる' do
+      it 'userの登録に失敗する' do
         user2.valid?
-        expect(user2.errors[:user_id]).to include('Userは既に使用されています。')
+        expect(user2.errors[:email]).to include('は既に使用されています。')
       end
     end
   end
