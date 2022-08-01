@@ -1,3 +1,6 @@
+# == Route Map
+#
+
 Rails.application.routes.draw do
   root to: 'static_pages#top'
   mount_devise_token_auth_for 'User', at: 'auth', controllers: {
