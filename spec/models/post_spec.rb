@@ -31,56 +31,42 @@ RSpec.describe Post, type: :model do
         expect(post.errors[:title]).to include('が入力されていません。')
       end
     end
-  end
 
-  context '講話紹介が入力されていないとき' do
-    let(:post) { build(:post, description: nil) }
-    it 'エラーになる' do
-      post.valid?
-      expect(post.errors[:description]).to include('が入力されていません。')
+    context '講話紹介が入力されていないとき' do
+      let(:post) { build(:post, description: nil) }
+      it 'エラーになる' do
+        post.valid?
+        expect(post.errors[:description]).to include('が入力されていません。')
+      end
     end
-  end
 
-  context '講話紹介が入力されていないとき' do
-    let(:post) { build(:post, description: nil) }
-    it 'エラーになる' do
-      post.valid?
-      expect(post.errors[:description]).to include('が入力されていません。')
+    context '本文が入力されていないとき' do
+      let(:post) { build(:post, content: nil) }
+      it 'エラーになる' do
+        post.valid?
+        expect(post.errors[:content]).to include('が入力されていません。')
+      end
     end
-  end
-  context '本文が入力されていないとき' do
-    let(:post) { build(:post, content: nil) }
-    it 'エラーになる' do
-      post.valid?
-      expect(post.errors[:content]).to include('が入力されていません。')
+    context 'ステータスが指定されていないとき' do
+      let(:post) { build(:post, status: nil) }
+      it 'エラーになる' do
+        post.valid?
+        expect(post.errors[:status]).to include('が入力されていません。')
+      end
     end
-  end
-  context 'ステータスが指定されていないとき' do
-    let(:post) { build(:post, status: nil) }
-    it 'エラーになる' do
-      post.valid?
-      expect(post.errors[:status]).to include('が入力されていません。')
+    context '対象学年が指定されていないとき' do
+      let(:post) { build(:post, grade_range: nil) }
+      it 'エラーになる' do
+        post.valid?
+        expect(post.errors[:grade_range]).to include('が入力されていません。')
+      end
     end
-  end
-  context '対象が指定されていないとき' do
-    let(:post) { build(:post, grade_range: nil) }
-    it 'エラーになる' do
-      post.valid?
-      expect(post.errors[:grade_range]).to include('が入力されていません。')
-    end
-  end
-  context '対象が指定されていないとき' do
-    let(:post) { build(:post, grade_range: nil) }
-    it 'エラーになる' do
-      post.valid?
-      expect(post.errors[:grade_range]).to include('が入力されていません。')
-    end
-  end
-  context '対象学年が指定されていないとき' do
-    let(:post) { build(:post, scene_type: nil) }
-    it 'エラーになる' do
-      post.valid?
-      expect(post.errors[:scene_type]).to include('が入力されていません。')
+    context 'シーンタイプが指定されていないとき' do
+      let(:post) { build(:post, scene_type: nil) }
+      it 'エラーになる' do
+        post.valid?
+        expect(post.errors[:scene_type]).to include('が入力されていません。')
+      end
     end
   end
 end

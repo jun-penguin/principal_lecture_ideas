@@ -11,8 +11,8 @@
 #
 FactoryBot.define do
   factory :comment do
-    body { "MyText" }
-    user { nil }
-    post { nil }
+    association :post
+    user { post.user }
+    body { 'コメント' }
   end
 end
