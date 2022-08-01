@@ -61,7 +61,7 @@ RSpec.describe User, type: :model do
       let(:user2) { build(:user, email: user1.email) }
       it 'エラーになる' do
         user2.valid?
-        expect(user2.errors[:email]).to include('は既に使用されています。')
+        expect(user2.errors[:user_id]).to include('Userは既に使用されています。')
       end
     end
   end
