@@ -6,7 +6,7 @@ RSpec.describe 'ユーザー登録', type: :system, js: true do
     click_button('新規登録')
   end
   describe '入力必須カラムのvalidationチェック' do
-    context 'フォームの入力値が正常' do
+    context '必須カラムの入力が正常' do
       it 'ユーザーの新規作成が成功する' do
         # visit root_path
         # click_button '新規登録'
