@@ -88,6 +88,7 @@ Rails.application.configure do
   # require "syslog/logger"
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
+  config.allow_origins = ['https://principal-lecture-ideas.herokuapp.com']
   # 追加
   config.hosts << 'principal-lecture-ideas.herokuapp.com'
 

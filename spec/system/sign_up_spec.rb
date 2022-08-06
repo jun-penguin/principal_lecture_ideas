@@ -39,8 +39,8 @@ RSpec.describe 'ユーザー登録', type: :system, js: true do
     context '既に使用されているユーザー名を使用した場合' do
       it 'エラーメッセージが表示される' do
         # factoryによって作成したuserと同一のユーザー名を入力
-        fill_in 'ユーザー名', with: '田中太郎'
-        fill_in 'メールアドレス', with: 'email@example.com'
+        fill_in 'ユーザー名', with: 'name_1'
+        fill_in 'メールアドレス', with: 'user_2@example.com'
         fill_in 'パスワード', with: 'password'
         fill_in 'パスワード（確認用）', with: 'password'
         page.all('div.v-text-field__slot input')[3].click
@@ -51,9 +51,9 @@ RSpec.describe 'ユーザー登録', type: :system, js: true do
     end
     context '既に使用されているメールアドレスを使用した場合' do
       it 'エラーメッセージが表示される' do
-        fill_in 'ユーザー名', with: 'テストユーザー'
+        fill_in 'ユーザー名', with: 'name_2'
         # factoryによって作成したuserと同一のメールアドレスを入力
-        fill_in 'メールアドレス', with: 'test@example.com'
+        fill_in 'メールアドレス', with: 'user_1@example.com'
         fill_in 'パスワード', with: 'password'
         fill_in 'パスワード（確認用）', with: 'password'
         page.all('div.v-text-field__slot input')[3].click

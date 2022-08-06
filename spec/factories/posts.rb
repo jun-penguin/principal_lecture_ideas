@@ -15,7 +15,7 @@
 #
 FactoryBot.define do
   factory :post do
-    title { 'タイトル' }
+    sequence(:title, 'title_1')
     description { '講話紹介' }
     content { '講話内容' }
     status { :published }
