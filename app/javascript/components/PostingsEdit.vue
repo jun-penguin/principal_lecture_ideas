@@ -155,7 +155,7 @@ export default {
       { label: "中学生", value: "junior_high" },
     ],
     scene_type_select: [
-      { label: "全校集会", value: "all_school_assembly" },
+      { label: "全校朝会", value: "all_school_assembly" },
       {
         label: "学校行事（運動会、学習発表会、修学旅行、水泳記録会など）",
         value: "event",

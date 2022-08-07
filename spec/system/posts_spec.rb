@@ -5,10 +5,10 @@ RSpec.describe '講話の閲覧・投稿・編集・削除', type: :system, js: 
 
   # let(:user) { create(:user) }
   # let!(:post) { create(:post) }
-  let!(:user) { create(:user) }
-  let!(:post) { create(:post, user_id: user.id) }
 
   describe 'ログイン前' do
+    let!(:user) { create(:user) }
+    let!(:post) { create(:post, user_id: user.id) }
     describe 'ページ遷移確認' do
       context '講話の新規投稿ページにアクセス' do
         xit '新規投稿ページへのアクセスが失敗し、サイトトップに遷移する' do
@@ -34,7 +34,7 @@ RSpec.describe '講話の閲覧・投稿・編集・削除', type: :system, js: 
         end
       end
       context '講話の一覧ページ（サイトトップ）にアクセス' do
-        it '講話の一覧情報が表示される' do
+        xit '講話の一覧情報が表示される' do
           post_list = create_list(:post, 3)
           visit('/')
           expect(page).to have_content post_list[0].title
@@ -45,114 +45,113 @@ RSpec.describe '講話の閲覧・投稿・編集・削除', type: :system, js: 
     end
   end
 
+  describe 'ログイン後' do
+    let(:user) { create(:user) }
+    before { login(user) }
+    describe '講話の新規投稿' do
+      before { visit('/create') }
+      context 'フォームの入力値が正常' do
+        xit '講話の新規作成が成功する' do
+          fill_in 'タイトル', with: 'test_title'
+          fill_in '講話の紹介', with: 'test_description'
+          fill_in '本文', with: 'test_content'
+          page.all('div.v-select__selections')[0].click
+          sleep 1.0
+          page.all('div.v-list-item__title')[0].click
+          page.all('div.v-select__selections')[1].click
+          sleep 1.0
+          page.all('div.v-list-item__title')[0].click
+          page.all('div.v-select__selections')[2].click
+          sleep 1.0
+          page.all('div.v-list-item__title')[1].click
+          click_button '投稿'
+          expect(page).to have_content '投稿しました'
+          expect(page).to have_content 'test_title'
+          expect(page).to have_content 'test_description'
+          expect(current_path).to eq '/postings'
+        end
+      end
+      context 'フォームが未入力' do
+        xit 'エラーメッセージが表示される' do
+          fill_in 'タイトル', with: ' '
+          fill_in '講話の紹介', with: ' '
+          fill_in '本文', with: ' '
+          page.all('div.v-select__selections')[0].click
+          page.all('div.v-text-field__slot input')[1].click
+          page.all('div.v-select__selections')[1].click
+          page.all('div.v-text-field__slot input')[1].click
+          page.all('div.v-select__selections')[2].click
+          page.all('div.v-text-field__slot input')[1].click
+          expect(page).to have_content('タイトル は空欄にできません。')
+          expect(page).to have_content('講話の紹介 は空欄にできません。')
+          expect(page).to have_content('本文 は空欄にできません。')
+          expect(page).to have_content('対象学年 は空欄にできません。')
+          expect(page).to have_content('シーンタイプ は空欄にできません。')
+          expect(page).to have_content('公開設定 は空欄にできません。')
+        end
+      end
+    end
 
-  # describe 'ログイン後' do
-  #   before { login(user) }
-  #   describe '講話の新規投稿' do
-  #     context 'フォームの入力値が正常' do
-  #       it '講話の新規作成が成功する' do
-  #         visit new_task_path
-  #         fill_in 'Title', with: 'test_title'
-  #         fill_in 'Content', with: 'test_content'
-  #         select 'doing', from: 'Status'
-  #         fill_in 'Deadline', with: DateTime.new(2020, 6, 1, 10, 30)
-  #         click_button 'Create Task'
-  #         expect(page).to have_content 'Title: test_title'
-  #         expect(page).to have_content 'Content: test_content'
-  #         expect(page).to have_content 'Status: doing'
-  #         expect(page).to have_content 'Deadline: 2020/6/1 10:30'
-  #         expect(current_path).to eq '/tasks/1'
-  #       end
-  #     end
+    describe '講話の編集' do
+      let!(:post) { create(:post, status: 'draft', user_id: user.id) }
+      before { visit("/postings/edit/#{post.id}") }
+      context 'フォームの入力値が正常' do
+        it '講話の編集が成功する' do
+          sleep 2.0
+          fill_in 'タイトル', with: 'updated_title'
+          page.all('div.v-select__selections')[2].click
+          sleep 1.0
+          page.all('div.v-list-item__title')[1].click
+          click_button '上記内容で更新する'
+          expect(page).to have_content '編集しました'
+          expect(page).to have_content 'updated_title'
+          expect(page).to have_content '講話紹介'
+          expect(current_path).to eq '/postings'
+        end
+      end
+      context 'タイトルが未入力' do
+        it 'エラーメッセージが表示される' do
+          fill_in 'タイトル', with: ' '
+          page.all('div.v-text-field__slot textarea')[0].click
+          expect(page).to have_content 'タイトル は空欄にできません。'
+        end
+      end
+    end
 
-  #     context 'タイトルが未入力' do
-  #       it 'タスクの新規作成が失敗する' do
-  #         visit new_task_path
-  #         fill_in 'Title', with: ''
-  #         fill_in 'Content', with: 'test_content'
-  #         click_button 'Create Task'
-  #         expect(page).to have_content '1 error prohibited this task from being saved:'
-  #         expect(page).to have_content "Title can't be blank"
-  #         expect(current_path).to eq tasks_path
-  #       end
-  #     end
+    #   context '登録済のタイトルを入力' do
+    #     it 'タスクの編集が失敗する' do
+    #       fill_in 'Title', with: other_task.title
+    #       select :todo, from: 'Status'
+    #       click_button 'Update Task'
+    #       expect(page).to have_content '1 error prohibited this task from being saved'
+    #       expect(page).to have_content 'Title has already been taken'
+    #       expect(current_path).to eq task_path(task)
+    #     end
+    #   end
 
-  #     context '登録済のタイトルを入力' do
-  #       it 'タスクの新規作成が失敗する' do
-  #         visit new_task_path
-  #         other_task = create(:task)
-  #         fill_in 'Title', with: other_task.title
-  #         fill_in 'Content', with: 'test_content'
-  #         click_button 'Create Task'
-  #         expect(page).to have_content '1 error prohibited this task from being saved'
-  #         expect(page).to have_content 'Title has already been taken'
-  #         expect(current_path).to eq tasks_path
-  #       end
-  #     end
-  #   end
+    #   context '他ユーザーのタスク編集ページにアクセス' do
+    #     let!(:other_user) { create(:user, email: 'other_user@example.com') }
+    #     let!(:other_task) { create(:task, user: other_user) }
 
-  #   describe 'タスク編集' do
-  #     let!(:task) { create(:task, user:) }
-  #     let(:other_task) { create(:task, user:) }
-  #     before { visit edit_task_path(task) }
+    #     it '編集ページへのアクセスが失敗する' do
+    #       visit edit_task_path(other_task)
+    #       expect(page).to have_content 'Forbidden access.'
+    #       expect(current_path).to eq root_path
+    #     end
+    #   end
+    # end
 
-  #     context 'フォームの入力値が正常' do
-  #       it 'タスクの編集が成功する' do
-  #         fill_in 'Title', with: 'updated_title'
-  #         select :done, from: 'Status'
-  #         click_button 'Update Task'
-  #         expect(page).to have_content 'Title: updated_title'
-  #         expect(page).to have_content 'Status: done'
-  #         expect(page).to have_content 'Task was successfully updated.'
-  #         expect(current_path).to eq task_path(task)
-  #       end
-  #     end
+    # describe 'タスク削除' do
+    #   let!(:task) { create(:task, user:) }
 
-  #     context 'タイトルが未入力' do
-  #       it 'タスクの編集が失敗する' do
-  #         fill_in 'Title', with: nil
-  #         select :todo, from: 'Status'
-  #         click_button 'Update Task'
-  #         expect(page).to have_content '1 error prohibited this task from being saved'
-  #         expect(page).to have_content "Title can't be blank"
-  #         expect(current_path).to eq task_path(task)
-  #       end
-  #     end
-
-  #     context '登録済のタイトルを入力' do
-  #       it 'タスクの編集が失敗する' do
-  #         fill_in 'Title', with: other_task.title
-  #         select :todo, from: 'Status'
-  #         click_button 'Update Task'
-  #         expect(page).to have_content '1 error prohibited this task from being saved'
-  #         expect(page).to have_content 'Title has already been taken'
-  #         expect(current_path).to eq task_path(task)
-  #       end
-  #     end
-
-  #     context '他ユーザーのタスク編集ページにアクセス' do
-  #       let!(:other_user) { create(:user, email: 'other_user@example.com') }
-  #       let!(:other_task) { create(:task, user: other_user) }
-
-  #       it '編集ページへのアクセスが失敗する' do
-  #         visit edit_task_path(other_task)
-  #         expect(page).to have_content 'Forbidden access.'
-  #         expect(current_path).to eq root_path
-  #       end
-  #     end
-  #   end
-
-  #   describe 'タスク削除' do
-  #     let!(:task) { create(:task, user:) }
-
-  #     it 'タスクの削除が成功する' do
-  #       visit tasks_path
-  #       click_link 'Destroy'
-  #       expect(page.accept_confirm).to eq 'Are you sure?'
-  #       expect(page).to have_content 'Task was successfully destroyed'
-  #       expect(current_path).to eq tasks_path
-  #       expect(page).not_to have_content task.title
-  #     end
-  #   end
-  # end
+    #   it 'タスクの削除が成功する' do
+    #     visit tasks_path
+    #     click_link 'Destroy'
+    #     expect(page.accept_confirm).to eq 'Are you sure?'
+    #     expect(page).to have_content 'Task was successfully destroyed'
+    #     expect(current_path).to eq tasks_path
+    #     expect(page).not_to have_content task.title
+    #   end
+    # end
+  end
 end

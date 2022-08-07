@@ -58,6 +58,7 @@
             :error-messages="errors"
             label="対象学年"
             data-vv-name="select"
+            id="grade_range_select"
           ></v-select>
         </validation-provider>
 
@@ -75,6 +76,7 @@
             :error-messages="errors"
             label="シーンタイプ"
             data-vv-name="select"
+            id="scene_type_select"
           ></v-select>
         </validation-provider>
 
@@ -92,6 +94,7 @@
             :error-messages="errors"
             label="公開設定"
             data-vv-name="select"
+            id="status_select"
           ></v-select>
         </validation-provider>
 
@@ -154,7 +157,7 @@ export default {
       { label: "中学生", value: "junior_high" },
     ],
     scene_type_select: [
-      { label: "全校集会", value: "all_school_assembly" },
+      { label: "全校朝会", value: "all_school_assembly" },
       {
         label: "学校行事（運動会、学習発表会、修学旅行、水泳記録会など）",
         value: "event",
