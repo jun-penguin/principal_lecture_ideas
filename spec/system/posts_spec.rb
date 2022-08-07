@@ -118,40 +118,31 @@ RSpec.describe '講話の閲覧・投稿・編集・削除', type: :system, js: 
       end
     end
 
-    #   context '登録済のタイトルを入力' do
-    #     it 'タスクの編集が失敗する' do
-    #       fill_in 'Title', with: other_task.title
-    #       select :todo, from: 'Status'
-    #       click_button 'Update Task'
-    #       expect(page).to have_content '1 error prohibited this task from being saved'
-    #       expect(page).to have_content 'Title has already been taken'
-    #       expect(current_path).to eq task_path(task)
-    #     end
-    #   end
+  
 
-    #   context '他ユーザーのタスク編集ページにアクセス' do
-    #     let!(:other_user) { create(:user, email: 'other_user@example.com') }
-    #     let!(:other_task) { create(:task, user: other_user) }
+      context '他ユーザーの講話編集ページにアクセス' do
+        let!(:other_user) { create(:user, email: 'other_user@example.com') }
+        let!(:other_task) { create(:task, user_id: other_user.id ) }
 
-    #     it '編集ページへのアクセスが失敗する' do
-    #       visit edit_task_path(other_task)
-    #       expect(page).to have_content 'Forbidden access.'
-    #       expect(current_path).to eq root_path
-    #     end
-    #   end
-    # end
+        it '編集ページへのアクセスが失敗する' do
+          visit edit_task_path(other_task)
+          expect(page).to have_content 'Forbidden access.'
+          expect(current_path).to eq root_path
+        end
+      end
+    end
 
-    # describe 'タスク削除' do
-    #   let!(:task) { create(:task, user:) }
+    describe '講話の削除' do
+      let!(:task) { create(:task, user:) }
 
-    #   it 'タスクの削除が成功する' do
-    #     visit tasks_path
-    #     click_link 'Destroy'
-    #     expect(page.accept_confirm).to eq 'Are you sure?'
-    #     expect(page).to have_content 'Task was successfully destroyed'
-    #     expect(current_path).to eq tasks_path
-    #     expect(page).not_to have_content task.title
-    #   end
-    # end
+      it 'タスクの削除が成功する' do
+        visit tasks_path
+        click_link 'Destroy'
+        expect(page.accept_confirm).to eq 'Are you sure?'
+        expect(page).to have_content 'Task was successfully destroyed'
+        expect(current_path).to eq tasks_path
+        expect(page).not_to have_content task.title
+      end
+    end
   end
-end
+
