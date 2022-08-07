@@ -32,7 +32,7 @@
             <v-card class="mx-auto" max-width="344" :elevation="hover ? 12 : 2">
               <v-card-text>
                 <div>
-                  <v-icon class="pb-1">mdi-account</v-icon> {{ post.user.name }}
+                  <v-icon class="pb-1">mdi-account</v-icon> {{ post.user_name }}
                   <!-- likecount -->
                   <span class="ml-8">
                     <!-- v-if="loggedIn" -->

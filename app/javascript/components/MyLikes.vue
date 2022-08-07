@@ -11,7 +11,7 @@
                   <span
                     ><v-icon class="pb-1">mdi-account</v-icon>
                     <span class="font-weight-bold">{{
-                      post.user.name
+                      post.user_name
                     }}</span></span
                   >
                   <!-- likecount -->
