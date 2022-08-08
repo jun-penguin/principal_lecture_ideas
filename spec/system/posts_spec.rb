@@ -97,6 +97,7 @@ RSpec.describe '講話の閲覧・投稿・編集・削除', type: :system, js: 
       before { visit("/postings/edit/#{post.id}") }
       context 'フォームの入力値が正常' do
         it '講話の編集が成功する' do
+          visit("/postings/edit/#{post.id}")
           sleep 2.0
           fill_in 'タイトル', with: 'updated_title'
           page.all('div.v-select__selections')[2].click
@@ -116,33 +117,27 @@ RSpec.describe '講話の閲覧・投稿・編集・削除', type: :system, js: 
           expect(page).to have_content 'タイトル は空欄にできません。'
         end
       end
-    end
-
-  
-
       context '他ユーザーの講話編集ページにアクセス' do
         let!(:other_user) { create(:user, email: 'other_user@example.com') }
-        let!(:other_task) { create(:task, user_id: other_user.id ) }
-
+        let!(:other_post) { create(:post, user_id: other_user.id) }
         it '編集ページへのアクセスが失敗する' do
-          visit edit_task_path(other_task)
-          expect(page).to have_content 'Forbidden access.'
+          visit("/postings/edit/#{other_post.id}")
+          expect(page).to_not have_content '講話の編集'
           expect(current_path).to eq root_path
         end
       end
     end
-
     describe '講話の削除' do
-      let!(:task) { create(:task, user:) }
-
-      it 'タスクの削除が成功する' do
-        visit tasks_path
-        click_link 'Destroy'
-        expect(page.accept_confirm).to eq 'Are you sure?'
-        expect(page).to have_content 'Task was successfully destroyed'
-        expect(current_path).to eq tasks_path
-        expect(page).not_to have_content task.title
+      let!(:post) { create(:post, status: 'published', user_id: user.id) }
+      it '講話の削除が成功する' do
+        visit("/postings/#{post.id}")
+        click_button '削除'
+        sleep 1.0
+        click_button 'はい、削除します'
+        expect(page).to have_content '講話を削除しました。'
+        expect(current_path).to eq '/postings'
+        expect(page).not_to have_content post.title
       end
     end
   end
-
+end
