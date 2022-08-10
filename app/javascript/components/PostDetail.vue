@@ -79,6 +79,7 @@
               color="error"
               class="font-weight-bold"
               @click.stop="confirm_dialog(comment)"
+              id="delete-button"
             >
               削除
             </v-btn>

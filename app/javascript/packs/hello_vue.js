@@ -1,8 +1,5 @@
 import Vue from "vue";
 import axios from "../plugins/axios.js";
-//import { ValidationProvider, extend, localize } from "vee-validate";
-//import { required } from "vee-validate/dist/rules";
-//import ja from "vee-validate/dist/locale/ja.json";
 import Vuetify from "vuetify";
 import colors from "vuetify/lib/util/colors";
 import router from "../router/index.js";
@@ -22,12 +19,10 @@ const vuetify = new Vuetify({
         accent: colors.shades.black,
         white: colors.shades.white,
         background: colors.brown.lighten5,
-        //...
       },
       dark: {
         primary: colors.blue.lighten3,
         background: colors.indigo.base,
-        //...
       },
     },
   },

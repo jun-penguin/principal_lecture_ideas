@@ -1,24 +1,21 @@
 require 'rails_helper'
 
-RSpec.describe '講話の閲覧・投稿・編集・削除', type: :system, js: true do
+RSpec.describe '講話のCRUD機能', type: :system, js: true do
   require 'rails_helper'
 
-  # let(:user) { create(:user) }
-  # let!(:post) { create(:post) }
-
   describe 'ログイン前' do
-    let!(:user) { create(:user) }
-    let!(:post) { create(:post, user_id: user.id) }
+    # let!(:user) { create(:user) }
+    let!(:post) { create(:post) }
     describe 'ページ遷移確認' do
       context '講話の新規投稿ページにアクセス' do
-        xit '新規投稿ページへのアクセスが失敗し、サイトトップに遷移する' do
+        it '新規投稿ページへのアクセスが失敗し、サイトトップに遷移する' do
           visit('/create')
           expect(page).to_not have_content('新規投稿')
           expect(current_path).to eq root_path
         end
       end
       context '講話の管理ページにアクセス' do
-        xit '編集ページへのアクセスが失敗し、サイトトップに遷移する' do
+        it '編集ページへのアクセスが失敗し、サイトトップに遷移する' do
           visit('/postings')
           expect(page).to_not have_content('講話の管理')
           expect(current_path).to eq root_path
@@ -26,7 +23,7 @@ RSpec.describe '講話の閲覧・投稿・編集・削除', type: :system, js: 
       end
       context '講話の詳細ページにアクセス' do
         # let!(:post) { create(:post) }
-        xit '講話の詳細情報が表示される' do
+        it '講話の詳細情報が表示される' do
           visit("/post/#{post.id}")
           expect(page).to have_content(post.title)
           expect(page).to have_content(post.description)
@@ -34,7 +31,7 @@ RSpec.describe '講話の閲覧・投稿・編集・削除', type: :system, js: 
         end
       end
       context '講話の一覧ページ（サイトトップ）にアクセス' do
-        xit '講話の一覧情報が表示される' do
+        it '講話の一覧情報が表示される' do
           post_list = create_list(:post, 3)
           visit('/')
           expect(page).to have_content post_list[0].title
@@ -51,7 +48,7 @@ RSpec.describe '講話の閲覧・投稿・編集・削除', type: :system, js: 
     describe '講話の新規投稿' do
       before { visit('/create') }
       context 'フォームの入力値が正常' do
-        xit '講話の新規作成が成功する' do
+        it '講話の新規作成が成功する' do
           fill_in 'タイトル', with: 'test_title'
           fill_in '講話の紹介', with: 'test_description'
           fill_in '本文', with: 'test_content'
@@ -72,7 +69,7 @@ RSpec.describe '講話の閲覧・投稿・編集・削除', type: :system, js: 
         end
       end
       context 'フォームが未入力' do
-        xit 'エラーメッセージが表示される' do
+        it 'エラーメッセージが表示される' do
           fill_in 'タイトル', with: ' '
           fill_in '講話の紹介', with: ' '
           fill_in '本文', with: ' '
@@ -129,14 +126,16 @@ RSpec.describe '講話の閲覧・投稿・編集・削除', type: :system, js: 
     end
     describe '講話の削除' do
       let!(:post) { create(:post, status: 'published', user_id: user.id) }
-      it '講話の削除が成功する' do
-        visit("/postings/#{post.id}")
-        click_button '削除'
-        sleep 1.0
-        click_button 'はい、削除します'
-        expect(page).to have_content '講話を削除しました。'
-        expect(current_path).to eq '/postings'
-        expect(page).not_to have_content post.title
+      context '削除ボタンを押下しポップアップの指示に従う' do
+        it '講話の削除が成功する' do
+          visit("/postings/#{post.id}")
+          click_button '削除'
+          sleep 1.0
+          click_button 'はい、削除します'
+          expect(page).to have_content '講話を削除しました。'
+          expect(current_path).to eq '/postings'
+          expect(page).not_to have_content post.title
+        end
       end
     end
   end
