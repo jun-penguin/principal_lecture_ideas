@@ -17,10 +17,12 @@
             ></v-text-field>
           </validation-provider>
         </div>
-        <v-text-field
+        <v-textarea
           v-model="self_introduction"
-          label="一言自己紹介"
-        ></v-text-field>
+          label="自己紹介"
+          rows='1'
+          auto-grow
+        ></v-textarea>
 
         <validation-provider v-slot="{ errors }" name="役職" rules="required">
           <v-select

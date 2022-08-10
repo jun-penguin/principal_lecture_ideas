@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default axios.create({
   // 開発用
-  //  
+  // baseURL: "http://localhost:3000/api/v1/",
   // テスト用
   baseURL: "/api/v1/",
   // 本番用

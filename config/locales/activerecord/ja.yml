@@ -9,7 +9,7 @@ ja:
         id: 'ID'
         name: 'ユーザーネーム'
         email: 'メールアドレス'
-        self_introduction: "一言自己紹介"
+        self_introduction: "自己紹介"
         status: "ステータス"
         prefecture: "都道府県"
         password: 'パスワード'

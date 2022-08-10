@@ -4,7 +4,6 @@ RSpec.describe '講話のCRUD機能', type: :system, js: true do
   require 'rails_helper'
 
   describe 'ログイン前' do
-    # let!(:user) { create(:user) }
     let!(:post) { create(:post) }
     describe 'ページ遷移確認' do
       context '講話の新規投稿ページにアクセス' do
@@ -22,7 +21,6 @@ RSpec.describe '講話のCRUD機能', type: :system, js: true do
         end
       end
       context '講話の詳細ページにアクセス' do
-        # let!(:post) { create(:post) }
         it '講話の詳細情報が表示される' do
           visit("/post/#{post.id}")
           expect(page).to have_content(post.title)
@@ -90,7 +88,7 @@ RSpec.describe '講話のCRUD機能', type: :system, js: true do
     end
 
     describe '講話の編集' do
-      let!(:post) { create(:post, status: 'draft', user_id: user.id) }
+      let!(:post) { create(:post, status: 'draft', user:) }
       before { visit("/postings/edit/#{post.id}") }
       context 'フォームの入力値が正常' do
         it '講話の編集が成功する' do
@@ -125,7 +123,7 @@ RSpec.describe '講話のCRUD機能', type: :system, js: true do
       end
     end
     describe '講話の削除' do
-      let!(:post) { create(:post, status: 'published', user_id: user.id) }
+      let!(:post) { create(:post, status: 'published', user:) }
       context '削除ボタンを押下しポップアップの指示に従う' do
         it '講話の削除が成功する' do
           visit("/postings/#{post.id}")

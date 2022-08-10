@@ -197,7 +197,7 @@ const actions = {
           context.dispatch(
             "message/showMessage",
             {
-              message: "プロフィールを更新しました.",
+              message: "プロフィールを更新しました。",
               type: "success",
               status: true,
             },
