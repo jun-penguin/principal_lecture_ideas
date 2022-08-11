@@ -8,7 +8,9 @@
 ## ======= 👇 ここからコメントを外す =======
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'https://principal-lecture-ideas.herokuapp.com', 'http://localhost:3000'
+    # origins 'https://principal-lecture-ideas.herokuapp.com', 'http://localhost:3000'
+
+    origins Rails.application.config.allow_origins
 
     resource '*',
              headers: :any,

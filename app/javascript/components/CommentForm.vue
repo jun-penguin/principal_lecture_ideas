@@ -2,10 +2,10 @@
   <div>
     <p class="text-h6 pt-5 title font-weight-bold"> <v-icon class="pb-1 pr-3">mdi-comment-edit-outline</v-icon>コメントを書く</p>
     <validation-observer ref="observer" v-slot="{ invalid }">
-      <form @submit.prevent="submit">
+      
         <!-- コメント -->
-        <validation-provider  name="コメント" rules="required">
-          <v-textarea v-model="body" auto-grow label="コメント" rows="1"></v-textarea>
+        <validation-provider   name="コメント" rules="required">
+          <v-textarea id="comment-form" v-model="body"  auto-grow label="コメント" rows="1"></v-textarea>
         </validation-provider>
         <v-btn
           class="mr-4 font-weight-bold"
@@ -17,7 +17,7 @@
           コメントする
         </v-btn>
         <v-btn @click="clear" class="font-weight-bold"> キャンセル </v-btn>
-      </form>
+    
     </validation-observer>
   </div>
 </template>

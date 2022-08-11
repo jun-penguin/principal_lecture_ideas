@@ -80,7 +80,7 @@
         >
           <p class="float-left">
             <v-icon class="pb-1">mdi-account</v-icon>
-            <span class="font-weight-bold">{{ comment.user.name }}</span>
+            <span class="font-weight-bold">{{ comment.user_name }}</span>
           </p>
           <p class="text-right mb-n1 pr-8">
             <v-icon class="pb-1">mdi-clock-outline</v-icon

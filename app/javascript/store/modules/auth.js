@@ -132,7 +132,7 @@ const actions = {
         context.dispatch(
           "message/showMessage",
           {
-            message: "新規登録に成功しました.",
+            message: "ユーザー登録が完了しました。",
             type: "success",
             status: true,
           },
@@ -143,7 +143,7 @@ const actions = {
         context.dispatch(
           "message/showMessage",
           {
-            message: "新規登録に失敗しました。",
+            message: "ユーザー登録に失敗しました。",
             type: "error",
             status: true,
           },
@@ -197,7 +197,7 @@ const actions = {
           context.dispatch(
             "message/showMessage",
             {
-              message: "プロフィールを更新しました.",
+              message: "プロフィールを更新しました。",
               type: "success",
               status: true,
             },

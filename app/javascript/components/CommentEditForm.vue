@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" max-width="600px">
     <template v-slot:activator="{ on }">
-      <v-btn depressed color="success" class="font-weight-bold" v-on="on"
+      <v-btn id="edit-button" depressed color="success" class="font-weight-bold" v-on="on"
         >編集</v-btn
       >
     </template>
@@ -14,7 +14,7 @@
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-card-title>
-        <v-card-text>
+        <v-card-text id="comment-edit-form">
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12>

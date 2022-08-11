@@ -102,7 +102,11 @@
         >
           上記内容で更新する
         </v-btn>
-        <v-btn color="blue-grey" class="white--text font-weight-bold" @click="clear">
+        <v-btn
+          color="blue-grey"
+          class="white--text font-weight-bold"
+          @click="clear"
+        >
           全て空にする
         </v-btn>
       </form>
@@ -155,7 +159,7 @@ export default {
       { label: "中学生", value: "junior_high" },
     ],
     scene_type_select: [
-      { label: "全校集会", value: "all_school_assembly" },
+      { label: "全校朝会", value: "all_school_assembly" },
       {
         label: "学校行事（運動会、学習発表会、修学旅行、水泳記録会など）",
         value: "event",
@@ -192,15 +196,22 @@ export default {
             client: this.headers["client"],
           },
         })
-        .then((response) => {
-          // this.post.id = response.data.id;
-          this.title = response.data.title;
-          this.description = response.data.description;
-          this.content = response.data.content;
-          this.grade_range = response.data.grade_range;
-          this.scene_type = response.data.scene_type;
-          this.status = response.data.status;
-        });
+        .then(
+          (response) => {
+            // this.post.id = response.data.id;
+            this.title = response.data.title;
+            this.description = response.data.description;
+            this.content = response.data.content;
+            this.grade_range = response.data.grade_range;
+            this.scene_type = response.data.scene_type;
+            this.status = response.data.status;
+          },
+          (error) => {
+            console.log("データ取得失敗");
+            console.log(error);
+            this.$router.push({ name: "PostIndex" });
+          }
+        );
     },
     updatePost: function () {
       var id = this.$route.params.id;
@@ -235,6 +246,8 @@ export default {
           },
           (error) => {
             console.log(error);
+            console.log("更新失敗");
+            this.$router.push({ name: "PostIndex" });
           }
         );
     },
