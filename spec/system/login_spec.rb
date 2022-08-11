@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'ログイン', type: :system, js: true do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, name: 'test_name', email: 'test_user@example.com') }
   before do
     visit('/')
     click_button('ログイン')
@@ -9,7 +9,7 @@ RSpec.describe 'ログイン', type: :system, js: true do
   describe '入力必須カラムのvalidationチェック' do
     context '必須カラムの入力が正常' do
       it 'ログインが正常に行われる。' do
-        fill_in 'メールアドレス', with: 'user_1@example.com'
+        fill_in 'メールアドレス', with: 'test_user@example.com'
         fill_in 'パスワード', with: 'password'
         page.all('div.v-text-field__slot input')[1].click
         within '.v-card__text' do
@@ -45,7 +45,7 @@ RSpec.describe 'ログイン', type: :system, js: true do
     end
     context '登録ユーザーのものではないパスワードを入力した場合' do
       it 'エラーメッセージが表示される' do
-        fill_in 'メールアドレス', with: 'user_1@example.com'
+        fill_in 'メールアドレス', with: 'test_user@example.com'
         fill_in 'パスワード', with: 'wrong_password'
         page.all('div.v-text-field__slot input')[1].click
         within '.v-card__text' do
