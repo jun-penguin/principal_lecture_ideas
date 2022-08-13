@@ -99,7 +99,8 @@ export default {
       pageSize: 12,
       query: {
         title_or_description_or_content_cont_any: null,
-        status_eq: 1, //公開済みのみ検索対象に
+        //公開済みのみ検索対象に
+        // status_eq: 1, 
         grade_range_eq: null,
         scene_type_eq: null,
       },

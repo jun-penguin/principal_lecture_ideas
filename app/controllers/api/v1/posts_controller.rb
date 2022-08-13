@@ -49,7 +49,7 @@ class Api::V1::PostsController < Api::V1::ApplicationController
     d = to_hira(sptodocca)
     ssp = [a, b, c, d]
     sp[:title_or_description_or_content_cont_any] = ssp
-    @q = Post.preload(:user).ransack(sp)
+    @q = Post.preload(:user).published.ransack(sp)
     @posts = @q.result(distinct: true).order(created_at: :desc)
     render :search, formats: :json, handlers: 'jbuilder'
   end
@@ -61,7 +61,7 @@ class Api::V1::PostsController < Api::V1::ApplicationController
   end
 
   def search_params
-    params.require(:q).permit(:title_or_description_or_content_cont_any, :status_eq, :grade_range_eq, :scene_type_eq)
+    params.require(:q).permit(:title_or_description_or_content_cont_any, :grade_range_eq, :scene_type_eq)
   end
 
   def half_to_full(str)

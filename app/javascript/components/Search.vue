@@ -22,7 +22,7 @@ export default {
       posts: [],
       query: {
         title_or_description_or_content_cont_any: null,
-        status_eq: 1, //公開済みのみ検索対象に
+        // status_eq: 1, //公開済みのみ検索対象に
       },
     };
   },
