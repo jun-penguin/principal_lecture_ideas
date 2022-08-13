@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- トップページ -->
     <TopPage />
     <v-container mb-15 class="shades white rounded-lg">
       <p class="text-h5 text-center title font-weight-bold">講話一覧(新着順)</p>
@@ -21,19 +22,16 @@
                         post.user_name
                       }}</span></span
                     >
-                    <!-- likecount -->
+                    <!-- 参考になった数カウント -->
                     <span class="ml-8">
                       <LikeCount :postId="post.id" />
                     </span>
+                    <!-- コメント数カウント -->
                     <span class="ml-3">
                       <CommentCount :postId="post.id" />
                     </span>
                   </div>
                   <div>
-                    <!-- <router-link
-                    :to="{ path: `/post/${post.id}` }"
-                    style="text-decoration: none"
-                  > -->
                     <p
                       :style="{
                         'text-decoration': hover ? 'underline' : 'none',
@@ -42,7 +40,6 @@
                     >
                       {{ post.title }}
                     </p>
-                    <!-- </router-link> -->
                   </div>
                   <p class="font-weight-bold">
                     {{ post.grade_range_ja }} / {{ post.scene_type_ja }}
@@ -51,31 +48,6 @@
                     <v-icon class="pb-1">mdi-clock-outline</v-icon>
                     {{ formatDate(post.updated_at) }}
                   </p>
-
-                  <!-- 一旦消す -->
-                  <!-- readmore部分  -->
-                  <!-- <div>
-                <p>
-                  <span v-if="!post.readActivated">
-                    {{ post.description.slice(0, 100) }}
-                  </span>
-                  <button
-                    class="blue--text" 
-                    v-if="!post.readActivated && post.description.length > 100"
-                    @click="post.readActivated = !post.readActivated"
-                  >
-                    ...もっと読む
-                  </button>
-                </p>
-                <p v-if="post.readActivated">{{ post.description }}</p>
-                <button
-                  class="read blue--text"
-                  v-if="post.readActivated"
-                  @click="post.readActivated = !post.readActivated"
-                >
-                  閉じる
-                </button>
-              </div> -->
                   <div class="description">
                     <p class="black--text">{{ post.description }}</p>
                   </div>
@@ -107,9 +79,6 @@ export default {
     CommentCount,
     TopPage,
   },
-  // props: {
-  //   currentPage: Number,
-  // },
   data: function () {
     return {
       posts: [],
@@ -117,81 +86,36 @@ export default {
       length: 0,
       page: 1,
       pageSize: 12,
-      // currentPage: this.$route.query.page
     };
   },
 
-  // watch: {
-  //   "$route.query.page": {
-  //     handler: function () {
-  //       console.log("watch");
-  //       this.page = Number(this.$route.query.page || 1);
-  //       this.handlePageChange(Number(this.$route.query.page) || 1);
-  //     },
-  //     immediate: true,
-  //   },
-  // },
-  // "$route.query.page"() {
-  //   console.log('Hi')
-  //   this.handlePageChange(this.$route.query.page || 1)
-  //   this.page = Number(this.$route.query.page || 1)
-  // },
-  // },
-  // computed: {
-  //   ...mapState("auth", {
-  //     loggedIn: (state) => state.loggedIn,
-  //   }),
-  // },
   async mounted() {
-    console.log("mounted");
-    await this.$axios.get("/posts").then((res) => {
-      const posts = res.data.posts;
-      for (const post of posts) {
-        post.readActivated = false;
-      }
-      this.posts = posts;
+    await this.$axios.get("/posts").then((response) => {
+      this.posts = response.data.posts;
     });
     this.length = Math.ceil(this.posts.length / this.pageSize);
     this.viewPosts = this.posts.slice(0, this.pageSize);
-    console.info(dayjs().format());
     this.$watch("$route.query.page", {
       handler: function () {
-        console.log("watch");
         this.page = Number(this.$route.query.page || 1);
         this.handlePageChange(Number(this.$route.query.page) || 1);
       },
       immediate: true,
     });
   },
-
+// 
   methods: {
     handlePageChange: function (pageNumber) {
-      console.log(pageNumber);
-      // this.viewPosts =
-      // this.viewPosts = JSON.parse(JSON.stringify(this.viewPosts))
       this.viewPosts = this.posts.slice(
         this.pageSize * (pageNumber - 1),
         this.pageSize * pageNumber
       );
-      console.log(this.posts);
-      console.log(this.pageSize * (pageNumber - 1));
-      console.log(this.pageSize * pageNumber);
-      console.log(this.viewPosts);
-      // const aaa = JSON.stringify(this.viewPosts);
-      // this.viewPosts = aaa;
-
-      // this.$router.push({
-      //   query: {
-      //     page: Number(pageNumber),
-      //   },
-      // });
-      // var page = this.$route.params.page;
-      // console.log(page);
     },
 
+    // 日付を日本語表記に
     formatDate: (dateStr) => dayjs(dateStr).format("YYYY年MM月DD日"),
+    // ブラウザバックで前ページに戻すためにqueryでページ番号を追加している
     changePage: function () {
-      console.log("routerPush");
       this.$router.push({
         query: {
           page: Number(this.page),

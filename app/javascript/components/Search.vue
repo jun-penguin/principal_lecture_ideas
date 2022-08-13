@@ -19,7 +19,7 @@ export default {
 
   data: function () {
     return {
-      // posts: [],
+      posts: [],
       query: {
         title_or_description_or_content_cont_any: null,
         status_eq: 1, //公開済みのみ検索対象に
@@ -44,17 +44,11 @@ export default {
             return Qs.stringify(params, { arrayFormat: "brackets" });
           },
         })
-        .then((res) => {
-          console.log(res.data.posts);
+        .then((response) => {
           console.log("検索完了");
-
-          const posts = res.data.posts;
-          for (const post of posts) {
-            post.readActivated = false;
-          }
-          // this.posts = posts;
+          this.posts = response.data.posts;
           this.$store.dispatch("responseDate/getPosts", {
-            posts: posts,
+            posts: this.posts,
           })
           this.$store.dispatch("responseDate/getWord", {
             word: this.query.title_or_description_or_content_cont_any
@@ -67,13 +61,8 @@ export default {
           });
           this.$router.push({
             name: "SearchResult",
-            // params: {
-            //   title_or_description_or_content_cont:
-            //     this.query.title_or_description_or_content_cont,
-            // },
             query: {
                 t: new Date().getTime(),
-                // page: 1,
             },
           });
         })
