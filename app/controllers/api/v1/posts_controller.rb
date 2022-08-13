@@ -1,7 +1,5 @@
 class Api::V1::PostsController < Api::V1::ApplicationController
   before_action :authenticate_user!, only: %i[create update destroy]
-  # before_action :half_to_full, only: %i[search]
-  # before_action :full_to_half, only: %i[search]
 
   def index
     @posts = Post.published.preload(:user).order(updated_at: :desc)
@@ -42,7 +40,6 @@ class Api::V1::PostsController < Api::V1::ApplicationController
 
   def search
     modified_search_params = add_search_word(search_params)
-    binding.pry
     @q = Post.preload(:user).published.ransack(modified_search_params)
     @posts = @q.result(distinct: true).order(created_at: :desc)
 

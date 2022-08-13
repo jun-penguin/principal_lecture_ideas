@@ -99,8 +99,6 @@ export default {
       pageSize: 12,
       query: {
         title_or_description_or_content_cont_any: null,
-        //公開済みのみ検索対象に
-        // status_eq: 1, 
         grade_range_eq: null,
         scene_type_eq: null,
       },
@@ -237,4 +235,4 @@ export default {
   border-left: solid 5px #5d5d5d;
   font-size: 15px;
 }
-</style>font-size: 15px;
+</style>

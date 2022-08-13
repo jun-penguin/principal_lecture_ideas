@@ -3,8 +3,8 @@
     <p class="text-h4 pt-5 title font-weight-bold">{{ post.title }}</p>
     <v-divider></v-divider>
     <div class="text-h6 pt-2 font-weight-bold">
-      <p class="float-left box3 ml-1 mr-5">{{ post.grade_range_ja }}</p>
-      <p class="float-left box3">{{ post.scene_type_ja }}</p>
+      <p class="float-left grade_range_scene_type ml-1 mr-5">{{ post.grade_range_ja }}</p>
+      <p class="float-left grade_range_scene_type">{{ post.scene_type_ja }}</p>
 
       <p class="text-right">
         投稿者:
@@ -17,12 +17,12 @@
       </p>
     </div>
 
-    <div class="box8">
-      <p class="content">{{ post.description }}</p>
+    <div class="description">
+      <p class="text">{{ post.description }}</p>
     </div>
-    <div class="box27">
+    <div class="content">
       <span class="box-title">講話本文</span>
-      <p class="content">{{ newLine(post.content) }}</p>
+      <p class="text">{{ newLine(post.content) }}</p>
     </div>
     <LikeButton @setCurrentUser="setCurrentUser" :postId="this.post.id" />
 
@@ -56,7 +56,7 @@
             <v-icon class="pb-1">mdi-clock-outline</v-icon
             >{{ formatDate(comment.updated_at) }}
           </p>
-          <div class="body">
+          <div class="comment">
             <p class="mt-n2">
               {{ newLine(comment.body) }}
             </p>
@@ -222,7 +222,7 @@ export default {
 </script>
 
 <style scoped>
-.box8 {
+.description {
   padding: 0.5em 1em;
   margin: 2em 0;
   color: #232323;
@@ -230,18 +230,17 @@ export default {
   border-left: solid 10px #7d420aa4;
   border-radius: 5px;
 }
-.box3 {
+.grade_range_scene_type {
   padding: 0em 0.5em;
-  /* margin: 2em 0; */
   color: #2c2c2f;
-  background: #efefef; /*背景色*/
+  background: #efefef;
   border-radius: 30px;
 }
-.heading {
+/* .heading {
   border-bottom: 4px double #000;
-}
+} */
 
-.box27 {
+.content {
   position: relative;
   margin: 3em 0;
   padding: 0.5em 1em;
@@ -249,7 +248,7 @@ export default {
   background: #eafff0;
   border-radius: 5px;
 }
-.box27 .box-title {
+.content .box-title {
   position: absolute;
   display: inline-block;
   top: -27px;
@@ -263,22 +262,22 @@ export default {
   font-weight: bold;
   border-radius: 5px 5px 0 0;
 }
-.box27 p {
+.content p {
   margin: 0;
   padding: 0;
 }
-.content {
+.text {
   white-space: pre-line;
   font-size: 19px;
 }
-.body {
+.comment {
   padding: 0.5em 1em;
   margin: 0 2em 0 0;
   color: #2c2c2f;
   background: #e4ecf5; /*背景色*/
   border-radius: 5px;
 }
-.body p {
+.comment p {
   white-space: pre-line;
 }
 </style>

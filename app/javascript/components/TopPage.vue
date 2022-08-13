@@ -3,7 +3,7 @@
     <section class="main_visual">
       <v-container fluid fill-height class="main_visual_content">
         <v-row>
-          <v-col class="main_visual_content-text">
+          <v-col class="text">
             <p>心に残る校長講話を。</p>
             <p class="subtext">
               校長講話アイディアボックスは全国の校長先生がお持ちの講話アイディアを、<br />
@@ -119,24 +119,24 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .main_visual_content {
   background: url("../../assets/images/class_room.jpeg");
   background-size: cover;
   background-position: center;
   width: 100%;
   height: 50vh;
+}
 
-  &-text {
-    color: white;
-    text-align: center;
-    font-size: 40px;
-    font-weight: bold;
-    position: absolute;
-  }
-  .subtext {
-    font-size: 20px;
-  }
+.main_visual_content .text {
+  color: white;
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
+  position: absolute;
+}
+.main_visual_content .subtext {
+  font-size: 20px;
 }
 
 .concept_description {
