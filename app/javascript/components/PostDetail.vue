@@ -24,6 +24,7 @@
       <span class="box-title">講話本文</span>
       <p class="text">{{ newLine(post.content) }}</p>
     </div>
+    <!-- 参考になったボタン -->
     <LikeButton @setCurrentUser="setCurrentUser" :postId="this.post.id" />
 
     <v-divider class="mt-10"></v-divider>
@@ -262,10 +263,7 @@ export default {
   font-weight: bold;
   border-radius: 5px 5px 0 0;
 }
-.content p {
-  margin: 0;
-  padding: 0;
-}
+
 .text {
   white-space: pre-line;
   font-size: 19px;
