@@ -43,10 +43,6 @@ export default {
   data: function () {
     return {
       posts: null,
-      viewPosts: [],
-      length: 0,
-      page: 1,
-      pageSize: 12,
       query: {
         title_or_description_or_content_cont_any: null,
         grade_range_eq: null,
@@ -69,7 +65,7 @@ export default {
   },
 
   async created() {
-    console.log("mounted");
+    console.log("created");
     this.setPosts();
     this.setWord;
     this.setGrade_range;
@@ -142,7 +138,6 @@ export default {
           console.log(error);
         });
     },
-    formatDate: (dateStr) => dayjs(dateStr).format("YYYY年MM月DD日"),
   },
 };
 </script>
