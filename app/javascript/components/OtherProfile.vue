@@ -31,13 +31,9 @@
 </template>
 
 <script>
-import LikeCount from "./LikeCount.vue";
-import CommentCount from "./CommentCount.vue";
 import SharedPostIndex from "./SharedPostIndex.vue";
 export default {
   components: {
-    LikeCount,
-    CommentCount,
     SharedPostIndex,
   },
   data: function () {

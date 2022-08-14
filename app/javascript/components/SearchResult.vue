@@ -22,77 +22,27 @@
     >
 
     <p class="text-h4 pt-5 pl-3 title font-weight-bold">検索結果</p>
-    <v-row>
-      <p class="pt-5 pl-3 font-weight-bold" v-if="!posts.length">
-        検索条件に合致する講話はありませんでした。
-      </p>
-      <v-col v-for="post in this.viewPosts" :key="post.id" cols="12" sm="4">
-        <v-hover v-slot="{ hover }">
-          <router-link :to="{ path: `/post/${post.id}` }">
-            <v-card class="mx-auto" max-width="344" :elevation="hover ? 12 : 2">
-              <v-card-text>
-                <div>
-                  <span
-                    ><v-icon class="pb-1">mdi-account</v-icon>
-                    <span class="font-weight-bold">{{
-                      post.user_name
-                    }}</span></span
-                  >
-                  <span class="ml-8">
-                    <LikeCount :postId="post.id" />
-                  </span>
-                  <span class="ml-3">
-                    <CommentCount :postId="post.id" />
-                  </span>
-                </div>
-                <div>
-                  <p
-                    :style="{ 'text-decoration': hover ? 'underline' : 'none' }"
-                    class="text-h5 blue--text font-weight-bold"
-                  >
-                    {{ post.title }}
-                  </p>
-                </div>
-                <p class="font-weight-bold">
-                  {{ post.grade_range_ja }} / {{ post.scene_type_ja }}
-                </p>
-                <p>
-                  <v-icon class="pb-1">mdi-clock-outline</v-icon>
-                  {{ formatDate(post.updated_at) }}
-                </p>
-                <div class="description">
-                  <p class="black--text">{{ post.description }}</p>
-                </div>
-              </v-card-text>
-            </v-card>
-          </router-link>
-        </v-hover>
-      </v-col>
-    </v-row>
-    <v-pagination
-      class="pt-3 pb-15"
-      v-model="page"
-      :length="length"
-      @input="changePage"
-    ></v-pagination>
+
+    <p class="pt-5 pl-3 font-weight-bold" v-if="!posts.length">
+      検索条件に合致する講話はありませんでした。
+    </p>
+    <!-- コンポーネント呼び出し -->
+    <SharedPostIndex v-if="posts" :shared_posts="this.posts" />
   </v-container>
 </template>  
 
 <script>
-import dayjs from "dayjs";
-import LikeCount from "./LikeCount.vue";
-import CommentCount from "./CommentCount.vue";
+import SharedPostIndex from "./SharedPostIndex.vue";
 import Qs from "qs";
 
 export default {
   name: "SearchResult",
   components: {
-    LikeCount,
-    CommentCount,
+    SharedPostIndex,
   },
   data: function () {
     return {
-      posts: [],
+      posts: null,
       viewPosts: [],
       length: 0,
       page: 1,
@@ -118,28 +68,15 @@ export default {
     };
   },
 
-  async mounted() {
+  async created() {
     console.log("mounted");
-    await this.setPosts();
-    this.setResult;
+    this.setPosts();
     this.setWord;
     this.setGrade_range;
     this.setScene_type;
-    this.$watch("$route.query.page", {
-      handler: function () {
-        this.page = Number(this.$route.query.page || 1);
-        this.handlePageChange(Number(this.$route.query.page) || 1);
-      },
-      immediate: true,
-    });
   },
 
   computed: {
-    setResult: function () {
-      this.length = Math.ceil(this.posts.length / this.pageSize);
-      this.viewPosts = this.posts.slice(0, this.pageSize);
-      console.log("setResult");
-    },
     setWord: function () {
       this.query.title_or_description_or_content_cont_any =
         this.$store.getters["responseDate/word"].word;
@@ -158,9 +95,8 @@ export default {
   },
 
   watch: {
-    async "$route.query.t"() {
-      await this.setPosts();
-      this.setResult;
+    "$route.query.t"() {
+      this.setPosts();
       this.setWord;
       this.setGrade_range;
       this.setScene_type;
@@ -171,13 +107,6 @@ export default {
     setPosts: function () {
       this.posts = this.$store.getters["responseDate/posts"].posts;
       console.log("setPosts");
-    },
-
-    handlePageChange: function (pageNumber) {
-      this.viewPosts = this.posts.slice(
-        this.pageSize * (pageNumber - 1),
-        this.pageSize * pageNumber
-      );
     },
     // 絞り込み検索
     research: function () {
@@ -214,14 +143,6 @@ export default {
         });
     },
     formatDate: (dateStr) => dayjs(dateStr).format("YYYY年MM月DD日"),
-    changePage: function () {
-      console.log("routerPush");
-      this.$router.push({
-        query: {
-          page: Number(this.page),
-        },
-      });
-    },
   },
 };
 </script>

@@ -18,7 +18,6 @@ import Qs from "qs";
 
 export default {
   name: "Search",
-
   data: function () {
     return {
       posts: [],
@@ -28,11 +27,6 @@ export default {
     };
   },
 
-  watch: {
-    $route(to, from) {
-      console.log(to, from);
-    },
-  },
 
   methods: {
     search: function () {
