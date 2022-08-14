@@ -141,14 +141,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.description {
-  padding: 0.5em 1em;
-  margin: 2em 0;
-  color: #232323;
-  background: #f5f5f5;
-  border-left: solid 5px #5d5d5d;
-  font-size: 15px;
-}
-</style>

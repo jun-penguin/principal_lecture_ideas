@@ -11,7 +11,7 @@ class Api::V1::LikesController < Api::V1::ApplicationController
   end
 
   def show
-    @posts = current_user.favorites
+    @posts = current_user.favorites.published
     render :show, formats: :json, handlers: 'jbuilder'
   end
 
