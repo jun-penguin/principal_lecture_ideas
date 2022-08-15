@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import TopPage from "./TopPage.vue";
-import SharedPostIndex from "./SharedPostIndex.vue";
+import TopPage from "../parts/TopPage.vue";
+import SharedPostIndex from "../parts/SharedPostIndex.vue";
 export default {
   name: "PostIndex",
   components: {

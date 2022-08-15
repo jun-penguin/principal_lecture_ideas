@@ -34,7 +34,7 @@
           <v-card class="mx-auto pt-5" max-width="344">
             <v-img
               class="pt-10 mx-auto"
-              v-bind:src="require('../../assets/images/glass.jpeg')"
+              v-bind:src="require('../../../assets/images/glass.jpeg')"
               max-height="100px"
               max-width="100px"
             ></v-img>
@@ -52,7 +52,7 @@
           <v-card class="mx-auto pt-5" max-width="344" max-height="300">
             <v-img
               class="mx-auto"
-              v-bind:src="require('../../assets/images/bookmark.jpeg')"
+              v-bind:src="require('../../../assets/images/bookmark.jpeg')"
               max-height="100px"
               max-width="100px"
             ></v-img>
@@ -70,7 +70,7 @@
           <v-card class="mx-auto pt-5" max-width="344">
             <v-img
               class="mx-auto"
-              v-bind:src="require('../../assets/images/pen.jpeg')"
+              v-bind:src="require('../../../assets/images/pen.jpeg')"
               max-height="100px"
               max-width="100px"
             ></v-img>
@@ -121,7 +121,7 @@ export default {
 
 <style scoped>
 .main_visual_content {
-  background: url("../../assets/images/class_room.jpeg");
+  background: url("../../../assets/images/class_room.jpeg");
   background-size: cover;
   background-position: center;
   width: 100%;

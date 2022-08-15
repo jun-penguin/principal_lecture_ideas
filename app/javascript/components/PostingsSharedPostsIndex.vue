@@ -3,7 +3,7 @@
     <v-row>
       <v-col v-for="post in this.viewPosts" :key="post.id" cols="12" sm="4">
         <v-hover v-slot="{ hover }">
-          <router-link :to="{ path: `/postings/${post.id}` }">
+          <router-link :to="{ path: `/post/${post.id}` }">
             <v-card class="mx-auto" max-width="344" :elevation="hover ? 12 : 2">
               <v-card-text>
                 <div>
@@ -51,8 +51,8 @@
 
 <script>
 import dayjs from "dayjs";
-import LikeCount from "./LikeCount.vue";
-import CommentCount from "./CommentCount.vue";
+import LikeCount from "./parts/LikeCount.vue";
+import CommentCount from "./parts/CommentCount.vue";
 export default {
   name: "SharedPostIndex",
   components: {

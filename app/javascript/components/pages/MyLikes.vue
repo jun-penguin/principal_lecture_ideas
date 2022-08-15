@@ -8,7 +8,7 @@
 
 <script>
 import { mapState } from "vuex";
-import SharedPostIndex from "./SharedPostIndex.vue";
+import SharedPostIndex from "../parts/SharedPostIndex.vue";
 export default {
   name: "MyLikes",
   components: {

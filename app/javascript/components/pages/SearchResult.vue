@@ -32,7 +32,7 @@
 </template>  
 
 <script>
-import SharedPostIndex from "./SharedPostIndex.vue";
+import SharedPostIndex from "../parts/SharedPostIndex.vue";
 import Qs from "qs";
 
 export default {

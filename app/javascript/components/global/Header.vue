@@ -4,17 +4,13 @@
       <!-- サイトロゴ -->
       <v-img
         class="mx-2 pr-3"
-        v-bind:src="require('../../assets/images/logo.png')"
+        v-bind:src="require('../../../assets/images/logo.png')"
         max-height="65"
         max-width="175"
         contain
         @click="$router.push('/')"
         style="cursor: pointer"
       ></v-img>
-      <!-- サイトタイトル -->
-      <!-- <v-toolbar-title @click="$router.push('/')" style="cursor: pointer"
-        >校長講話アイディアボックス</v-toolbar-title
-      > -->
 
       <v-spacer></v-spacer>
 
@@ -71,12 +67,11 @@
 </template>
 
 <script>
-import Signup from "./Signup.vue";
-import Login from "./Login.vue";
-import Search from "./Search.vue";
+import Signup from "../parts/Signup.vue";
+import Login from "../parts/Login.vue";
+import Search from "../parts/Search.vue";
 import { mapState } from "vuex";
 
-// import axios from "axios";
 export default {
   name: "Header",
   components: {

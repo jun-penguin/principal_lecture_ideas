@@ -52,9 +52,9 @@
 </template>
 
 <script>
-import App from "../app.vue";
-import PrivacyPolicy from "./PrivacyPolicy.vue";
-import Terms from "./Terms.vue";
+import App from "../../app.vue";
+import PrivacyPolicy from "../pages/PrivacyPolicy.vue";
+import Terms from "../pages/Terms.vue";
 export default {
   components: {
     PrivacyPolicy,

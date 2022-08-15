@@ -7,7 +7,7 @@
       <!-- 公開中 -->
       <v-tab-item value="tab-1">
         <!-- コンポーネント呼び出し -->
-        <PostingsSharedPostIndex
+        <SharedPostingsIndex
           v-if="posts"
           :shared_posts="this.publishedFilter"
         />
@@ -15,7 +15,7 @@
       <!-- 下書き -->
       <v-tab-item value="tab-2">
         <!-- コンポーネント呼び出し -->
-        <PostingsSharedPostIndex
+        <SharedPostingsIndex
           v-if="posts"
           :shared_posts="this.draftFilter"
         />
@@ -26,13 +26,13 @@
 
 
 <script>
-import PostingsSharedPostIndex from "./PostingsSharedPostIndex.vue";
+import SharedPostingsIndex from "../parts/SharedPostingsIndex.vue";
 import { mapState } from "vuex";
 
 export default {
   name: "Postings",
   components: {
-    PostingsSharedPostIndex,
+    SharedPostingsIndex,
   },
   data: function () {
     return {
