@@ -104,14 +104,31 @@ const router = new Router({
       component: OtherProfile,
     },
   ],
+  scrollBehavior(to, from, savedPosition) {
+
+    const searchParams = new URLSearchParams(window.location.search)
+    if (savedPosition) {
+      console.log("savedPosition発動");
+      return savedPosition;
+    } 
+    if (to.query && searchParams.has("page")) {
+      console.log("toQuery発動")
+      return { x: 0, y: 1475 };
+    }
+    console.log("x:0,y:0発動");
+      return { x: 0, y: 0 };
+  },
 });
 
 // ログインが必要なページでの要認証ナビゲーションガード
 router.beforeEach((to, from, next) => {
-  if(to.matched.some(record => record.meta.requiresAuth) && (!store.state.auth.loggedIn)){
-    next('/')
-  }else{
-    next()
+  if (
+    to.matched.some((record) => record.meta.requiresAuth) &&
+    !store.state.auth.loggedIn
+  ) {
+    next("/");
+  } else {
+    next();
   }
 });
 
