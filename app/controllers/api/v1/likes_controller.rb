@@ -2,16 +2,14 @@ class Api::V1::LikesController < Api::V1::ApplicationController
   before_action :authenticate_user!, only: %i[show create destroy]
 
   def index
-    @likes = Like.filter_by_post(params[:post_id])
-    
-    # .select(:id, :user_id, :post_id)
+    @likes = Like.filter_by_post(params[:post_id]).order(updated_at: :desc)
     @user = current_user
-    #  if user_signed_in?
     render :index, formats: :json, handlers: 'jbuilder'
   end
 
   def show
-    @posts = current_user.favorites.published
+    # @posts = current_user.favorites.published.order('likes.created_at desc')
+    @posts = current_user.favorites.includes(:user).published.order('likes.created_at desc')
     render :show, formats: :json, handlers: 'jbuilder'
   end
 
