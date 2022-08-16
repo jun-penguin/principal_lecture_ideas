@@ -2,7 +2,7 @@ class Api::V1::LikesController < Api::V1::ApplicationController
   before_action :authenticate_user!, only: %i[show create destroy]
 
   def index
-    @likes = Like.filter_by_post(params[:post_id]).order(updated_at: :desc)
+    @likes = Like.filter_by_post(params[:post_id]).includes(%i[user post]).order(updated_at: :desc)
     @user = current_user
     render :index, formats: :json, handlers: 'jbuilder'
   end

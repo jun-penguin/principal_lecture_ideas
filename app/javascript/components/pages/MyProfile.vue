@@ -14,6 +14,7 @@
     >
       {{ profile.self_introduction }}
     </p>
+    <p v-else>自己紹介が設定されていません。</p>
     <p class="text-h5 pt-3 font-weight-bold">役職</p>
     {{ profile.status_ja }}
     <p class="text-h5 pt-3 font-weight-bold">都道府県</p>

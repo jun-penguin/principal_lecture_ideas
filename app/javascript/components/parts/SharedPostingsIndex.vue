@@ -16,12 +16,24 @@
                     {{ post.title }}
                   </p>
                   <!-- 参考になった数カウント -->
-                  <span class="ml-8">
-                    <LikeCount :postId="post.id" />
+                  <span>
+                    <span>
+                      <v-icon medium color="red lighten-2" left
+                        >mdi-heart</v-icon
+                      >
+                      <span class="ml-n2">{{ post.likes_count }}</span>
+                    </span>
+                    <!-- <LikeCount :postId="post.id" /> -->
                   </span>
                   <!-- コメント数カウント -->
                   <span class="ml-3">
-                    <CommentCount :postId="post.id" />
+                    <span>
+                      <v-icon medium color="red lighten-2" left
+                        >mdi-comment-outline</v-icon
+                      >
+                      <span class="ml-n2">{{ post.comments_count }}</span>
+                    </span>
+                    <!-- <CommentCount :postId="post.id" /> -->
                   </span>
                 </div>
                 <p class="font-weight-bold">
@@ -51,14 +63,8 @@
 
 <script>
 import dayjs from "dayjs";
-import LikeCount from "./LikeCount.vue";
-import CommentCount from "./CommentCount.vue";
 export default {
   name: "SharedPostingsIndex",
-  components: {
-    LikeCount,
-    CommentCount,
-  },
   props: ["shared_posts"],
   data: function () {
     return {
