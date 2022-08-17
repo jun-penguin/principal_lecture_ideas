@@ -31,7 +31,6 @@ Vue.prototype.$axios = axios;
 
 // 日付の日本語表示
 dayjs.locale("ja");
-// Vue.prototype.$dayjs = dayjs;
 
 document.addEventListener("DOMContentLoaded", () => {
   const app = new Vue({

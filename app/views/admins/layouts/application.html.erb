@@ -7,6 +7,7 @@
     <title>管理画面</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%# app/assets/stylesheets/admin.scss を読み込んでいるSprocket %>
     <%= stylesheet_link_tag 'admin', media: 'all' %> 
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   </head>
@@ -25,6 +26,7 @@
   
     <%= render 'admins/shared/footer' %> 
   </div>
+  <%# app/assets/javascripts/admin.jsを読み込んでいる Sprockets %>
   <%= javascript_include_tag 'admin' %>  
   </body>
 </html>

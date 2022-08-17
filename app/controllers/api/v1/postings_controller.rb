@@ -2,7 +2,7 @@ class Api::V1::PostingsController < Api::V1::ApplicationController
   before_action :authenticate_user!, only: %w[index show destroy update]
   before_action :verify_access, only: %w[show destroy update]
   def index
-    @posts = current_user.posts.order(created_at: :desc)
+    @posts = current_user.posts.order(updated_at: :desc)
     render 'index', formats: :json, handlers: 'jbuilder'
   end
 

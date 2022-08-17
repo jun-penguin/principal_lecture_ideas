@@ -1,10 +1,8 @@
 class Api::V1::PostsController < Api::V1::ApplicationController
   before_action :authenticate_user!, only: %i[create update destroy]
-  # before_action :half_to_full, only: %i[search]
-  # before_action :full_to_half, only: %i[search]
 
   def index
-    @posts = Post.published.preload(:user).order(updated_at: :desc)
+    @posts = Post.published.includes(%i[user likes comments]).order(updated_at: :desc)
     render :index, formats: :json, handlers: 'jbuilder'
   end
 
@@ -41,16 +39,10 @@ class Api::V1::PostsController < Api::V1::ApplicationController
   end
 
   def search
-    sp = search_params
-    sptodocca = sp[:title_or_description_or_content_cont_any]
-    a = half_to_full(sptodocca)
-    b = full_to_half(sptodocca)
-    c = to_kana(sptodocca)
-    d = to_hira(sptodocca)
-    ssp = [a, b, c, d]
-    sp[:title_or_description_or_content_cont_any] = ssp
-    @q = Post.preload(:user).ransack(sp)
+    modified_search_params = add_search_word(search_params)
+    @q = Post.preload(:user).published.ransack(modified_search_params)
     @posts = @q.result(distinct: true).order(created_at: :desc)
+
     render :search, formats: :json, handlers: 'jbuilder'
   end
 
@@ -61,7 +53,17 @@ class Api::V1::PostsController < Api::V1::ApplicationController
   end
 
   def search_params
-    params.require(:q).permit(:title_or_description_or_content_cont_any, :status_eq, :grade_range_eq, :scene_type_eq)
+    params.require(:q).permit(:title_or_description_or_content_cont_any, :grade_range_eq, :scene_type_eq)
+  end
+
+  def add_search_word(search_params)
+    search_word = search_params[:title_or_description_or_content_cont_any]
+    full_word = half_to_full(search_word)
+    half_word = full_to_half(search_word)
+    kana_word = to_kana(search_word)
+    hira_word = to_hira(search_word)
+    search_params[:title_or_description_or_content_cont_any] = [full_word, half_word, kana_word, hira_word]
+    search_params
   end
 
   def half_to_full(str)

@@ -1,19 +1,18 @@
 import Vue from "vue";
 import Router from "vue-router";
-import PostDetail from "../components/PostDetail.vue";
-import PostIndex from "../components/PostIndex.vue";
-import PostCreate from "../components/PostCreate.vue";
-import Postings from "../components/Postings.vue";
-import PostingsDetail from "../components/PostingsDetail.vue";
-import PostingsEdit from "../components/PostingsEdit.vue";
-import Search from "../components/Search.vue";
-import SearchResult from "../components/SearchResult.vue";
-import MyProfile from "../components/MyProfile.vue";
-import MyProfileEdit from "../components/MyProfileEdit.vue";
-import OtherProfile from "../components/OtherProfile.vue";
-import MyLikes from "../components/MyLikes.vue";
-import PrivacyPolicy from "../components/PrivacyPolicy.vue";
-import Terms from "../components/Terms.vue";
+import PostDetail from "../components/pages/PostDetail";
+import PostIndex from "../components/pages/PostIndex.vue";
+import PostCreate from "../components/pages/PostCreate.vue";
+import Postings from "../components/pages/Postings.vue";
+import PostingsDetail from "../components/pages/PostingsDetail.vue";
+import PostingsEdit from "../components/pages/PostingsEdit.vue";
+import SearchResult from "../components/pages/SearchResult.vue";
+import MyProfile from "../components/pages/MyProfile.vue";
+import MyProfileEdit from "../components/pages/MyProfileEdit.vue";
+import OtherProfile from "../components/pages/OtherProfile.vue";
+import MyLikes from "../components/pages/MyLikes.vue";
+import PrivacyPolicy from "../components/pages/PrivacyPolicy.vue";
+import Terms from "../components/pages/Terms.vue";
 import store from "../store/store";
 
 Vue.use(Router);
@@ -37,18 +36,9 @@ const router = new Router({
       component: Terms,
     },
     {
-      path: "/search",
-      name: "Search",
-      component: Search,
-    },
-    {
       path: "/searchResult",
       name: "SearchResult",
       component: SearchResult,
-      // beforeEnter: (to, from, next) => {
-      //   window.location.reload();
-      //   return next();
-      // },
       props: true,
     },
     {
@@ -104,14 +94,31 @@ const router = new Router({
       component: OtherProfile,
     },
   ],
+  scrollBehavior(to, from, savedPosition) {
+
+    const searchParams = new URLSearchParams(window.location.search)
+    if (savedPosition) {
+      console.log("savedPosition発動");
+      return savedPosition;
+    } 
+    if (to.query && searchParams.has("page")) {
+      console.log("toQuery発動")
+      return { x: 0, y: 1475 };
+    }
+    console.log("x:0,y:0発動");
+      return { x: 0, y: 0 };
+  },
 });
 
 // ログインが必要なページでの要認証ナビゲーションガード
 router.beforeEach((to, from, next) => {
-  if(to.matched.some(record => record.meta.requiresAuth) && (!store.state.auth.loggedIn)){
-    next('/')
-  }else{
-    next()
+  if (
+    to.matched.some((record) => record.meta.requiresAuth) &&
+    !store.state.auth.loggedIn
+  ) {
+    next("/");
+  } else {
+    next();
   }
 });
 

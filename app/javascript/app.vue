@@ -14,9 +14,9 @@
 </template>  
 
 <script>
-import Header from "./components/Header.vue";
-import Footer from "./components/Footer.vue";
-import Message from "./components/Message.vue";
+import Header from "./components/global/Header.vue";
+import Footer from "./components/global/Footer.vue";
+import Message from "./components/parts/Message.vue";
 import { mapState } from "vuex";
 
 export default {
