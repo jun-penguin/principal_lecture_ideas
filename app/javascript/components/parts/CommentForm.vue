@@ -85,8 +85,6 @@ export default {
             }),
               this.$emit("createComment");
             this.clear();
-
-            // this.$router.push({ path: "postings" });
           },
           (error) => {
             console.log(error);

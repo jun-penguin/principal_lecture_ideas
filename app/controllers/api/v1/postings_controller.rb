@@ -1,9 +1,9 @@
 class Api::V1::PostingsController < Api::V1::ApplicationController
   before_action :authenticate_user!, only: %w[index show destroy update]
-  before_action :verify_access, only: %w[show destroy update]
+  before_action :set_post, only: %w[show destroy update]
   def index
     @posts = current_user.posts.order(updated_at: :desc)
-    render 'index', formats: :json, handlers: 'jbuilder'
+    render :index, formats: :json, handlers: 'jbuilder'
   end
 
   def show
@@ -11,29 +11,28 @@ class Api::V1::PostingsController < Api::V1::ApplicationController
   end
 
   def update
-    if @post.update(post_params)
-      render 'show', formats: :json, handlers: 'jbuilder'
+    if @post.update(update_params)
+      render json: @post, status: :ok
     else
-      render json: @post.errors, status: :unprocessable_entity
+      render json: @post.errors, status: :bad_request
     end
   end
 
   def destroy
     if @post.destroy
-      head :no_content
+      render json: @post, status: :ok
     else
-      render json: @post.errors, status: :unprocessable_entity
+      render json: @post.errors, status: :bad_request
     end
   end
 
   private
 
-  def post_params
+  def update_params
     params.permit(:title, :description, :content, :status, :grade_range, :scene_type)
   end
 
-  def verify_access
-    @post = Post.find(params[:id])
-    render status: 401, json: { status: 401, message: 'Unauthorized' } unless @post.user == current_user
+  def set_post
+    @post = current_user.posts.find(params[:id])
   end
 end

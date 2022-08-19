@@ -8,7 +8,6 @@ class Api::V1::LikesController < Api::V1::ApplicationController
   end
 
   def show
-    # @posts = current_user.favorites.published.order('likes.created_at desc')
     @posts = current_user.favorites.includes(:user).published.order('likes.created_at desc')
     render :show, formats: :json, handlers: 'jbuilder'
   end

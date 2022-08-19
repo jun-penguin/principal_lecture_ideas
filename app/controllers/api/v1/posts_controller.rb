@@ -14,27 +14,9 @@ class Api::V1::PostsController < Api::V1::ApplicationController
   def create
     @post = current_user.posts.new(post_params)
     if @post.save
-      head :created
+      render json: @post, status: :ok
     else
-      render json: @post.errors, status: :unprocessable_entity
-    end
-  end
-
-  def update
-    @post = Post.find(params[:id])
-    if @post.update_attributes(post_params)
-      render :show, formats: :json, handlers: 'jbuilder'
-    else
-      render json: @post.errors, status: :unprocessable_entity
-    end
-  end
-
-  def destroy
-    @post = Post.find(params[:id])
-    if @post.destroy
-      head :no_content
-    else
-      render json: @post.errors, status: :unprocessable_entity
+      render json: @post.errors, status: :bad_request
     end
   end
 
@@ -42,7 +24,6 @@ class Api::V1::PostsController < Api::V1::ApplicationController
     modified_search_params = add_search_word(search_params)
     @q = Post.preload(:user).published.ransack(modified_search_params)
     @posts = @q.result(distinct: true).order(created_at: :desc)
-
     render :search, formats: :json, handlers: 'jbuilder'
   end
 

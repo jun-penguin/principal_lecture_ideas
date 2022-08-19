@@ -243,6 +243,7 @@ export default {
           },
           (error) => {
             console.log(error);
+            console.log("削除失敗")
           }
         );
     },
