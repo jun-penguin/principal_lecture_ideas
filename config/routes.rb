@@ -12,30 +12,23 @@ Rails.application.routes.draw do
   end
   namespace :api do
     namespace :v1 do
-      # mount_devise_token_auth_for 'User', at: 'auth', controllers: {
-      #   registrations: 'api/v1/auth/registrations'
-      # }
       resources :posts, only: %i[index show create] do
         get :search, on: :collection
       end
       resources :postings, only: %i[index show update destroy]
-      resources :likes, only: %i[index create destroy]
-      get 'mylikes' => 'likes#show'
+      resources :likes, only: %i[index create destroy] do 
+        get :favorites, on: :collection
+      end
       resources :comments, only: %i[index create update destroy]
       resource :profiles, only: %i[] do
         get :mypage, on: :collection
         get '/:username', to: 'profiles#show'
       end
-      # devise_scope :user do
-      #   post 'auth/guest_sign_in', to: 'auth/sessions#guest_sign_in'
-      # end
     end
   end
 
   devise_for :admins, skip: %i[registrations passoword], controllers: {
     sessions: 'admins/sessions'
-    # passwords: 'admins/passwords',
-    # registrations: 'admins/registrations'
   }
 
   namespace :admins do

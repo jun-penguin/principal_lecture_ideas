@@ -21,7 +21,7 @@
 
       <!-- 参考にした講話リンク  -->
       <v-btn v-if="loggedIn" rounded text large class="mr-2 font-weight-bold"
-        ><router-link to="/mylikes" style="text-decoration: none; color: white"
+        ><router-link to="/favorites" style="text-decoration: none; color: white"
           ><v-icon class="pr-2">mdi-heart-outline</v-icon
           >参考にした講話</router-link
         ></v-btn

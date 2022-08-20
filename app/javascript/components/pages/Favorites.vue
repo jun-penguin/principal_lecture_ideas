@@ -10,7 +10,7 @@
 import { mapState } from "vuex";
 import SharedPostIndex from "../parts/SharedPostIndex.vue";
 export default {
-  name: "MyLikes",
+  name: "Favorites",
   components: {
     SharedPostIndex,
   },
@@ -27,7 +27,7 @@ export default {
   created() {
     console.log("親のcreated発火");
     this.$axios
-      .get("/mylikes", {
+      .get("/likes/favorites", {
         headers: {
           uid: this.headers["uid"],
           "access-token": this.headers["access-token"],

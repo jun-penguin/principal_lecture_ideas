@@ -69,7 +69,7 @@ export default {
     fetchLikeByPostId: async function () {
       // async function()
       // jsの非同期処理
-      console.log("fetchlkebypostid");
+      console.log("fetchlikebypostid");
       console.log(this.postId)
       const response = await this.$axios.get(
         `/likes/?post_id=${this.postId}`,
@@ -105,7 +105,7 @@ export default {
           },
         }
       );
-      if (response.status !== 201) {
+      if (response.status !== 200) {
         process.exit();
       }
       this.fetchLikeByPostId().then((result) => {
