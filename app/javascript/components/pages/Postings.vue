@@ -6,7 +6,14 @@
       <v-tab class="font-weight-bold" href="#tab-2">下書き</v-tab>
       <!-- 公開中 -->
       <v-tab-item value="tab-1">
+        <p
+          class="pt-5 pl-3 font-weight-bold"
+          v-if="!this.posts || !this.publishedFilter.length"
+        >
+          公開中の講話はありません。
+        </p>
         <!-- コンポーネント呼び出し -->
+
         <SharedPostingsIndex
           v-if="posts"
           :shared_posts="this.publishedFilter"
@@ -14,11 +21,15 @@
       </v-tab-item>
       <!-- 下書き -->
       <v-tab-item value="tab-2">
+        <p
+          class="pt-5 pl-3 font-weight-bold"
+          v-if="!this.posts || !this.draftFilter.length"
+        >
+          下書きの講話はありません。
+        </p>
         <!-- コンポーネント呼び出し -->
-        <SharedPostingsIndex
-          v-if="posts"
-          :shared_posts="this.draftFilter"
-        />
+
+        <SharedPostingsIndex v-if="posts" :shared_posts="this.draftFilter" />
       </v-tab-item>
     </v-tabs>
   </v-container>
