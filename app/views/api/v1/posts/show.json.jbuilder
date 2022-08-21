@@ -1,5 +1,3 @@
-# json.extract! @post, :id, :title, :description, :content, :status, :grade_range, :scene_type, :user
-
 json.id @post.id
 json.title @post.title
 json.description @post.description

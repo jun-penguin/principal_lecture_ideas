@@ -56,9 +56,6 @@ export default {
 
   methods: {
     ...mapActions("message", ["showMessage"]),
-    submit: function () {
-      this.$refs.observer.validate();
-    },
     createComment: function () {
       if (!this.headers) return; //headerが空ならばここで処理を終了させる。とりあえずの処置。
       this.$axios

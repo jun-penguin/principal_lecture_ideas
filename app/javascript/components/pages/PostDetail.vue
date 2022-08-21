@@ -163,7 +163,6 @@ export default {
         (response) => {
           this.post = response.data;
           console.log("取得完了");
-          // this.user = response.data;
         },
         (error) => {
           console.log(error);
@@ -237,9 +236,6 @@ export default {
   background: #efefef;
   border-radius: 30px;
 }
-/* .heading {
-  border-bottom: 4px double #000;
-} */
 
 .content {
   position: relative;
