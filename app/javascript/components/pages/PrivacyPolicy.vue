@@ -56,7 +56,7 @@
     </p>
     <p class="text-h5 font-weight-bold pt-5">お問合せ</p>
     <p class="pt-2">
-      お客様の情報の開示、情報の訂正、利用停止、削除をご希望の場合は、以下のTwitterアカウント宛にダイレクトメールにてご連絡ください。この場合、必ず、運転免許証のご提示等管理者が指定する方法により、ご本人からのご請求であることの確認をさせていただきます。なお、情報の開示請求については、開示の有無に関わらず、ご申請時に一件あたり1,000円の事務手数料を申し受けます。
+      本ポリシーに関するお問合せは、<a href="https://docs.google.com/forms/d/e/1FAIpQLSc0D0lRghyKH68-zedNLF72WT5B-Y-6NcdoDS-QhWb-3Py_0g/viewform?usp=sf_link">お問合せフォーム</a>までお願いいたします。
     </p>
     <p class="pt-3">2022年06月29日 制定</p>
   </v-container>
