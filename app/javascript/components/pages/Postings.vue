@@ -1,5 +1,5 @@
 <template>
-  <v-container class="pb-15 mt-5 ml-15 shades white rounded-lg">
+  <v-container class="pb-15 mt-5 shades white rounded-lg">
     <p class="text-h4 pt-5 title font-weight-bold">講話の管理</p>
     <v-tabs>
       <v-tab class="font-weight-bold" href="#tab-1">公開中</v-tab>

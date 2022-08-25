@@ -1,5 +1,5 @@
 <template>
-  <v-container class="pb-15 mt-5 ml-15 shades white rounded-lg">
+  <v-container class="pb-15 mt-5 shades white rounded-lg">
     <p class="text-h4 pt-5 title font-weight-bold">参考にした講話一覧</p>
     <p class="pt-5 pl-3 font-weight-bold" v-if="!this.posts.length">
       参考にした講話はありません。
