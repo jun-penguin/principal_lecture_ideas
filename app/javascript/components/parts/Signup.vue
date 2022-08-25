@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" max-width="600px">
     <template v-slot:activator="{ on }">
-      <v-btn rounded text large color="white" class="mr-2 font-weight-bold" v-on="on"
+      <v-btn rounded text large color="white" :class="[{ 'little-text': $vuetify.breakpoint.xs,}, 'font-weight-bold']" v-on="on"
         >新規登録</v-btn
       >
     </template>
@@ -164,3 +164,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.little-text {
+  font-size: 3px !important;
+}
+</style>

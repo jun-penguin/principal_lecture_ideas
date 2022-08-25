@@ -103,7 +103,7 @@ const router = new Router({
     } 
     if (to.query && searchParams.has("page")) {
       console.log("toQuery発動")
-      return { x: 0, y: 1475 };
+      return { x: 0, y: 1800 };
     }
     console.log("x:0,y:0発動");
       return { x: 0, y: 0 };

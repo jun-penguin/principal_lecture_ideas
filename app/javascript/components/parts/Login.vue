@@ -1,7 +1,14 @@
 <template>
   <v-dialog v-model="dialog" max-width="600px">
     <template v-slot:activator="{ on }">
-      <v-btn rounded text large class="font-weight-bold" color="white" v-on="on">ログイン</v-btn>
+      <v-btn
+        rounded
+        text
+        :class="[{ 'little-text': $vuetify.breakpoint.xs, 'ml-n5': $vuetify.breakpoint.xs}, 'font-weight-bold']"
+        color="white"
+        v-on="on"
+        >ログイン</v-btn
+      >
     </template>
     <v-card>
       <validation-observer ref="observer" v-slot="{ invalid }">
@@ -12,7 +19,7 @@
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-card-title>
-        <v-card-text  id="login-form">
+        <v-card-text id="login-form">
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12>
@@ -45,7 +52,6 @@
                   ></v-text-field>
                 </validation-provider>
                 <v-btn
-                  
                   block
                   color="success"
                   :disabled="invalid"
@@ -56,7 +62,6 @@
             </v-layout>
           </v-container>
         </v-card-text>
-
       </validation-observer>
     </v-card>
   </v-dialog>
@@ -101,7 +106,6 @@ export default {
     };
   },
   methods: {
-    // ...mapActions("message", ["showMessage"]),
     loginHundler: function () {
       this.closeDialog();
       this.logIn();
@@ -118,3 +122,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.little-text {
+  font-size: 3px !important;
+}
+</style>

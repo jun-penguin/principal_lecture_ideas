@@ -2,7 +2,7 @@
   <!-- 検索フォーム -->
   <v-text-field
     v-model="query.title_or_description_or_content_cont_any"
-    placeholder="タイトル・紹介文・本文で検索"
+    placeholder="検索ワードを入力"
     type="text"
   >
     <template v-slot:append-outer>
@@ -54,6 +54,7 @@ export default {
           this.$store.dispatch("responseDate/getScene_type", {
             scene_type: null,
           });
+          this.$emit("closeDialog")
           this.$router.push({
             name: "SearchResult",
             query: {
