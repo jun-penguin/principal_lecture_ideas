@@ -166,7 +166,7 @@ export default {
 </script>
 
 <style scoped>
-.little-text {
+/* .little-text {
   font-size: 3px !important;
-}
+} */
 </style>

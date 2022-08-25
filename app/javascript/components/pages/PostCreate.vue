@@ -1,5 +1,5 @@
 <template>
-  <v-container class="pb-15 mt-5 ml-15 shades white rounded-lg">
+  <v-container class="pb-15 mt-5 shades white rounded-lg">
     <p class="text-h4 pt-5 title font-weight-bold">新規投稿</p>
     <validation-observer ref="observer" v-slot="{ invalid }">
       <form @submit.prevent="submit">
@@ -159,7 +159,7 @@ export default {
     scene_type_select: [
       { label: "全校朝会", value: "all_school_assembly" },
       {
-        label: "学校行事（運動会、学習発表会、修学旅行、水泳記録会など）",
+        label: "学校行事（運動会、学習発表会など）",
         value: "event",
       },
       { label: "儀式（入学式、始業式、離任式など）", value: "ceremony" },

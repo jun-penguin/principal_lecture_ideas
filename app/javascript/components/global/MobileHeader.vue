@@ -14,9 +14,8 @@
 
       <v-spacer></v-spacer>
       <!-- 検索用ボタン -->
-
-      <v-icon @click="dialogBtn">mdi-file-search-outline</v-icon>
-
+      <v-icon @click="dialogBtn" class="pr-3">mdi-file-search-outline</v-icon>
+      
       <!-- 検索ダイアログ -->
       <v-dialog v-model="dialog"  max-width="400">
         <v-card>
@@ -26,8 +25,9 @@
       <!-- 参考にした講話リンク  -->
     <router-link v-if="loggedIn"
           to="/favorites"
+          class="pr-3"
           style="text-decoration: none; color: white"
-          ><v-icon class="pr-2 pl-2">mdi-heart-outline</v-icon
+          ><v-icon>mdi-heart-outline</v-icon
           ></router-link
         >
       <!-- マイページメニュー -->
