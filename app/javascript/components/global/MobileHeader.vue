@@ -14,30 +14,30 @@
 
       <v-spacer></v-spacer>
       <!-- 検索用ボタン -->
-
-      <v-icon @click="dialogBtn">mdi-file-search-outline</v-icon>
+      <v-btn  @click="dialogBtn" icon small :class="{ 'pr-3': loggedIn}">
+      <v-icon  
+        >mdi-file-search-outline</v-icon
+      ></v-btn>
 
       <!-- 検索ダイアログ -->
-      <v-dialog v-model="dialog"  max-width="400">
+      <v-dialog v-model="dialog" max-width="400">
         <v-card>
           <search class="mx-3" @closeDialog="dialogBtn" />
         </v-card>
       </v-dialog>
       <!-- 参考にした講話リンク  -->
-    <router-link v-if="loggedIn"
-          to="/favorites"
-          style="text-decoration: none; color: white"
-          ><v-icon class="pr-2 pl-2">mdi-heart-outline</v-icon
-          ></router-link
-        >
+      <router-link
+        v-if="loggedIn"
+        to="/favorites"
+        class="pr-3"
+        ><v-btn icon small><v-icon>mdi-heart-outline</v-icon></v-btn></router-link
+      >
       <!-- マイページメニュー -->
       <v-menu v-if="loggedIn" offset-y>
         <template v-slot:activator="{ on, attrs }">
-        
-            <v-icon v-bind="attrs"
-            v-on="on">mdi-dots-horizontal-circle-outline</v-icon
+          <v-icon v-bind="attrs" v-on="on"
+            >mdi-dots-horizontal-circle-outline</v-icon
           >
-        
         </template>
         <v-list>
           <template v-for="(item, index) in items">

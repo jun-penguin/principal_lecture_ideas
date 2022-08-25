@@ -1,14 +1,32 @@
 <template>
-  <v-container class="pb-15 mt-5 ml-15 shades white rounded-lg">
+  <v-container class="pb-15 mt-5 shades white rounded-lg">
     <p class="text-h4 pt-5 title font-weight-bold">{{ post.title }}</p>
     <v-divider></v-divider>
-    <div class="text-h6 pt-2 font-weight-bold">
+    <div v-if="!isMobile" class="text-h6 pt-2 font-weight-bold">
       <p class="float-left grade_range_scene_type ml-1 mr-5">
         {{ post.grade_range_ja }}
       </p>
       <p class="float-left grade_range_scene_type">{{ post.scene_type_ja }}</p>
 
       <p class="text-right">
+        投稿者:
+        <router-link
+          :to="{ path: `/${post.user_name}` }"
+          style="text-decoration: none"
+        >
+          {{ post.user_name }}
+        </router-link>
+      </p>
+    </div>
+    <div v-else class="text-h6 pt-2 font-weight-bold">
+      <p>
+        <span class="grade_range_scene_type py-1 ml-1 mr-5">
+          {{ post.grade_range_ja }}
+        </span>
+        <span class="grade_range_scene_type py-1">{{ post.scene_type_ja }}</span>
+      </p>
+
+      <p class="text-left">
         投稿者:
         <router-link
           :to="{ path: `/${post.user_name}` }"
@@ -50,7 +68,6 @@
           :key="comment.id"
           cols="12"
           md="8"
-
         >
           <p class="float-left">
             <v-icon class="pb-1">mdi-account</v-icon>
@@ -153,6 +170,9 @@ export default {
       headers: (state) => state.headers,
       loggedIn: (state) => state.loggedIn,
     }),
+    isMobile() {
+      return this.$vuetify.breakpoint.xsOnly;
+    },
   },
   mounted: function () {
     this.fetchPostDetail();

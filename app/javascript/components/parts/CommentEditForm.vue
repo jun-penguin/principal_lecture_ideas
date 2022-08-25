@@ -40,6 +40,7 @@
               <v-btn
                 block
                 color="success"
+                class="font-weight-bold"
                 :disabled="invalid"
                 v-on:click="updateHundler"
                 >更新</v-btn

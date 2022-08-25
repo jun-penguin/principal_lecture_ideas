@@ -1,5 +1,5 @@
 <template>
-  <v-container class="pb-15 mt-5 ml-15 shades white rounded-lg">
+  <v-container class="pb-15 mt-5 shades white rounded-lg">
     <p class="text-h4 pt-5 title font-weight-bold">{{ post.title }}</p>
     <v-divider></v-divider>
     <div class="text-h6 pt-2 font-weight-bold">
@@ -53,10 +53,6 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-
-      <!-- <v-btn depressed color="error" v-on:click="deletePost(post.id)">
-        削除
-      </v-btn> -->
     </div>
 
     <!-- コメント欄↓ -->
@@ -75,8 +71,8 @@
         <v-col
           v-for="comment in this.comments"
           :key="comment.id"
-          cols="8"
-          sm="8"
+          cols="12"
+          md="8"
         >
           <p class="float-left">
             <v-icon class="pb-1">mdi-account</v-icon>
@@ -166,7 +162,7 @@ export default {
       currentComment: {},
       dialog: false,
       current_user_id: null,
-      confirm_dialog: false,
+      dialog: false,
     };
   },
   computed: {
@@ -217,7 +213,7 @@ export default {
       console.log("setCurrentUserUser発動");
       console.log(this.current_user_id);
     },
-    confirm_comment_dialog(comment) {
+    confirm_dialog(comment) {
       this.dialog = true;
       this.currentComment = comment;
     },
