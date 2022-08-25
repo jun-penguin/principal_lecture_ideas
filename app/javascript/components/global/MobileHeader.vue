@@ -3,43 +3,41 @@
     <v-app-bar color="gray accent-4" dark>
       <!-- サイトロゴ -->
       <v-img
-        class="mx-2 pr-3"
+        class="mx-2"
         v-bind:src="require('../../../assets/images/logo.png')"
-        max-height="65"
-        max-width="175"
+        max-height="45"
+        max-width="115"
         contain
         @click="$router.push('/')"
         style="cursor: pointer"
       ></v-img>
 
       <v-spacer></v-spacer>
+      <!-- 検索用ボタン -->
 
-      <!-- 検索フォーム -->
-      <Search class="pt-3" />
+      <v-icon @click="dialogBtn">mdi-file-search-outline</v-icon>
 
-      <v-spacer></v-spacer>
-
+      <!-- 検索ダイアログ -->
+      <v-dialog v-model="dialog"  max-width="400">
+        <v-card>
+          <search class="mx-3" @closeDialog="dialogBtn" />
+        </v-card>
+      </v-dialog>
       <!-- 参考にした講話リンク  -->
-      <v-btn v-if="loggedIn" rounded text large class="mr-2 font-weight-bold"
-        ><router-link
+    <router-link v-if="loggedIn"
           to="/favorites"
           style="text-decoration: none; color: white"
-          ><v-icon class="pr-2">mdi-heart-outline</v-icon
-          >参考にした講話</router-link
-        ></v-btn
-      >
+          ><v-icon class="pr-2 pl-2">mdi-heart-outline</v-icon
+          ></router-link
+        >
       <!-- マイページメニュー -->
       <v-menu v-if="loggedIn" offset-y>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            color="primary"
-            class="mr-2 font-weight-bold"
-            dark
-            v-bind="attrs"
-            v-on="on"
+        
+            <v-icon v-bind="attrs"
+            v-on="on">mdi-dots-horizontal-circle-outline</v-icon
           >
-            マイページメニュー
-          </v-btn>
+        
         </template>
         <v-list>
           <template v-for="(item, index) in items">
@@ -54,6 +52,7 @@
               <v-list-item-content>
                 <v-list-item-title v-text="item.title"></v-list-item-title>
               </v-list-item-content>
+              <!-- <v-list-item-title>{{ item.title }}</v-list-item-title> -->
             </v-list-item>
           </template>
         </v-list>
@@ -82,6 +81,7 @@ export default {
   },
   data() {
     return {
+      dialog: false,
       items: [
         {
           icon: "mdi-file-edit-outline",
@@ -115,6 +115,9 @@ export default {
     }),
   },
   methods: {
+    dialogBtn() {
+      this.dialog == true ? (this.dialog = false) : (this.dialog = true);
+    },
     logOut() {
       this.$store.dispatch("auth/logOut");
       this.redirectToHome();

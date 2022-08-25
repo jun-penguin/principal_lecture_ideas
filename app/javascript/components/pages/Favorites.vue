@@ -1,6 +1,9 @@
 <template>
   <v-container class="pb-15 mt-5 ml-15 shades white rounded-lg">
     <p class="text-h4 pt-5 title font-weight-bold">参考にした講話一覧</p>
+    <p class="pt-5 pl-3 font-weight-bold" v-if="!this.posts.length">
+      参考にした講話はありません。
+    </p>
     <!-- コンポーネント呼び出し -->
     <SharedPostIndex v-if="posts" :shared_posts="this.posts" />
   </v-container>
@@ -10,7 +13,7 @@
 import { mapState } from "vuex";
 import SharedPostIndex from "../parts/SharedPostIndex.vue";
 export default {
-  name: "MyLikes",
+  name: "Favorites",
   components: {
     SharedPostIndex,
   },
@@ -27,7 +30,7 @@ export default {
   created() {
     console.log("親のcreated発火");
     this.$axios
-      .get("/mylikes", {
+      .get("/likes/favorites", {
         headers: {
           uid: this.headers["uid"],
           "access-token": this.headers["access-token"],

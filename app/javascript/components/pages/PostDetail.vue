@@ -3,7 +3,9 @@
     <p class="text-h4 pt-5 title font-weight-bold">{{ post.title }}</p>
     <v-divider></v-divider>
     <div class="text-h6 pt-2 font-weight-bold">
-      <p class="float-left grade_range_scene_type ml-1 mr-5">{{ post.grade_range_ja }}</p>
+      <p class="float-left grade_range_scene_type ml-1 mr-5">
+        {{ post.grade_range_ja }}
+      </p>
       <p class="float-left grade_range_scene_type">{{ post.scene_type_ja }}</p>
 
       <p class="text-right">
@@ -46,8 +48,9 @@
         <v-col
           v-for="comment in this.comments"
           :key="comment.id"
-          cols="8"
-          sm="8"
+          cols="12"
+          md="8"
+
         >
           <p class="float-left">
             <v-icon class="pb-1">mdi-account</v-icon>
@@ -163,7 +166,6 @@ export default {
         (response) => {
           this.post = response.data;
           console.log("取得完了");
-          // this.user = response.data;
         },
         (error) => {
           console.log(error);
@@ -237,9 +239,6 @@ export default {
   background: #efefef;
   border-radius: 30px;
 }
-/* .heading {
-  border-bottom: 4px double #000;
-} */
 
 .content {
   position: relative;

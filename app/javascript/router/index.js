@@ -10,7 +10,7 @@ import SearchResult from "../components/pages/SearchResult.vue";
 import MyProfile from "../components/pages/MyProfile.vue";
 import MyProfileEdit from "../components/pages/MyProfileEdit.vue";
 import OtherProfile from "../components/pages/OtherProfile.vue";
-import MyLikes from "../components/pages/MyLikes.vue";
+import Favorites from "../components/pages/Favorites.vue";
 import PrivacyPolicy from "../components/pages/PrivacyPolicy.vue";
 import Terms from "../components/pages/Terms.vue";
 import store from "../store/store";
@@ -83,9 +83,9 @@ const router = new Router({
       meta: { requiresAuth: true },
     },
     {
-      path: "/mylikes",
-      name: "myLikes",
-      component: MyLikes,
+      path: "/favorites",
+      name: "Favorites",
+      component: Favorites,
       meta: { requiresAuth: true },
     },
     {
@@ -103,7 +103,7 @@ const router = new Router({
     } 
     if (to.query && searchParams.has("page")) {
       console.log("toQuery発動")
-      return { x: 0, y: 1475 };
+      return { x: 0, y: 1800 };
     }
     console.log("x:0,y:0発動");
       return { x: 0, y: 0 };
