@@ -104,7 +104,7 @@
               depressed
               color="error"
               class="font-weight-bold"
-              @click.stop="confirm_dialog(comment)"
+              @click.stop="comment_confirm_dialog(comment)"
             >
               削除
             </v-btn>
@@ -163,6 +163,7 @@ export default {
       dialog: false,
       current_user_id: null,
       dialog: false,
+      confirm_dialog: false,
     };
   },
   computed: {
@@ -213,7 +214,7 @@ export default {
       console.log("setCurrentUserUser発動");
       console.log(this.current_user_id);
     },
-    confirm_dialog(comment) {
+    comment_confirm_dialog(comment) {
       this.dialog = true;
       this.currentComment = comment;
     },
