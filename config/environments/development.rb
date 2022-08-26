@@ -30,6 +30,9 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+  # config.hosts << ['principal-lecture-ideas.herokuapp.com']
+  # config.hosts << ['www.kochokouwa-idea.com']
+
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 

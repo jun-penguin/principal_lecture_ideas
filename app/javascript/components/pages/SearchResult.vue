@@ -55,7 +55,7 @@ export default {
       scene_type_select: [
         { label: "全校朝会", value: 0 },
         {
-          label: "学校行事（運動会、学習発表会、修学旅行、水泳記録会など）",
+          label: "学校行事（運動会、学習発表会など）",
           value: 1,
         },
         { label: "儀式（入学式、始業式、離任式など）", value: 2 },
