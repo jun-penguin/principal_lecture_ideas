@@ -41,6 +41,20 @@ export default {
       profile: [],
     };
   },
+  head: function () {
+    return {
+      title: {
+        inner: this.profile.name + "さんのプロフィール",
+        separator: "|",
+        complement: "校長講話アイディアボックス",
+      },
+    };
+  },
+  // vue-head用
+  updated() {
+    console.log("updateHead発動");
+    this.$emit("updateHead");
+  },
   computed: {
     ...mapState("auth", {
       headers: (state) => state.headers,

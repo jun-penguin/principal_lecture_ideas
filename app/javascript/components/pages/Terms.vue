@@ -254,7 +254,17 @@
 </template>
 
 <script>
-export default {};
+export default {
+  head: function () {
+    return {
+      title: {
+        inner: "利用規約",
+        separator: "|",
+        complement: "校長講話アイディアボックス",
+      },
+    };
+  },
+};
 </script>
 
 <style scoped>

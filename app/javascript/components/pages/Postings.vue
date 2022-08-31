@@ -52,6 +52,15 @@ export default {
       items: [{ tab: "公開中" }, { tab: "下書き" }],
     };
   },
+  head: function () {
+    return {
+      title: {
+        inner: "投稿した講話の管理",
+        separator: "|",
+        complement: "校長講話アイディアボックス",
+      },
+    };
+  },
   computed: {
     ...mapState("auth", {
       headers: (state) => state.headers,

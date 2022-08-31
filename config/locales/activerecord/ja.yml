@@ -48,8 +48,8 @@ ja:
         draft: 下書き
         published: 公開済み
       grade_range:
-        elementary: 小学生
-        junior_high: 中学生
+        elementary: 小学校
+        junior_high: 中学校
       scene_type:
         all_school_assembly: 全校朝会
         event: 学校行事

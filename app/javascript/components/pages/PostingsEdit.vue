@@ -155,8 +155,8 @@ export default {
     scene_type: "",
     status: "",
     grade_range_select: [
-      { label: "小学生", value: "elementary" },
-      { label: "中学生", value: "junior_high" },
+      { label: "小学校", value: "elementary" },
+      { label: "中学校", value: "junior_high" },
     ],
     scene_type_select: [
       { label: "全校朝会", value: "all_school_assembly" },
@@ -172,6 +172,15 @@ export default {
       { label: "公開", value: "published" },
     ],
   }),
+  head: function () {
+    return {
+      title: {
+        inner: "講話の編集",
+        separator: "|",
+        complement: "校長講話アイディアボックス",
+      },
+    };
+  },
   computed: {
     ...mapState("auth", {
       headers: (state) => state.headers,

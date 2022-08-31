@@ -42,8 +42,52 @@ export default {
       posts: null,
     };
   },
+  head: function () {
+    return {
+      title: {
+        inner: this.profile.name + "さんのプロフィールページ",
+        separator: "|",
+        complement: "校長講話アイディアボックス",
+      },
+      meta: [
+        {
+          name: "description",
+          content:
+            "校長講話アイディアボックスは、全国の校長先生がお持ちの講話アイディアを共有するプラットフォームです。",
+          id: "description",
+        },
+      
+        {
+          name: "keywords",
+          content: ["校長講話", "校長講話集", "ネタ", this.profile.name],
+          id: "keywords",
+        },
+      
+        {
+          property: "og:title",
+          content: this.profile.name + "さんのプロフィールページ",
+          id: "og-title",
+        },
+        {
+          property: "og:description",
+          content:
+            this.profile.name +
+            "さんのプロフィールページです。" +
+            this.profile.name +
+            "さんのプロフィールや投稿した講話を確認できます。",
+          id: "og-description",
+        },
+      ],
+    };
+  },
+
+  // vue-head用
+  updated() {
+    console.log("updateHead発動");
+    this.$emit("updateHead");
+  },
   created() {
-    console.log("親created開始")
+    console.log("親created開始");
     var username = this.$route.params.username;
     this.fetchProfile();
     this.$axios.get("/profiles/" + username).then((response) => {
