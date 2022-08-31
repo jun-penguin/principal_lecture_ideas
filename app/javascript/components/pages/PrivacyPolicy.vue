@@ -46,8 +46,10 @@
     <p class="text-h5 font-weight-bold pt-5"></p>
     <p class="text-h5 font-weight-bold pt-5">アクセス解析ツール</p>
     <p class="pt-2">
-      管理者は、お客様のアクセス解析のために、「Googleアナリティクス」を利用しています。Googleアナリティクスは、トラフィックデータの収集のためにCookieを使用しています。トラフィックデータは匿名で収集されており、個人を特定するものではありません。Cookieを無効にすれば、これらの情報の収集を拒否することができます。詳しくはお使いのブラウザの設定をご確認ください。Googleアナリティクスについて、詳しくは以下からご確認ください。<br>
-      <a href="https://marketingplatform.google.com/about/analytics/terms/jp/">Google アナリティクス利用規約</a>
+      管理者は、お客様のアクセス解析のために、「Googleアナリティクス」を利用しています。Googleアナリティクスは、トラフィックデータの収集のためにCookieを使用しています。トラフィックデータは匿名で収集されており、個人を特定するものではありません。Cookieを無効にすれば、これらの情報の収集を拒否することができます。詳しくはお使いのブラウザの設定をご確認ください。Googleアナリティクスについて、詳しくは以下からご確認ください。<br />
+      <a href="https://marketingplatform.google.com/about/analytics/terms/jp/"
+        >Google アナリティクス利用規約</a
+      >
     </p>
     <p class="text-h5 font-weight-bold pt-5"></p>
     <p class="text-h5 font-weight-bold pt-5">プライバシーポリシーの変更</p>
@@ -56,14 +58,27 @@
     </p>
     <p class="text-h5 font-weight-bold pt-5">お問合せ</p>
     <p class="pt-2">
-      本ポリシーに関するお問合せは、<a href="https://docs.google.com/forms/d/e/1FAIpQLSc0D0lRghyKH68-zedNLF72WT5B-Y-6NcdoDS-QhWb-3Py_0g/viewform?usp=sf_link">お問合せフォーム</a>までお願いいたします。
+      本ポリシーに関するお問合せは、<a
+        href="https://docs.google.com/forms/d/e/1FAIpQLSc0D0lRghyKH68-zedNLF72WT5B-Y-6NcdoDS-QhWb-3Py_0g/viewform?usp=sf_link"
+        >お問合せフォーム</a
+      >までお願いいたします。
     </p>
     <p class="pt-3">2022年06月29日 制定</p>
   </v-container>
 </template>
 
 <script>
-export default {};
+export default {
+  head: function () {
+    return {
+      title: {
+        inner: "プライバシーポリシー",
+        separator: "|",
+        complement: "校長講話アイディアボックス",
+      },
+    };
+  },
+};
 </script>
 
 <style scoped>

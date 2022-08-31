@@ -3,6 +3,7 @@ import axios from "../plugins/axios.js";
 import Vuetify from "vuetify";
 import colors from "vuetify/lib/util/colors";
 import router from "../router/index.js";
+import VueHead from "vue-head";
 import App from "../app.vue";
 import store from "../store/store.js";
 import dayjs from "dayjs"; 
@@ -27,10 +28,12 @@ const vuetify = new Vuetify({
     },
   },
 });
-Vue.prototype.$axios = axios;
 
+Vue.prototype.$axios = axios;
 // 日付の日本語表示
 dayjs.locale("ja");
+// head内を管理
+Vue.use(VueHead);
 
 document.addEventListener("DOMContentLoaded", () => {
   const app = new Vue({
@@ -38,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
     router,
     store,
     vuetify,
+    VueHead,
     render: (h) => h(App),
   }).$mount();
   document.body.appendChild(app.$el);

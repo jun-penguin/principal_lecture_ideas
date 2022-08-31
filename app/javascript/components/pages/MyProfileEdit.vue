@@ -20,7 +20,7 @@
         <v-textarea
           v-model="self_introduction"
           label="自己紹介"
-          rows='1'
+          rows="1"
           auto-grow
         ></v-textarea>
 
@@ -152,7 +152,15 @@ export default {
       "沖縄県",
     ],
   }),
-
+  head: function () {
+    return {
+      title: {
+        inner: "プロフィールの編集",
+        separator: "|",
+        complement: "校長講話アイディアボックス",
+      },
+    };
+  },
   computed: {
     ...mapState("auth", {
       headers: (state) => state.headers,

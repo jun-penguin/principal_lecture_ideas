@@ -23,7 +23,9 @@
         <span class="grade_range_scene_type py-1 ml-1 mr-5">
           {{ post.grade_range_ja }}
         </span>
-        <span class="grade_range_scene_type py-1">{{ post.scene_type_ja }}</span>
+        <span class="grade_range_scene_type py-1">{{
+          post.scene_type_ja
+        }}</span>
       </p>
 
       <p class="text-left">
@@ -165,6 +167,36 @@ export default {
       dialog: false,
     };
   },
+  head: function () {
+    return {
+      title: {
+        inner: this.post.title,
+        separator: "|",
+        complement: "校長講話アイディアボックス",
+      },
+      meta: [
+        { name: "description", content: this.post.content, id: "description" },
+        {
+          name: "keywords",
+          content: [
+            this.post.title,
+            this.post.grade_range_ja,
+            this.post.scene_type_ja,
+            "校長講話",
+            "校長講話集",
+            "ネタ",
+          ],
+          id: "keywords",
+        },
+        { property: "og:title", content: this.post.title, id: "og-title" },
+        {
+          property: "og:description",
+          content: this.post.content,
+          id: "og-description",
+        },
+      ],
+    };
+  },
   computed: {
     ...mapState("auth", {
       headers: (state) => state.headers,
@@ -178,6 +210,11 @@ export default {
     this.fetchPostDetail();
     this.fetchComments();
   },
+  // vue-head用
+  updated() {
+    console.log("updateHead発動");
+    this.$emit("updateHead");
+  },
   methods: {
     ...mapActions("message", ["showMessage"]),
     fetchPostDetail: function () {
@@ -185,7 +222,6 @@ export default {
       this.$axios.get("/posts/" + id).then(
         (response) => {
           this.post = response.data;
-          console.log("取得完了");
         },
         (error) => {
           console.log(error);

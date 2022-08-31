@@ -49,8 +49,8 @@ export default {
         scene_type_eq: null,
       },
       grade_range_select: [
-        { label: "小学生", value: 0 },
-        { label: "中学生", value: 1 },
+        { label: "小学校", value: 0 },
+        { label: "中学校", value: 1 },
       ],
       scene_type_select: [
         { label: "全校朝会", value: 0 },
@@ -63,6 +63,63 @@ export default {
       ],
     };
   },
+  head: function () {
+    return {
+      title: {
+        inner:
+          "「" +
+          this.query.title_or_description_or_content_cont_any +
+          "」" +
+          "を含む講話の検索結果",
+        separator: "|",
+        complement: "校長講話アイディアボックス",
+      },
+      meta: [
+        {
+          name: "description",
+          content:
+            "「" +
+            this.query.title_or_description_or_content_cont_any +
+            "」" +
+            "を含む講話 " +
+            this.posts.slice(0, 3).map((obj) => obj.title) +
+            " など",
+          id: "description",
+        },
+        {
+          name: "keywords",
+          content: [
+            "校長講話",
+            "講話集",
+            "ネタ",
+            this.query.title_or_description_or_content_cont_any,
+            this.setGrade_range_for_meta,
+          ],
+          id: "keywords",
+        },
+        {
+          property: "og:title",
+          content:
+            "「" +
+            this.query.title_or_description_or_content_cont_any +
+            "」" +
+            "を含む講話一覧",
+          id: "og-title",
+        },
+        {
+          property: "og:description",
+          content:
+            "「" +
+            this.query.title_or_description_or_content_cont_any +
+            "」" +
+            "を含む講話 " +
+            this.posts.slice(0, 3).map((post) => post.title) +
+            " など",
+          id: "og-description",
+        },
+      ],
+    };
+  },
 
   async created() {
     console.log("created");
@@ -70,6 +127,12 @@ export default {
     this.setWord;
     this.setGrade_range;
     this.setScene_type;
+  },
+
+  // vue-head用
+  updated() {
+    console.log("updateHead発動");
+    this.$emit("updateHead");
   },
 
   computed: {
@@ -87,6 +150,9 @@ export default {
       this.query.scene_type_eq =
         this.$store.getters["responseDate/scene_type"].scene_type;
       console.log("setScene_type");
+    },
+    setGrade_range_for_meta: function () {
+      return this.query.grade_range_eq === null ? null : this.query.grade_range_eq == 0 ? "小学校" : "中学校" 
     },
   },
 

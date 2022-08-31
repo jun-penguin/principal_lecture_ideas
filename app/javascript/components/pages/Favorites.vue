@@ -22,6 +22,15 @@ export default {
       posts: null,
     };
   },
+  head: function () {
+    return {
+      title: {
+        inner: "参考にした講話一覧",
+        separator: "|",
+        complement: "校長講話アイディアボックス",
+      },
+    };
+  },
   computed: {
     ...mapState("auth", {
       headers: (state) => state.headers,
