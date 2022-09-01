@@ -14,6 +14,8 @@
 #  updated_at  :datetime         not null
 #
 class Post < ApplicationRecord
+  # hash化
+  include Hashid::Rails
   belongs_to :user
   has_many :users, through: :likes
   has_many :likes, dependent: :destroy

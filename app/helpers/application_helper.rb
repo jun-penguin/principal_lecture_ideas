@@ -6,7 +6,7 @@ module ApplicationHelper
   def default_meta_tags
     {
       site: '校長講話アイディアボックス',
-      title: '校長講話投稿・検索サイト',
+      title: '校長講話の投稿・検索サイト',
       charset: 'utf-8',
       canonical: request.original_url,
       separator: '-',

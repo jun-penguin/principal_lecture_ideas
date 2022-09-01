@@ -31,7 +31,7 @@ export default {
       title: {
         inner: "校長講話アイディアボックス",
         separator: "-",
-        complement: "校長講話投稿・検索サイト",
+        complement: "校長講話の投稿・検索サイト",
       },
       meta: [
         {
@@ -45,7 +45,7 @@ export default {
           content: ["校長講話", "校長講話集", "ネタ"],
           id: "keywords",
         },
-        { property: "og:title", content: "校長講話アイディアボックス -校長講話投稿・検索サイト", id: "og-title" },
+        { property: "og:title", content: "校長講話アイディアボックス -校長講話の投稿・検索サイト", id: "og-title" },
         {
           property: "og:description",
           content:

@@ -33,6 +33,8 @@ class Api::V1::PostingsController < Api::V1::ApplicationController
   end
 
   def set_post
-    @post = current_user.posts.find(params[:id])
+    @post = Post.find(params[:id])
+    render status: 401, json: { status: 401, message: 'Unauthorized' } unless @post.user == current_user
+    # @post = current_user.posts.find(params[:id])
   end
 end

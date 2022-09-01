@@ -15,7 +15,7 @@
         <!-- コンポーネント呼び出し -->
 
         <SharedPostingsIndex
-          v-if="posts"
+          v-if="this.posts"
           :shared_posts="this.publishedFilter"
         />
       </v-tab-item>
@@ -29,7 +29,7 @@
         </p>
         <!-- コンポーネント呼び出し -->
 
-        <SharedPostingsIndex v-if="posts" :shared_posts="this.draftFilter" />
+        <SharedPostingsIndex v-if="this.posts" :shared_posts="this.draftFilter" />
       </v-tab-item>
     </v-tabs>
   </v-container>
