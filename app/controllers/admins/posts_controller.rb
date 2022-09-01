@@ -30,6 +30,6 @@ class Admins::PostsController < Admins::BaseController
   end
 
   def set_post
-    @post = Post.find(params[:id])
+    @post = Post.find(params[:hashid])
   end
 end

@@ -48,12 +48,12 @@ const router = new Router({
       meta: { requiresAuth: true },
     },
     {
-      path: "/post/:id(\\d+)",
+      path: "/post/:id",
       name: "PostDetail",
       component: PostDetail,
     },
     {
-      path: "/postings/:id(\\d+)",
+      path: "/postings/:id",
       name: "PostingsDetail",
       component: PostingsDetail,
       meta: { requiresAuth: true },

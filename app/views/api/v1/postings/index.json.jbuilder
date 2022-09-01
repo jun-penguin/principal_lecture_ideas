@@ -5,7 +5,7 @@
 # end
 
 json.posts @posts do |post|
-  json.id post.id
+  json.id post.hashid
   json.title post.title
   json.description post.description
   json.content post.content

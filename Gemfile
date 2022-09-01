@@ -33,6 +33,9 @@ gem 'devise_token_auth'
 # CORS
 gem 'rack-cors'
 
+# idのhash化
+gem 'hashid-rails', '~> 1.0'
+
 # 検索機能
 gem 'ransack'
 

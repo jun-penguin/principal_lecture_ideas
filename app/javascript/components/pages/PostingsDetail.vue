@@ -38,7 +38,7 @@
       <v-dialog v-model="confirm_dialog" max-width="400">
         <v-card>
           <v-card-title>
-            <div>確認ダイアログ</div>
+            <div>確認ダイアログ（講話の削除）</div>
           </v-card-title>
           <v-card-text>
             <p>本当に削除しますか？</p>
@@ -120,7 +120,8 @@
       >
         <v-card>
           <v-card-title>
-            <div>確認ダイアログ</div>
+            <div>確認ダイアログ(コメントの削除)
+            </div>
           </v-card-title>
           <v-card-text>
             <p>本当に削除しますか？</p>
@@ -166,6 +167,16 @@ export default {
       confirm_dialog: false,
     };
   },
+  head: function () {
+    return {
+      title: {
+        inner: this.post.title,
+        separator: "|",
+        complement: "校長講話アイディアボックス",
+      },
+    };
+  },
+
   computed: {
     ...mapState("auth", {
       headers: (state) => state.headers,
@@ -174,6 +185,11 @@ export default {
   mounted: function () {
     this.fetchPostingsDetail();
     this.fetchComments();
+  },
+  // vue-head用
+  updated() {
+    console.log("updateHead発動");
+    this.$emit("updateHead");
   },
   methods: {
     ...mapActions("message", ["showMessage"]),
@@ -240,7 +256,7 @@ export default {
           },
           (error) => {
             console.log(error);
-            console.log("削除失敗")
+            console.log("削除失敗");
           }
         );
     },
