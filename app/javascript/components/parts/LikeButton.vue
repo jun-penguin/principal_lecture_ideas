@@ -55,22 +55,17 @@ export default {
     },
   },
   mounted: function () {
-    console.log("created")
     // vueインスタンスの作成、初期化直後に実行される
     this.fetchLikeByPostId().then((result) => {
       this.likeList = result.likes;
       this.current_user_id = result.current_user_id;
-      console.log(this.current_user_id)
       this.$emit("setCurrentUser", this.current_user_id);
     });
   },
   methods: {
     ...mapActions("message", ["showMessage"]),
     fetchLikeByPostId: async function () {
-      // async function()
       // jsの非同期処理
-      console.log("fetchlikebypostid");
-      console.log(this.postId)
       const response = await this.$axios.get(
         `/likes/?post_id=${this.postId}`,
         {
@@ -81,8 +76,6 @@ export default {
           },
         }
       );
-      console.log(response.data);
-      // await
       // その投稿のいいね一覧を取得したい
       if (response.status !== 200) {
         process.exit();

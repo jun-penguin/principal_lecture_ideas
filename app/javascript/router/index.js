@@ -97,14 +97,11 @@ const router = new Router({
   scrollBehavior(to, from, savedPosition) {
     const searchParams = new URLSearchParams(window.location.search);
     if (savedPosition) {
-      console.log("savedPosition発動");
       return savedPosition;
     }
     if (to.query && searchParams.has("page")) {
-      console.log("toQuery発動");
       return { x: 0, y: 1800 };
     }
-    console.log("x:0,y:0発動");
     return { x: 0, y: 0 };
   },
 });

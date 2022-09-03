@@ -40,7 +40,6 @@ export default {
           },
         })
         .then((response) => {
-          console.log("検索完了");
           this.posts = response.data.posts;
           this.$store.dispatch("responseDate/getPosts", {
             posts: this.posts,

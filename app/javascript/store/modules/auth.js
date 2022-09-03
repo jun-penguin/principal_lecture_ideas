@@ -190,7 +190,6 @@ const actions = {
       )
       // APIからレスポンスヘッダーを受け取りレスポンス内のnameを"updateName"に渡す
       .then(function (response) {
-        console.log("プロフィールアップデートの完了");
         context.commit("updateName", {
           name: response.data.data.name,
         }),

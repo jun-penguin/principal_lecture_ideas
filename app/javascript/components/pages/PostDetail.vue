@@ -212,7 +212,6 @@ export default {
   },
   // vue-head用
   updated() {
-    console.log("updateHead発動");
     this.$emit("updateHead");
   },
   methods: {
@@ -241,8 +240,6 @@ export default {
     },
     setCurrentUser(currentUser) {
       this.current_user_id = currentUser;
-      console.log("setCurrentUserUser発動");
-      console.log(this.current_user_id);
     },
     confirm_dialog(comment) {
       this.dialog = true;

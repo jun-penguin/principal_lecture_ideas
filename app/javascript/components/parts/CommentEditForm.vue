@@ -88,7 +88,6 @@ export default {
   mounted: function () {
     this.body = this.setbody;
     var id = this.commentid;
-    console.log(id);
   },
   computed: {
     ...mapState("auth", {

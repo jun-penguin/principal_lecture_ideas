@@ -122,7 +122,6 @@ export default {
   },
 
   async created() {
-    console.log("created");
     this.setPosts();
     this.setWord;
     this.setGrade_range;
@@ -131,7 +130,6 @@ export default {
 
   // vue-head用
   updated() {
-    console.log("updateHead発動");
     this.$emit("updateHead");
   },
 
@@ -139,17 +137,14 @@ export default {
     setWord: function () {
       this.query.title_or_description_or_content_cont_any =
         this.$store.getters["responseDate/word"].word;
-      console.log("setWord");
     },
     setGrade_range: function () {
       this.query.grade_range_eq =
         this.$store.getters["responseDate/grade_range"].grade_range;
-      console.log("setGrade_range");
     },
     setScene_type: function () {
       this.query.scene_type_eq =
         this.$store.getters["responseDate/scene_type"].scene_type;
-      console.log("setScene_type");
     },
     setGrade_range_for_meta: function () {
       return this.query.grade_range_eq === null ? null : this.query.grade_range_eq == 0 ? "小学校" : "中学校" 
@@ -168,7 +163,6 @@ export default {
   methods: {
     setPosts: function () {
       this.posts = this.$store.getters["responseDate/posts"].posts;
-      console.log("setPosts");
     },
     // 絞り込み検索
     research: function () {
@@ -182,7 +176,6 @@ export default {
           },
         })
         .then((response) => {
-          console.log("絞り込み検索完了");
           this.posts = response.data.posts;
           // this.posts = posts;
           this.$store.dispatch("responseDate/getPosts", {
