@@ -52,7 +52,6 @@ export default {
   },
   // vue-head用
   updated() {
-    console.log("updateHead発動");
     this.$emit("updateHead");
   },
   computed: {
@@ -66,7 +65,6 @@ export default {
   },
   methods: {
     fetchMyProfile: function () {
-      console.log("プロフィールデータの取得開始");
       this.$axios
         .get("/profiles/mypage", {
           headers: {
@@ -78,7 +76,6 @@ export default {
         .then(
           (response) => {
             this.profile = response.data;
-            console.log("ここでプロフィール情報の決定");
           },
           (error) => {
             console.log(error);

@@ -83,16 +83,13 @@ export default {
 
   // vue-head用
   updated() {
-    console.log("updateHead発動");
     this.$emit("updateHead");
   },
   created() {
-    console.log("親created開始");
     var username = this.$route.params.username;
     this.fetchProfile();
     this.$axios.get("/profiles/" + username).then((response) => {
       this.posts = response.data.posts;
-      console.log("postsデータ取得完了");
     });
   },
   methods: {

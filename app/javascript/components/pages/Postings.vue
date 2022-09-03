@@ -82,7 +82,6 @@ export default {
   },
 
   created() {
-    console.log("親createdフック発火");
     this.getPostings();
   },
 
@@ -97,7 +96,6 @@ export default {
           },
         })
         .then((response) => {
-          console.log("getPostings発火");
           this.posts = response.data.posts;
         });
     },

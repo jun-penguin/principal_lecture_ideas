@@ -201,7 +201,6 @@ export default {
         .then(
           (response) => {
             setTimeout(() => this.$router.push({ name: "MyProfile" }), 500);
-            // this.$router.push({ name: "MyProfile" });
           },
           (error) => {
             console.log(error);

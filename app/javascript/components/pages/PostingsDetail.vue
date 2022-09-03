@@ -188,7 +188,6 @@ export default {
   },
   // vue-head用
   updated() {
-    console.log("updateHead発動");
     this.$emit("updateHead");
   },
   methods: {
@@ -206,8 +205,6 @@ export default {
         .then(
           (response) => {
             this.post = response.data;
-            console.log("取得完了");
-            // this.user = response.data;
           },
           (error) => {
             console.log(error);
@@ -227,8 +224,6 @@ export default {
     },
     setCurrentUser(currentUser) {
       this.current_user_id = currentUser;
-      console.log("setCurrentUserUser発動");
-      console.log(this.current_user_id);
     },
     comment_confirm_dialog(comment) {
       this.dialog = true;
@@ -256,7 +251,6 @@ export default {
           },
           (error) => {
             console.log(error);
-            console.log("削除失敗");
           }
         );
     },

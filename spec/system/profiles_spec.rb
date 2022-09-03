@@ -5,7 +5,7 @@ RSpec.describe 'プロフィールの閲覧、編集機能', type: :system, js: 
   describe 'ログイン前' do
     describe 'プロフィールページの表示' do
       context 'プロフィールページにアクセスする' do
-        xit 'アクセスが失敗し、サイトトップに遷移する' do
+        it 'アクセスが失敗し、サイトトップに遷移する' do
           visit('/myProfile')
           expect(page).to_not have_content('ユーザープロフィール')
           expect(current_path).to eq root_path
@@ -22,7 +22,7 @@ RSpec.describe 'プロフィールの閲覧、編集機能', type: :system, js: 
     end
     describe 'プロフィールページの表示' do
       context 'プロフィールページにアクセスする' do
-        xit 'ネーム、メールアドレス等が表示される' do
+        it 'ネーム、メールアドレス等が表示される' do
           expect(page).to have_content('test_name')
           expect(page).to have_content('test_user@example.com')
         end
@@ -54,7 +54,7 @@ RSpec.describe 'プロフィールの閲覧、編集機能', type: :system, js: 
       end
 
       context 'ユーザーネームが空欄' do
-        xit 'エラーメッセージが表示される' do
+        it 'エラーメッセージが表示される' do
           fill_in 'ユーザーネーム', with: ' '
           send_keys(:tab)
           expect(page).to have_content('ユーザーネーム は空欄にできません。')

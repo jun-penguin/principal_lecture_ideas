@@ -78,7 +78,6 @@ export default {
 
   watch: {
     shared_posts() {
-      console.log("shared_postsの変更を確認 watch発火");
       this.setSharedPosts();
     },
   },
@@ -95,8 +94,6 @@ export default {
       );
     },
     setSharedPosts: function () {
-      console.log("子created開始");
-      console.log(this.shared_posts);
       this.posts = this.shared_posts;
       this.length = Math.ceil(this.posts.length / this.pageSize);
       this.viewPosts = this.posts.slice(0, this.pageSize);

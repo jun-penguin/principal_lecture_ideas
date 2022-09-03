@@ -37,7 +37,6 @@ export default {
     }),
   },
   created() {
-    console.log("親のcreated発火");
     this.$axios
       .get("/likes/favorites", {
         headers: {
@@ -48,7 +47,6 @@ export default {
       })
       .then((response) => {
         this.posts = response.data.posts;
-        console.log("likepost取得完了");
       });
   },
 };

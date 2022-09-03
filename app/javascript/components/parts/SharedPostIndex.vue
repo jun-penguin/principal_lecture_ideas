@@ -87,7 +87,6 @@ export default {
 
   watch: {
     shared_posts() {
-      console.log("shared_postsの変更を確認 watch発火");
       this.setSharedPosts();
     },
   },

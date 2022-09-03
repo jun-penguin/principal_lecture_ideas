@@ -216,7 +216,6 @@ export default {
             this.status = response.data.status;
           },
           (error) => {
-            console.log("データ取得失敗");
             console.log(error);
             this.$router.push({ name: "PostIndex" });
           }
@@ -255,7 +254,6 @@ export default {
           },
           (error) => {
             console.log(error);
-            console.log("更新失敗");
             this.$router.push({ name: "PostIndex" });
           }
         );

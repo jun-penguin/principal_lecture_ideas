@@ -8,7 +8,7 @@ RSpec.describe 'コメントのCRUD機能', type: :system, js: true do
     before { visit("/post/#{post.id}") }
     describe 'コメントの表示' do
       context '講話の詳細ページにアクセス' do
-        xit 'コメントが表示されるが、編集・削除・新規作成フォームは表示されない' do
+        it 'コメントが表示されるが、編集・削除・新規作成フォームは表示されない' do
           expect(page).to have_content(comment.body)
           expect(page).to_not have_content('編集')
           expect(page).to_not have_content('削除')
@@ -26,7 +26,7 @@ RSpec.describe 'コメントのCRUD機能', type: :system, js: true do
     before { visit("/post/#{post.id}") }
     describe 'コメントの表示' do
       context '講話の詳細ページにアクセス' do
-        xit 'コメント及び編集、削除ボタンと新規投稿フォームが表示されている' do
+        it 'コメント及び編集、削除ボタンと新規投稿フォームが表示されている' do
           expect(page).to have_content(comment.body)
           expect(page).to have_content('編集')
           expect(page).to have_content('削除')
@@ -36,7 +36,7 @@ RSpec.describe 'コメントのCRUD機能', type: :system, js: true do
     end
     describe 'コメントの投稿' do
       context 'フォームの入力が正常' do
-        xit 'コメントの投稿に成功する' do
+        it 'コメントの投稿に成功する' do
           fill_in 'コメント', with: '新規コメント'
           send_keys(:tab)
           click_button 'コメントする'
@@ -45,7 +45,7 @@ RSpec.describe 'コメントのCRUD機能', type: :system, js: true do
         end
       end
       context 'フォームが空欄' do
-        xit '投稿ボタンがdisabledにより投稿不可となる' do
+        it '投稿ボタンがdisabledにより投稿不可となる' do
           fill_in 'コメント', with: ' '
           expect(has_button?('コメントする', disabled: true)).to eq(true)
         end
@@ -54,7 +54,7 @@ RSpec.describe 'コメントのCRUD機能', type: :system, js: true do
 
     describe 'コメントの編集' do
       context 'フォームの入力値が正常' do
-        xit 'コメントの編集が成功する' do
+        it 'コメントの編集が成功する' do
           click_button('編集')
           sleep 1.0
           within('#comment-edit-form') do
@@ -66,7 +66,7 @@ RSpec.describe 'コメントのCRUD機能', type: :system, js: true do
         end
       end
       context 'フォームが空欄' do
-        xit '投稿ボタンがdisabledにより投稿不可となる' do
+        it '投稿ボタンがdisabledにより投稿不可となる' do
           click_button('編集')
           sleep 1.0
           within('#comment-edit-form') do
@@ -78,7 +78,7 @@ RSpec.describe 'コメントのCRUD機能', type: :system, js: true do
         end
       end
       context '他ユーザーのコメントを編集しようとする' do
-        xit '他ユーザーのコメントに係る編集ボタンが存在しない' do
+        it '他ユーザーのコメントに係る編集ボタンが存在しない' do
           expect(page.all('#edit-button').count).to eq 1
         end
       end
@@ -86,7 +86,7 @@ RSpec.describe 'コメントのCRUD機能', type: :system, js: true do
 
     describe 'コメントの削除' do
       context '削除ボタンを押下し、ポップアップの指示に従う'
-      xit '講話の削除が成功する' do
+      it '講話の削除が成功する' do
         click_button '削除'
         sleep 1.0
         click_button 'はい、削除します'
