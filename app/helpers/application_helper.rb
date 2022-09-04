@@ -16,13 +16,14 @@ module ApplicationHelper
       ],
       og: {
         site_name: :site,
+        title: '校長講話アイディアボックス-校長講話の投稿・検索サイト',
         type: 'website',
         url: request.original_url,
         image: image_url('kochokouwa_ogp.png'),
         locale: 'ja_JP'
       },
       twitter: {
-        card: 'summary',
+        card: 'summary_large_image',
         site: '@jun_penguin7'
       }
     }
