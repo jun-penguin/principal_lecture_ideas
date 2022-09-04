@@ -20,6 +20,10 @@ module ApplicationHelper
         url: request.original_url,
         image: image_url('kochokouwa_ogp.png'),
         locale: 'ja_JP'
+      },
+      twitter: {
+        card: 'summary',
+        site: '@jun_penguin7'
       }
     }
   end
