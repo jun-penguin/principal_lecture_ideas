@@ -9,7 +9,7 @@
     <%= comment.user.name %>
   </td>
   <td>
-    <%= l comment.updated_at, format: :long %>
+    <%= l comment.created_at, format: :long %>
   </td>
   <td>
     <%= link_to t('defaults.show'), admins_comment_path(comment), class: 'btn btn-info' %>

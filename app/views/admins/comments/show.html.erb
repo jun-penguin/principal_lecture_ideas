@@ -25,8 +25,8 @@
           <td><%= @comment.body %></td>
         </tr>
         <tr>
-          <th scope="row"><%= Comment.human_attribute_name(:updated_at) %></th>
-          <td><%= l @comment.updated_at, format: :long %></td>
+          <th scope="row"><%= Comment.human_attribute_name(:created_at) %></th>
+          <td><%= l @comment.created_at, format: :long %></td>
         </tr>
       </table>
     </div>

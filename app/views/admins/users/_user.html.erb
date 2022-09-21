@@ -11,13 +11,6 @@
   <td>
     <%= l user.updated_at, format: :long %>
   </td>
-  <%
-=begin%>
- <td>
-    <%= l user.created_at, format: :long %>
-  </td> 
-<%
-=end%>
   <td>
     <%= link_to t('defaults.show'), admins_user_path(user), class: 'btn btn-info' %>
     <%= link_to t('defaults.edit'), edit_admins_user_path(user), class: 'btn btn-success' %>
