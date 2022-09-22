@@ -7,7 +7,7 @@ class Api::V1::PostsController < Api::V1::ApplicationController
   end
 
   def show
-    @post = Post.published.find(params[:id])
+    @post = Post.published.find_by_hashid(params[:id])
     render :show, formats: :json, handlers: 'jbuilder'
   end
 

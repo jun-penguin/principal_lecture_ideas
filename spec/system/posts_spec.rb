@@ -22,7 +22,7 @@ RSpec.describe '講話のCRUD機能', type: :system, js: true do
       end
       context '講話の詳細ページにアクセス' do
         it '講話の詳細情報が表示される' do
-          visit("/post/#{post.id}")
+          visit("/post/#{post.hashid}")
           expect(page).to have_content(post.title)
           expect(page).to have_content(post.description)
           expect(page).to have_content(post.content)
@@ -89,10 +89,10 @@ RSpec.describe '講話のCRUD機能', type: :system, js: true do
 
     describe '講話の編集' do
       let!(:post) { create(:post, status: 'draft', user:) }
-      before { visit("/postings/edit/#{post.id}") }
+      before { visit("/postings/edit/#{post.hashid}") }
       context 'フォームの入力値が正常' do
         it '講話の編集が成功する' do
-          visit("/postings/edit/#{post.id}")
+          visit("/postings/edit/#{post.hashid}")
           sleep 2.0
           fill_in 'タイトル', with: 'updated_title'
           page.all('div.v-select__selections')[2].click
@@ -116,7 +116,7 @@ RSpec.describe '講話のCRUD機能', type: :system, js: true do
         let!(:other_user) { create(:user, email: 'other_user@example.com') }
         let!(:other_post) { create(:post, user_id: other_user.id) }
         it '編集ページへのアクセスが失敗する' do
-          visit("/postings/edit/#{other_post.id}")
+          visit("/postings/edit/#{other_post.hashid}")
           expect(page).to_not have_content '講話の編集'
           expect(current_path).to eq root_path
         end
@@ -126,7 +126,7 @@ RSpec.describe '講話のCRUD機能', type: :system, js: true do
       let!(:post) { create(:post, status: 'published', user:) }
       context '削除ボタンを押下しポップアップの指示に従う' do
         it '講話の削除が成功する' do
-          visit("/postings/#{post.id}")
+          visit("/postings/#{post.hashid}")
           click_button '削除'
           sleep 1.0
           click_button 'はい、削除します'
