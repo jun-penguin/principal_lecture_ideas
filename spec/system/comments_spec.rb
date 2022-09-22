@@ -5,7 +5,7 @@ RSpec.describe 'コメントのCRUD機能', type: :system, js: true do
     let!(:post) { create(:post) }
     let!(:user) { create(:user) }
     let!(:comment) { create(:comment, user:, post:) }
-    before { visit("/post/#{post.id}") }
+    before { visit("/post/#{post.hashid}") }
     describe 'コメントの表示' do
       context '講話の詳細ページにアクセス' do
         it 'コメントが表示されるが、編集・削除・新規作成フォームは表示されない' do
@@ -23,7 +23,7 @@ RSpec.describe 'コメントのCRUD機能', type: :system, js: true do
     let!(:comment) { create(:comment, user:, post:) }
     let!(:other_comment) { create(:comment, post:, body: '他人のコメント') }
     before { login(user) }
-    before { visit("/post/#{post.id}") }
+    before { visit("/post/#{post.hashid}") }
     describe 'コメントの表示' do
       context '講話の詳細ページにアクセス' do
         it 'コメント及び編集、削除ボタンと新規投稿フォームが表示されている' do

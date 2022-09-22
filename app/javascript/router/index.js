@@ -59,7 +59,7 @@ const router = new Router({
       meta: { requiresAuth: true },
     },
     {
-      path: "/postings/edit/:id(\\d+)",
+      path: "/postings/edit/:id",
       name: "PostingsEdit",
       component: PostingsEdit,
       meta: { requiresAuth: true },

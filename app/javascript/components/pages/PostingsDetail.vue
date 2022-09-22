@@ -22,7 +22,7 @@
       <v-btn depressed color="success" class="mr-2">
         <router-link
           style="text-decoration: none; color: inherit"
-          :to="{ path: `/postings/edit/${post.id}` }"
+          :to="{ path: `/postings/edit/${this.$route.params.id}` }"
           class="font-weight-bold"
           >編集</router-link
         >
